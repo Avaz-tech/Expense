@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { isSupabaseConfigured, supabase } from '../lib/supabase';
-import { Expense } from '../types';
-import { DbExpense } from '../types/family';
+import { useCallback, useEffect, useState } from "react";
+import { isSupabaseConfigured, supabase } from "../lib/supabase";
+import { Expense } from "../types";
+import { DbExpense } from "../types/family";
 
 const toExpense = (row: DbExpense): Expense => ({
   id: row.id,
@@ -13,7 +13,7 @@ const toExpense = (row: DbExpense): Expense => ({
   spenderName: row.spender_name,
 });
 
-const toDbExpense = (expense: Omit<Expense, 'id'>, familyId: string) => ({
+const toDbExpense = (expense: Omit<Expense, "id">, familyId: string) => ({
   family_id: familyId,
   amount: expense.amount,
   category_id: expense.categoryId,
@@ -27,7 +27,7 @@ type UseExpensesResult = {
   expenses: Expense[];
   isLoaded: boolean;
   isSyncing: boolean;
-  addExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
+  addExpense: (expense: Omit<Expense, "id">) => Promise<void>;
   deleteExpense: (id: string) => Promise<void>;
 };
 
@@ -43,7 +43,7 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
       return;
     }
 
-    if (!isSupabaseConfigured || !supabase || familyId.startsWith('local-')) {
+    if (!isSupabaseConfigured || !supabase || familyId.startsWith("local-")) {
       setIsLoaded(true);
       return;
     }
@@ -51,11 +51,7 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
     setIsSyncing(true);
 
     try {
-      const { data, error } = await supabase
-        .from('expenses')
-        .select('*')
-        .eq('family_id', familyId)
-        .order('created_at', { ascending: false });
+      const { data, error } = await supabase.from("expenses").select("*").eq("family_id", familyId).order("created_at", { ascending: false });
 
       if (error) {
         throw error;
@@ -63,7 +59,7 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
 
       setExpenses((data ?? []).map(toExpense));
     } catch (error) {
-      console.error('Failed to load expenses', error);
+      console.error("Failed to load expenses", error);
     } finally {
       setIsSyncing(false);
       setIsLoaded(true);
@@ -76,23 +72,23 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
   }, [loadExpenses]);
 
   useEffect(() => {
-    if (!familyId || !isSupabaseConfigured || !supabase || familyId.startsWith('local-')) {
+    if (!familyId || !isSupabaseConfigured || !supabase || familyId.startsWith("local-")) {
       return;
     }
 
     const channel = supabase
       .channel(`expenses-${familyId}`)
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'expenses',
+          event: "*",
+          schema: "public",
+          table: "expenses",
           filter: `family_id=eq.${familyId}`,
         },
         () => {
           loadExpenses();
-        }
+        },
       )
       .subscribe();
 
@@ -104,12 +100,12 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
   }, [familyId, loadExpenses]);
 
   const addExpense = useCallback(
-    async (expense: Omit<Expense, 'id'>) => {
+    async (expense: Omit<Expense, "id">) => {
       if (!familyId) {
         return;
       }
 
-      if (!isSupabaseConfigured || !supabase || familyId.startsWith('local-')) {
+      if (!isSupabaseConfigured || !supabase || familyId.startsWith("local-")) {
         const localExpense: Expense = {
           ...expense,
           id: Date.now().toString(),
@@ -118,19 +114,15 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
         return;
       }
 
-      const { data, error } = await supabase
-        .from('expenses')
-        .insert(toDbExpense(expense, familyId))
-        .select('*')
-        .single();
+      const { data, error } = await supabase.from("expenses").insert(toDbExpense(expense, familyId)).select("*").single();
 
       if (error || !data) {
-        throw new Error(error?.message ?? 'Xarajat saqlanmadi');
+        throw new Error(error?.message ?? "Xarajat saqlanmadi");
       }
 
       setExpenses((prev) => [toExpense(data), ...prev]);
     },
-    [familyId]
+    [familyId],
   );
 
   const deleteExpense = useCallback(
@@ -139,12 +131,12 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
         return;
       }
 
-      if (!isSupabaseConfigured || !supabase || familyId.startsWith('local-')) {
+      if (!isSupabaseConfigured || !supabase || familyId.startsWith("local-")) {
         setExpenses((prev) => prev.filter((expense) => expense.id !== id));
         return;
       }
 
-      const { error } = await supabase.from('expenses').delete().eq('id', id).eq('family_id', familyId);
+      const { error } = await supabase.from("expenses").delete().eq("id", id).eq("family_id", familyId);
 
       if (error) {
         throw new Error(error.message);
@@ -152,7 +144,7 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
 
       setExpenses((prev) => prev.filter((expense) => expense.id !== id));
     },
-    [familyId]
+    [familyId],
   );
 
   return {
