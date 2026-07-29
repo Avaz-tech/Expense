@@ -50,9 +50,11 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
   };
 
   const handleSubmit = () => {
-    const parsedAmount = parseFloat(amount);
+    // Sanitize: strip commas and spaces so "1,000" parses correctly as 1000
+    const sanitizedAmount = amount.replace(/[,\s]/g, '');
+    const parsedAmount = parseFloat(sanitizedAmount);
 
-    if (!amount || parsedAmount <= 0) {
+    if (!sanitizedAmount || isNaN(parsedAmount) || parsedAmount <= 0) {
       setError('Summani kiriting!');
       return;
     }
@@ -65,7 +67,7 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
       return;
     }
 
-    onSave({ amount, categoryId, date, note, scope, spenderName: spenderName.trim() });
+    onSave({ amount: sanitizedAmount, categoryId, date, note, scope, spenderName: spenderName.trim() });
   };
 
   return (

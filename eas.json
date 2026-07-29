@@ -10,6 +10,9 @@
     },
     "preview": {
       "distribution": "internal",
+      "cache": {
+        "key": "expense-preview-v1"
+      },
       "android": {
         "buildType": "apk"
       },
@@ -19,6 +22,9 @@
     },
     "production": {
       "autoIncrement": true,
+      "cache": {
+        "key": "expense-production-v1"
+      },
       "android": {
         "buildType": "apk"
       }

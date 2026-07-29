@@ -9,7 +9,10 @@
     "scheme": "expense",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.expense.family"
+      "bundleIdentifier": "com.expense.family",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "YOUR_EAS_PROJECT_ID"
+        "projectId": "e8db0921-fbc5-45d5-8e61-59faefb7e295"
       }
     }
   }
