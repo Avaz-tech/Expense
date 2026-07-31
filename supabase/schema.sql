@@ -4,7 +4,7 @@ create extension if not exists "pgcrypto";
 
 create table if not exists families (
   id uuid primary key default gen_random_uuid(),
-  name text not null,
+  name text unique not null,
   invite_code text unique not null,
   created_at timestamptz not null default now()
 );

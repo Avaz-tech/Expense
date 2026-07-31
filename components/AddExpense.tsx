@@ -75,7 +75,8 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
       <View style={[styles.topBar, { paddingTop: Math.max(insets.top, 24) }]}>
         <Pressable style={styles.backButton} onPress={onCancel}>

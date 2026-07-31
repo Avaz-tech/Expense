@@ -52,14 +52,28 @@ export function useFamily(): UseFamilyResult {
 
   const createFamily = useCallback(
     async (name: string) => {
+      const trimmedName = name.trim();
       if (!isSupabaseConfigured || !supabase) {
         const localFamily: Family = {
           id: `local-${Date.now()}`,
-          name: name.trim(),
+          name: trimmedName,
           inviteCode: generateInviteCode(),
         };
         await persistFamily(localFamily);
         return localFamily;
+      }
+
+      // Check if family name already exists
+      const { data: existing } = await supabase
+        .from('families')
+        .select('id')
+        .eq('name', trimmedName)
+        .maybeSingle();
+
+      if (existing) {
+        throw new Error(
+          'Bu nomdagi oila allaqachon mavjud. Agar siz uning a\'zosi bo\'lsangiz, \'Qo\'shilish\' bo\'limidan foydalaning.'
+        );
       }
 
       let inviteCode = generateInviteCode();
@@ -68,7 +82,7 @@ export function useFamily(): UseFamilyResult {
       while (attempts < 5) {
         const { data, error } = await supabase
           .from('families')
-          .insert({ name: name.trim(), invite_code: inviteCode })
+          .insert({ name: trimmedName, invite_code: inviteCode })
           .select('id, name, invite_code')
           .single();
 
@@ -79,6 +93,7 @@ export function useFamily(): UseFamilyResult {
         }
 
         if (error?.code === '23505') {
+          // Conflict on invite_code (highly unlikely but possible)
           inviteCode = generateInviteCode();
           attempts += 1;
           continue;
