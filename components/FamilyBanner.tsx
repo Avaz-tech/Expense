@@ -1,6 +1,7 @@
 import { Copy, LogOut } from 'lucide-react-native';
 import * as Clipboard from 'expo-clipboard';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Family } from '../types/family';
 
 type FamilyBannerProps = {
@@ -10,6 +11,7 @@ type FamilyBannerProps = {
 };
 
 export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBannerProps) {
+  const insets = useSafeAreaInsets();
   const copyInviteCode = async () => {
     await Clipboard.setStringAsync(family.inviteCode);
     Alert.alert('Nusxa olindi', `${family.inviteCode} taklif kodi nusxalandi`);
@@ -27,7 +29,7 @@ export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBan
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: Math.max(insets.top, 10) }]}>
       <View style={styles.info}>
         <Text style={styles.familyName}>{family.name}</Text>
         {isSyncEnabled ? (

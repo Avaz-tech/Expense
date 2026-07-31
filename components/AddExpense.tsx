@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CATEGORIES } from '../constants/categories';
 import { ExpenseScope } from '../types';
 import { getTodayDateString } from '../utils/dates';
@@ -29,6 +30,7 @@ type AddExpenseProps = {
 };
 
 export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
+  const insets = useSafeAreaInsets();
   const [amount, setAmount] = useState('');
   const [spenderName, setSpenderName] = useState('');
   const [categoryId, setCategoryId] = useState('');
@@ -75,7 +77,7 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={styles.topBar}>
+      <View style={[styles.topBar, { paddingTop: Math.max(insets.top, 24) }]}>
         <Pressable style={styles.backButton} onPress={onCancel}>
           <ChevronLeft size={24} color="#4b5563" />
         </Pressable>

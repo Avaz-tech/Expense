@@ -8,6 +8,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Family } from '../types/family';
 
 type FamilySetupProps = {
@@ -17,6 +18,7 @@ type FamilySetupProps = {
 };
 
 export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: FamilySetupProps) {
+  const insets = useSafeAreaInsets();
   const [mode, setMode] = useState<'create' | 'join'>('create');
   const [familyName, setFamilyName] = useState('');
   const [inviteCode, setInviteCode] = useState('');
@@ -53,7 +55,7 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top + 24 }]}>
       <View style={styles.hero}>
         <View style={styles.iconWrap}>
           <Users size={36} color="#059669" />
