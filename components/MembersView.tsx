@@ -1,17 +1,32 @@
-import { UsersRound } from 'lucide-react-native';
-import { useState } from 'react';
+import { ChevronLeft, ChevronRight, UsersRound } from 'lucide-react-native';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Stats, StatsPeriod } from '../types';
+import { Expense, Stats, StatsPeriod } from '../types';
+import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
+import { buildMemberTotals } from '../utils/stats';
 
 type MembersViewProps = {
   stats: Stats;
+  expenses: Expense[];
 };
 
-export function MembersView({ stats }: MembersViewProps) {
+export function MembersView({ stats, expenses }: MembersViewProps) {
   const [period, setPeriod] = useState<StatsPeriod>('month');
-  const members = period === 'month' ? stats.memberTotals : stats.weekMemberTotals;
+  const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
+
+  const members = useMemo(() => {
+    if (period === 'week') {
+      return stats.weekMemberTotals;
+    }
+
+    return buildMemberTotals(expenses, (e) => e.date.startsWith(currentMonth));
+  }, [period, currentMonth, stats, expenses]);
+
   const maxTotal = members.length > 0 ? members[0].total : 0;
+
+  const handlePrevMonth = () => setCurrentMonth((prev) => getMonthOffset(prev, -1));
+  const handleNextMonth = () => setCurrentMonth((prev) => getMonthOffset(prev, 1));
 
   return (
     <View style={styles.container}>
@@ -36,6 +51,18 @@ export function MembersView({ stats }: MembersViewProps) {
           </Text>
         </Pressable>
       </View>
+
+      {period === 'month' && (
+        <View style={styles.monthNav}>
+          <Pressable onPress={handlePrevMonth} style={styles.navButton}>
+            <ChevronLeft size={20} color="#059669" />
+          </Pressable>
+          <Text style={styles.monthLabel}>{getMonthName(currentMonth)}</Text>
+          <Pressable onPress={handleNextMonth} style={styles.navButton}>
+            <ChevronRight size={20} color="#059669" />
+          </Pressable>
+        </View>
+      )}
 
       {members.length === 0 ? (
         <View style={styles.emptyState}>
@@ -120,6 +147,26 @@ const styles = StyleSheet.create({
   },
   periodTextActive: {
     color: '#059669',
+  },
+  monthNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+    marginBottom: 24,
+  },
+  monthLabel: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#374151',
+    textTransform: 'capitalize',
+    minWidth: 140,
+    textAlign: 'center',
+  },
+  navButton: {
+    padding: 8,
+    backgroundColor: '#ecfdf5',
+    borderRadius: 8,
   },
   emptyState: {
     alignItems: 'center',

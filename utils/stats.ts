@@ -2,7 +2,7 @@ import { CATEGORIES } from '../constants/categories';
 import { Expense, MemberTotal, Stats } from '../types';
 import { getStartOfWeek, getTodayDateString } from './dates';
 
-const buildCategoryTotals = () => {
+export const buildCategoryTotals = () => {
   const totals: Record<string, number> = {};
   CATEGORIES.forEach((category) => {
     totals[category.id] = 0;
@@ -10,7 +10,7 @@ const buildCategoryTotals = () => {
   return totals;
 };
 
-const sortCategories = (categoryTotals: Record<string, number>) => {
+export const sortCategories = (categoryTotals: Record<string, number>) => {
   return Object.keys(categoryTotals)
     .map((id) => {
       const category = CATEGORIES.find((item) => item.id === id)!;
@@ -23,7 +23,7 @@ const sortCategories = (categoryTotals: Record<string, number>) => {
     .sort((a, b) => b.total - a.total);
 };
 
-const buildMemberTotals = (
+export const buildMemberTotals = (
   expenses: Expense[],
   filter: (expense: Expense) => boolean
 ): MemberTotal[] => {

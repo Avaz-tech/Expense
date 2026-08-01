@@ -1,20 +1,56 @@
-import { PieChart } from 'lucide-react-native';
-import { useState } from 'react';
+import { ChevronLeft, ChevronRight, PieChart } from 'lucide-react-native';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Stats, StatsPeriod } from '../types';
+import { Expense, Stats, StatsPeriod } from '../types';
+import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
+import { buildCategoryTotals, sortCategories } from '../utils/stats';
 import { CategoryIcon } from './CategoryIcon';
 
 type StatsViewProps = {
   stats: Stats;
+  expenses: Expense[];
 };
 
-export function StatsView({ stats }: StatsViewProps) {
+export function StatsView({ stats, expenses }: StatsViewProps) {
   const [period, setPeriod] = useState<StatsPeriod>('month');
+  const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
 
-  const categories = period === 'month' ? stats.sortedCategories : stats.weekSortedCategories;
-  const total = period === 'month' ? stats.monthTotal : stats.weekTotal;
+  const filteredData = useMemo(() => {
+    if (period === 'week') {
+      return {
+        categories: stats.weekSortedCategories,
+        total: stats.weekTotal,
+        label: 'Shu hafta jami',
+      };
+    }
+
+    // Custom calculation for selected month
+    const monthCategoryTotals = buildCategoryTotals();
+    let monthTotal = 0;
+
+    expenses.forEach((expense) => {
+      if (expense.date.startsWith(currentMonth)) {
+        const amount = parseFloat(expense.amount) || 0;
+        monthTotal += amount;
+        if (monthCategoryTotals[expense.categoryId] !== undefined) {
+          monthCategoryTotals[expense.categoryId] += amount;
+        }
+      }
+    });
+
+    return {
+      categories: sortCategories(monthCategoryTotals),
+      total: monthTotal,
+      label: `${getMonthName(currentMonth)} jami`,
+    };
+  }, [period, currentMonth, stats, expenses]);
+
+  const { categories, total, label } = filteredData;
   const maxTotal = categories.length > 0 ? categories[0].total : 0;
+
+  const handlePrevMonth = () => setCurrentMonth((prev) => getMonthOffset(prev, -1));
+  const handleNextMonth = () => setCurrentMonth((prev) => getMonthOffset(prev, 1));
 
   return (
     <View style={styles.container}>
@@ -40,10 +76,20 @@ export function StatsView({ stats }: StatsViewProps) {
         </Pressable>
       </View>
 
+      {period === 'month' && (
+        <View style={styles.monthNav}>
+          <Pressable onPress={handlePrevMonth} style={styles.navButton}>
+            <ChevronLeft size={20} color="#059669" />
+          </Pressable>
+          <Text style={styles.monthLabel}>{getMonthName(currentMonth)}</Text>
+          <Pressable onPress={handleNextMonth} style={styles.navButton}>
+            <ChevronRight size={20} color="#059669" />
+          </Pressable>
+        </View>
+      )}
+
       <View style={styles.totalCard}>
-        <Text style={styles.totalLabel}>
-          {period === 'month' ? 'Shu oy jami' : 'Shu hafta jami'}
-        </Text>
+        <Text style={styles.totalLabel}>{label}</Text>
         <Text style={styles.totalValue}>{formatMoney(total)}</Text>
       </View>
 
@@ -126,6 +172,26 @@ const styles = StyleSheet.create({
   },
   periodTextActive: {
     color: '#059669',
+  },
+  monthNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+    marginBottom: 20,
+  },
+  monthLabel: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#374151',
+    textTransform: 'capitalize',
+    minWidth: 140,
+    textAlign: 'center',
+  },
+  navButton: {
+    padding: 8,
+    backgroundColor: '#ecfdf5',
+    borderRadius: 8,
   },
   totalCard: {
     backgroundColor: '#ecfdf5',

@@ -92,7 +92,7 @@ export default function App() {
 
         {activeTab === 'stats' && (
           <ScrollableScreen>
-            <StatsView stats={stats} />
+            <StatsView stats={stats} expenses={expenses} />
           </ScrollableScreen>
         )}
 
@@ -111,7 +111,7 @@ export default function App() {
 
         {activeTab === 'members' && (
           <ScrollableScreen>
-            <MembersView stats={stats} />
+            <MembersView stats={stats} expenses={expenses} />
           </ScrollableScreen>
         )}
 

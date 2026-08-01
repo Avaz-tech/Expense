@@ -1,4 +1,4 @@
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { ChevronLeft, User, Users } from 'lucide-react-native';
 import { useState } from 'react';
 import {
@@ -42,13 +42,20 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
 
   const selectedDate = new Date(`${date}T12:00:00`);
 
-  const handleDateChange = (_event: DateTimePickerEvent, nextDate?: Date) => {
+  const handleDateChange = (_event: any, nextDate?: Date) => {
+    if (nextDate) {
+      const year = nextDate.getFullYear();
+      const month = String(nextDate.getMonth() + 1).padStart(2, '0');
+      const day = String(nextDate.getDate()).padStart(2, '0');
+      setDate(`${year}-${month}-${day}`);
+    }
     if (Platform.OS === 'android') {
       setShowDatePicker(false);
     }
-    if (nextDate) {
-      setDate(nextDate.toISOString().split('T')[0]);
-    }
+  };
+
+  const handleDismiss = () => {
+    setShowDatePicker(false);
   };
 
   const handleSubmit = () => {
@@ -188,7 +195,8 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
               value={selectedDate}
               mode="date"
               display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-              onChange={handleDateChange}
+              onValueChange={handleDateChange}
+              onDismiss={handleDismiss}
             />
           )}
           {Platform.OS === 'ios' && showDatePicker ? (
