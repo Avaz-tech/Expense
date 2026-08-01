@@ -1,6 +1,7 @@
-import { ChevronLeft, ChevronRight, PieChart } from 'lucide-react-native';
+import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
 import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
@@ -13,6 +14,7 @@ type StatsViewProps = {
 };
 
 export function StatsView({ stats, expenses }: StatsViewProps) {
+  const { theme } = useTheme();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
 
@@ -54,23 +56,23 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hisobot</Text>
-      <Text style={styles.subtitle}>Xarajatlar taqsimoti</Text>
+      <Text style={[styles.title, { color: theme.text_primary }]}>Hisobot</Text>
+      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>Xarajatlar taqsimoti</Text>
 
-      <View style={styles.periodToggle}>
+      <View style={[styles.periodToggle, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
-          style={[styles.periodButton, period === 'week' && styles.periodButtonActive]}
+          style={[styles.periodButton, period === 'week' && [styles.periodButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setPeriod('week')}
         >
-          <Text style={[styles.periodText, period === 'week' && styles.periodTextActive]}>
+          <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'week' && { color: theme.brand_primary }]}>
             Haftalik
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.periodButton, period === 'month' && styles.periodButtonActive]}
+          style={[styles.periodButton, period === 'month' && [styles.periodButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setPeriod('month')}
         >
-          <Text style={[styles.periodText, period === 'month' && styles.periodTextActive]}>
+          <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'month' && { color: theme.brand_primary }]}>
             Oylik
           </Text>
         </Pressable>
@@ -78,25 +80,24 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
 
       {period === 'month' && (
         <View style={styles.monthNav}>
-          <Pressable onPress={handlePrevMonth} style={styles.navButton}>
-            <ChevronLeft size={20} color="#059669" />
+          <Pressable onPress={handlePrevMonth} style={[styles.navButton, { backgroundColor: theme.surface_secondary }]}>
+            <ChevronLeft size={16} color={theme.brand_primary} />
           </Pressable>
-          <Text style={styles.monthLabel}>{getMonthName(currentMonth)}</Text>
-          <Pressable onPress={handleNextMonth} style={styles.navButton}>
-            <ChevronRight size={20} color="#059669" />
+          <Text style={[styles.monthLabel, { color: theme.text_primary }]}>{getMonthName(currentMonth)}</Text>
+          <Pressable onPress={handleNextMonth} style={[styles.navButton, { backgroundColor: theme.surface_secondary }]}>
+            <ChevronRight size={16} color={theme.brand_primary} />
           </Pressable>
         </View>
       )}
 
-      <View style={styles.totalCard}>
-        <Text style={styles.totalLabel}>{label}</Text>
-        <Text style={styles.totalValue}>{formatMoney(total)}</Text>
+      <View style={[styles.totalCard, { backgroundColor: theme.brand_secondary + '10', borderColor: theme.brand_secondary + '15' }]}>
+        <Text style={[styles.totalLabel, { color: theme.brand_secondary }]}>{label}</Text>
+        <Text style={[styles.totalValue, { color: theme.text_primary }]}>{formatMoney(total)}</Text>
       </View>
 
       {categories.length === 0 ? (
-        <View style={styles.emptyState}>
-          <PieChart size={40} color="#d1d5db" />
-          <Text style={styles.emptyText}>Ma'lumot yo'q</Text>
+        <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Ma'lumot yo'q</Text>
         </View>
       ) : (
         <View style={styles.list}>
@@ -107,16 +108,16 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
               <View key={category.id} style={styles.categoryRow}>
                 <View style={styles.categoryHeader}>
                   <View style={styles.categoryTitleWrap}>
-                    <View style={[styles.iconWrap, { backgroundColor: category.bgColor }]}>
-                      <CategoryIcon name={category.icon} size={20} color={category.textColor} />
+                    <View style={[styles.iconWrap, { backgroundColor: theme.surface_secondary }]}>
+                      <CategoryIcon name={category.icon} size={18} color={theme.text_primary} />
                     </View>
-                    <Text style={styles.categoryName}>{category.name}</Text>
+                    <Text style={[styles.categoryName, { color: theme.text_primary }]}>{category.name}</Text>
                   </View>
-                  <Text style={styles.categoryTotal}>{formatMoney(category.total)}</Text>
+                  <Text style={[styles.categoryTotal, { color: theme.text_primary }]}>{formatMoney(category.total)}</Text>
                 </View>
 
-                <View style={styles.progressTrack}>
-                  <View style={[styles.progressFill, { width: `${percentage}%` }]} />
+                <View style={[styles.progressTrack, { backgroundColor: theme.surface_secondary }]}>
+                  <View style={[styles.progressFill, { width: `${percentage}%`, backgroundColor: theme.brand_secondary }]} />
                 </View>
               </View>
             );
@@ -129,27 +130,26 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
     paddingBottom: 120,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1f2937',
-    marginBottom: 4,
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#6b7280',
-    marginBottom: 20,
+    fontSize: 13,
+    fontWeight: '500',
+    marginTop: 2,
+    marginBottom: 24,
   },
   periodToggle: {
     flexDirection: 'row',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 4,
-    marginBottom: 20,
+    marginBottom: 24,
   },
   periodButton: {
     flex: 1,
@@ -158,120 +158,103 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   periodButtonActive: {
-    backgroundColor: '#ffffff',
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
   },
   periodText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  periodTextActive: {
-    color: '#059669',
+    fontSize: 13,
+    fontWeight: '700',
   },
   monthNav: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,
-    marginBottom: 20,
+    marginBottom: 24,
   },
   monthLabel: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#374151',
     textTransform: 'capitalize',
     minWidth: 140,
     textAlign: 'center',
   },
   navButton: {
-    padding: 8,
-    backgroundColor: '#ecfdf5',
-    borderRadius: 8,
+    padding: 10,
+    borderRadius: 12,
   },
   totalCard: {
-    backgroundColor: '#ecfdf5',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 24,
+    borderRadius: 20,
+    padding: 24,
+    marginBottom: 32,
     borderWidth: 1,
-    borderColor: '#d1fae5',
   },
   totalLabel: {
-    fontSize: 13,
-    color: '#047857',
-    fontWeight: '500',
-    marginBottom: 4,
+    fontSize: 11,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 6,
   },
   totalValue: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#065f46',
+    fontSize: 32,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 80,
-    backgroundColor: '#f9fafb',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
+    paddingVertical: 64,
+    borderRadius: 20,
+    borderWidth: 1.5,
     borderStyle: 'dashed',
-    gap: 12,
   },
   emptyText: {
-    color: '#9ca3af',
     fontSize: 14,
+    fontWeight: '600',
   },
   list: {
-    gap: 20,
+    gap: 28,
   },
   categoryRow: {
-    gap: 8,
+    gap: 12,
   },
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   categoryTitleWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
     flex: 1,
-    paddingRight: 12,
   },
   iconWrap: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   categoryName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
-    flexShrink: 1,
+    fontSize: 15,
+    fontWeight: '700',
   },
   categoryTotal: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#1f2937',
   },
   progressTrack: {
     width: '100%',
-    height: 12,
-    backgroundColor: '#f3f4f6',
+    height: 8,
     borderRadius: 999,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#10b981',
     borderRadius: 999,
   },
 });

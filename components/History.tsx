@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, List, X } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { CATEGORIES } from '../constants/categories';
+import { useTheme } from '../context/ThemeContext';
 import { Stats } from '../types';
 import { formatDisplayDate } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
@@ -14,6 +15,7 @@ type HistoryProps = {
 };
 
 export function History({ stats, onDelete }: HistoryProps) {
+  const { theme } = useTheme();
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
   const [activePicker, setActivePicker] = useState<'start' | 'end' | null>(null);
@@ -64,36 +66,52 @@ export function History({ stats, onDelete }: HistoryProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Xarajatlar tarixi</Text>
+        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajatlar tarixi</Text>
         <View style={styles.headerActions}>
           {(startDate || endDate) && (
-            <Pressable onPress={clearFilters} style={styles.clearFilter}>
-              <X size={16} color="#ef4444" />
-              <Text style={styles.clearText}>Tozalash</Text>
+            <Pressable onPress={clearFilters} style={[styles.clearFilter, { backgroundColor: theme.danger + '15' }]}>
+              <X size={14} color={theme.danger} />
+              <Text style={[styles.clearText, { color: theme.danger }]}>Tozalash</Text>
             </Pressable>
           )}
         </View>
       </View>
 
-      <View style={styles.filterBar}>
+      <View style={[styles.filterBar, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
           onPress={() => setActivePicker('start')}
-          style={[styles.dateBtn, activePicker === 'start' && styles.dateBtnActive]}
+          style={[
+            styles.dateBtn,
+            { backgroundColor: theme.surface },
+            activePicker === 'start' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' }
+          ]}
         >
-          <Calendar size={16} color={startDate ? '#059669' : '#6b7280'} />
-          <Text style={[styles.dateBtnText, startDate && styles.dateBtnTextSelected]}>
+          <Calendar size={14} color={startDate ? theme.brand_primary : theme.text_secondary} />
+          <Text style={[
+            styles.dateBtnText,
+            { color: theme.text_secondary },
+            startDate && { color: theme.brand_primary }
+          ]}>
             {startDate ? formatDisplayDate(startDate) : 'Dan...'}
           </Text>
         </Pressable>
 
-        <ArrowRight size={16} color="#d1d5db" />
+        <ArrowRight size={14} color={theme.border} />
 
         <Pressable
           onPress={() => setActivePicker('end')}
-          style={[styles.dateBtn, activePicker === 'end' && styles.dateBtnActive]}
+          style={[
+            styles.dateBtn,
+            { backgroundColor: theme.surface },
+            activePicker === 'end' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' }
+          ]}
         >
-          <Calendar size={16} color={endDate ? '#059669' : '#6b7280'} />
-          <Text style={[styles.dateBtnText, endDate && styles.dateBtnTextSelected]}>
+          <Calendar size={14} color={endDate ? theme.brand_primary : theme.text_secondary} />
+          <Text style={[
+            styles.dateBtnText,
+            { color: theme.text_secondary },
+            endDate && { color: theme.brand_primary }
+          ]}>
             {endDate ? formatDisplayDate(endDate) : 'Gacha...'}
           </Text>
         </Pressable>
@@ -115,16 +133,16 @@ export function History({ stats, onDelete }: HistoryProps) {
 
       {Platform.OS === 'ios' && activePicker ? (
         <Pressable style={styles.doneBtn} onPress={() => setActivePicker(null)}>
-          <Text style={styles.doneBtnText}>Tayyor</Text>
+          <Text style={[styles.doneBtnText, { color: theme.brand_primary }]}>Tayyor</Text>
         </Pressable>
       ) : null}
 
       {filteredDates.length === 0 ? (
-        <View style={styles.emptyState}>
-          <View style={styles.emptyIconWrap}>
-            <List size={32} color="#d1d5db" />
+        <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <View style={[styles.emptyIconWrap, { backgroundColor: theme.surface_secondary }]}>
+            <List size={32} color={theme.text_secondary} opacity={0.5} />
           </View>
-          <Text style={styles.emptyText}>
+          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>
             {startDate || endDate
               ? 'Tanlangan oraliqda xarajatlar topilmadi'
               : 'Hozircha xarajatlar yo\'q'}
@@ -138,8 +156,8 @@ export function History({ stats, onDelete }: HistoryProps) {
             return (
               <View key={date} style={styles.dayGroup}>
                 <View style={styles.dayHeader}>
-                  <Text style={styles.dayTitle}>{formatDisplayDate(date)}</Text>
-                  <Text style={styles.dayTotal}>{formatMoney(dayData.total)}</Text>
+                  <Text style={[styles.dayTitle, { color: theme.text_secondary }]}>{formatDisplayDate(date)}</Text>
+                  <Text style={[styles.dayTotal, { color: theme.text_primary }]}>{formatMoney(dayData.total)}</Text>
                 </View>
 
                 <View style={styles.dayItems}>
@@ -149,39 +167,39 @@ export function History({ stats, onDelete }: HistoryProps) {
                       CATEGORIES[CATEGORIES.length - 1];
 
                     return (
-                      <View key={expense.id} style={styles.expenseCard}>
-                        <View style={[styles.iconWrap, { backgroundColor: category.bgColor }]}>
-                          <CategoryIcon name={category.icon} size={24} color={category.textColor} />
+                      <View key={expense.id} style={[styles.expenseCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                        <View style={[styles.iconWrap, { backgroundColor: theme.surface_secondary }]}>
+                          <CategoryIcon name={category.icon} size={20} color={theme.text_primary} />
                         </View>
 
                         <View style={styles.expenseInfo}>
                           <View style={styles.titleRow}>
-                            <Text style={styles.expenseTitle} numberOfLines={1}>
+                            <Text style={[styles.expenseTitle, { color: theme.text_primary }]} numberOfLines={1}>
                               {category.name}
                             </Text>
                             {expense.scope === 'personal' ? (
-                              <View style={styles.personalBadge}>
-                                <Text style={styles.personalBadgeText}>Shaxsiy</Text>
+                              <View style={[styles.personalBadge, { backgroundColor: theme.brand_primary + '10' }]}>
+                                <Text style={[styles.personalBadgeText, { color: theme.brand_primary }]}>Shaxsiy</Text>
                               </View>
                             ) : null}
                             {expense.scope === 'family' ? (
-                              <View style={styles.familyBadge}>
-                                <Text style={styles.familyBadgeText}>Oilaviy</Text>
+                              <View style={[styles.familyBadge, { backgroundColor: theme.brand_secondary + '10' }]}>
+                                <Text style={[styles.familyBadgeText, { color: theme.brand_secondary }]}>Oilaviy</Text>
                               </View>
                             ) : null}
                           </View>
-                          <Text style={styles.expenseNote} numberOfLines={1}>
+                          <Text style={[styles.expenseNote, { color: theme.text_secondary }]} numberOfLines={1}>
                             {expense.spenderName ? `${expense.spenderName}` : "Noma'lum"}
                             {expense.note ? ` · ${expense.note}` : ''}
                           </Text>
                         </View>
 
                         <View style={styles.amountWrap}>
-                          <Text style={styles.amountText}>-{formatMoney(expense.amount)}</Text>
+                          <Text style={[styles.amountText, { color: theme.text_primary }]}>-{formatMoney(expense.amount)}</Text>
                         </View>
 
-                        <Pressable style={styles.deleteButton} onPress={() => confirmDelete(expense.id)}>
-                          <Text style={styles.deleteText}>O'chirish</Text>
+                        <Pressable style={[styles.deleteButton, { backgroundColor: theme.danger + '10' }]} onPress={() => confirmDelete(expense.id)}>
+                          <Text style={[styles.deleteText, { color: theme.danger }]}>O'chirish</Text>
                         </Pressable>
                       </View>
                     );
@@ -198,20 +216,20 @@ export function History({ stats, onDelete }: HistoryProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
     paddingBottom: 120,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   headerActions: {
     flexDirection: 'row',
@@ -221,8 +239,7 @@ const styles = StyleSheet.create({
   filterBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 16,
+    borderRadius: 20,
     padding: 6,
     marginBottom: 24,
     gap: 8,
@@ -232,24 +249,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    backgroundColor: '#ffffff',
+    gap: 6,
     paddingVertical: 10,
-    borderRadius: 12,
+    borderRadius: 14,
     borderWidth: 1,
     borderColor: 'transparent',
   },
-  dateBtnActive: {
-    borderColor: '#10b981',
-    backgroundColor: '#ecfdf5',
-  },
   dateBtnText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  dateBtnTextSelected: {
-    color: '#059669',
+    fontSize: 12,
+    fontWeight: '700',
   },
   doneBtn: {
     alignSelf: 'flex-end',
@@ -258,7 +266,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   doneBtnText: {
-    color: '#059669',
     fontWeight: '700',
   },
   clearFilter: {
@@ -267,79 +274,73 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingVertical: 6,
     paddingHorizontal: 10,
-    backgroundColor: '#fef2f2',
-    borderRadius: 8,
+    borderRadius: 10,
   },
   clearText: {
-    color: '#dc2626',
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: 11,
+    fontWeight: '700',
+    textTransform: 'uppercase',
   },
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 80,
+    paddingVertical: 64,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
   },
   emptyIconWrap: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#f3f4f6',
+    width: 72,
+    height: 72,
+    borderRadius: 36,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
   },
   emptyText: {
-    color: '#6b7280',
-    fontWeight: '500',
+    fontWeight: '600',
+    fontSize: 14,
+    textAlign: 'center',
+    paddingHorizontal: 32,
   },
   list: {
     gap: 24,
   },
   dayGroup: {
-    gap: 12,
+    gap: 14,
   },
   dayHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 4,
   },
   dayTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
-    color: '#6b7280',
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    letterSpacing: 0.5,
   },
   dayTotal: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
-    color: '#1f2937',
   },
   dayItems: {
-    gap: 12,
+    gap: 10,
   },
   expenseCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
-    padding: 16,
-    borderRadius: 16,
+    padding: 14,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#f3f4f6',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
-    overflow: 'hidden',
   },
   iconWrap: {
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 40,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 16,
+    marginRight: 12,
   },
   expenseInfo: {
     flex: 1,
@@ -349,62 +350,55 @@ const styles = StyleSheet.create({
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
     flexWrap: 'wrap',
   },
   expenseTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '700',
     flexShrink: 1,
   },
   personalBadge: {
-    backgroundColor: '#dbeafe',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 6,
   },
   personalBadgeText: {
-    color: '#2563eb',
-    fontSize: 9,
-    fontWeight: '700',
+    fontSize: 8,
+    fontWeight: '800',
     textTransform: 'uppercase',
   },
   familyBadge: {
-    backgroundColor: '#f3e8ff',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 6,
   },
   familyBadgeText: {
-    color: '#9333ea',
-    fontSize: 9,
-    fontWeight: '700',
+    fontSize: 8,
+    fontWeight: '800',
     textTransform: 'uppercase',
   },
   expenseNote: {
-    fontSize: 12,
-    color: '#6b7280',
+    fontSize: 11,
+    fontWeight: '500',
     marginTop: 2,
   },
   amountWrap: {
     alignItems: 'flex-end',
-    marginRight: 8,
+    marginRight: 10,
   },
   amountText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '800',
   },
   deleteButton: {
-    backgroundColor: '#ef4444',
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   deleteText: {
-    color: '#ffffff',
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 10,
+    fontWeight: '800',
+    textTransform: 'uppercase',
   },
 });

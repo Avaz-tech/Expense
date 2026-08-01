@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../context/ThemeContext';
 import { Family } from '../types/family';
 
 type FamilySetupProps = {
@@ -18,6 +19,7 @@ type FamilySetupProps = {
 };
 
 export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: FamilySetupProps) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const [mode, setMode] = useState<'create' | 'join'>('create');
   const [familyName, setFamilyName] = useState('');
@@ -55,75 +57,79 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 24 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + 48, backgroundColor: theme.background_base }]}>
       <View style={styles.hero}>
-        <View style={styles.iconWrap}>
-          <Users size={36} color="#059669" />
+        <View style={[styles.iconWrap, { backgroundColor: theme.brand_primary + '10' }]}>
+          <Users size={40} color={theme.brand_primary} />
         </View>
-        <Text style={styles.title}>Oilaviy xarajatlar</Text>
-        <Text style={styles.subtitle}>
-          Oila yarating yoki taklif kodi bilan qo'shiling. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
+        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat</Text>
+        <Text style={[styles.subtitle, { color: theme.text_secondary }]}>
+          Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
         </Text>
       </View>
 
-      <View style={styles.modeToggle}>
+      <View style={[styles.modeToggle, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
-          style={[styles.modeButton, mode === 'create' && styles.modeButtonActive]}
+          style={[styles.modeButton, mode === 'create' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setMode('create')}
         >
-          <Text style={[styles.modeText, mode === 'create' && styles.modeTextActive]}>
+          <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'create' && { color: theme.brand_primary }]}>
             Oila yaratish
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.modeButton, mode === 'join' && styles.modeButtonActive]}
+          style={[styles.modeButton, mode === 'join' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setMode('join')}
         >
-          <Text style={[styles.modeText, mode === 'join' && styles.modeTextActive]}>
+          <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'join' && { color: theme.brand_primary }]}>
             Qo'shilish
           </Text>
         </Pressable>
       </View>
 
       {error ? (
-        <View style={styles.errorBox}>
-          <Text style={styles.errorText}>{error}</Text>
+        <View style={[styles.errorBox, { backgroundColor: theme.danger + '10' }]}>
+          <Text style={[styles.errorText, { color: theme.danger }]}>{error}</Text>
         </View>
       ) : null}
 
       {mode === 'create' ? (
         <View style={styles.field}>
-          <Text style={styles.label}>Oila nomi</Text>
+          <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
           <TextInput
             value={familyName}
             onChangeText={setFamilyName}
             placeholder="Masalan: Karimovlar"
-            placeholderTextColor="#9ca3af"
-            style={styles.input}
+            placeholderTextColor={theme.text_secondary + '80'}
+            style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
           />
         </View>
       ) : (
         <View style={styles.field}>
-          <Text style={styles.label}>Taklif kodi</Text>
+          <Text style={[styles.label, { color: theme.text_primary }]}>Taklif kodi</Text>
           <TextInput
             value={inviteCode}
             onChangeText={setInviteCode}
             placeholder="FAM-7X2K"
-            placeholderTextColor="#9ca3af"
+            placeholderTextColor={theme.text_secondary + '80'}
             autoCapitalize="characters"
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
           />
         </View>
       )}
 
       {!isSyncEnabled ? (
-        <Text style={styles.syncHint}>
-          Sinxronizatsiya hozircha o'chiq. Supabase sozlasangiz, oila a'zolari telefonlarida bir xil ma'lumotlarni ko'radi.
+        <Text style={[styles.syncHint, { color: theme.text_secondary }]}>
+          Sinxronizatsiya hozircha o'chiq. Supabase sozlasangiz, oila a'zolari bir xil ma'lumotlarni ko'radi.
         </Text>
       ) : null}
 
       <Pressable
-        style={({ pressed }) => [styles.submitButton, pressed && styles.submitButtonPressed]}
+        style={({ pressed }) => [
+          styles.submitButton,
+          { backgroundColor: theme.brand_primary },
+          pressed && styles.submitButtonPressed
+        ]}
         onPress={handleSubmit}
         disabled={loading}
       >
@@ -142,108 +148,104 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 24,
-    paddingTop: 72,
+    paddingHorizontal: 32,
   },
   hero: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 40,
   },
   iconWrap: {
-    width: 72,
-    height: 72,
+    width: 80,
+    height: 80,
     borderRadius: 24,
-    backgroundColor: '#ecfdf5',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontSize: 32,
+    fontWeight: '800',
     marginBottom: 8,
+    letterSpacing: -1,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 22,
+    fontWeight: '500',
   },
   modeToggle: {
     flexDirection: 'row',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 4,
-    marginBottom: 24,
+    marginBottom: 32,
   },
   modeButton: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingVertical: 12,
+    borderRadius: 12,
   },
   modeButtonActive: {
-    backgroundColor: '#ffffff',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
   modeText: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  modeTextActive: {
-    color: '#059669',
+    fontWeight: '700',
   },
   errorBox: {
-    backgroundColor: '#fef2f2',
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 16,
+    padding: 14,
+    borderRadius: 14,
+    marginBottom: 20,
   },
   errorText: {
-    color: '#dc2626',
-    fontSize: 14,
+    fontSize: 13,
+    fontWeight: '700',
     textAlign: 'center',
   },
   field: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
   label: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 8,
+    fontWeight: '800',
+    marginBottom: 10,
+    letterSpacing: -0.2,
   },
   input: {
-    backgroundColor: '#f9fafb',
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    borderWidth: 1.5,
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
     fontSize: 16,
-    color: '#1f2937',
+    fontWeight: '600',
   },
   syncHint: {
     fontSize: 12,
-    color: '#9ca3af',
     lineHeight: 18,
-    marginBottom: 16,
+    marginBottom: 24,
+    fontWeight: '500',
+    textAlign: 'center',
   },
   submitButton: {
-    backgroundColor: '#059669',
-    borderRadius: 16,
-    paddingVertical: 16,
+    borderRadius: 18,
+    paddingVertical: 18,
     alignItems: 'center',
     marginTop: 8,
   },
   submitButtonPressed: {
+    opacity: 0.9,
     transform: [{ scale: 0.98 }],
   },
   submitText: {
     color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 17,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });

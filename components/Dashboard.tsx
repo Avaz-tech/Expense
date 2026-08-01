@@ -1,6 +1,7 @@
 import { User, Users } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import { CATEGORIES } from '../constants/categories';
+import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats } from '../types';
 import { formatDisplayDate } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
@@ -12,32 +13,33 @@ type DashboardProps = {
 };
 
 export function Dashboard({ stats, expenses }: DashboardProps) {
+  const { theme } = useTheme();
   const recentExpenses = expenses.slice(0, 5);
 
   return (
     <View>
-      <View style={styles.header}>
-        <Text style={styles.headerSubtitle}>Shu oygi xarajatlar</Text>
+      <View style={[styles.header, { backgroundColor: theme.brand_primary }]}>
+        <Text style={[styles.headerSubtitle, { color: 'rgba(255,255,255,0.75)' }]}>Shu oygi xarajatlar</Text>
         <Text style={styles.headerTotal}>{formatMoney(stats.monthTotal)}</Text>
 
         <View style={styles.summaryRow}>
-          <View style={styles.summaryCard}>
-            <Text style={styles.summaryLabel}>Shu hafta</Text>
+          <View style={[styles.summaryCard, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
+            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>Shu hafta</Text>
             <Text style={styles.summaryValue}>{formatMoney(stats.weekTotal)}</Text>
           </View>
-          <View style={styles.summaryCard}>
-            <Text style={styles.summaryLabel}>Bugun</Text>
+          <View style={[styles.summaryCard, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
+            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>Bugun</Text>
             <Text style={styles.summaryValue}>{formatMoney(stats.todayTotal)}</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Oxirgi xarajatlar</Text>
+        <Text style={[styles.sectionTitle, { color: theme.text_primary }]}>Oxirgi xarajatlar</Text>
 
         {recentExpenses.length === 0 ? (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyText}>Hali xarajatlar yo'q.</Text>
+          <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+            <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Hali xarajatlar yo'q.</Text>
           </View>
         ) : (
           <View style={styles.list}>
@@ -47,28 +49,28 @@ export function Dashboard({ stats, expenses }: DashboardProps) {
                 CATEGORIES[CATEGORIES.length - 1];
 
               return (
-                <View key={expense.id} style={styles.expenseCard}>
-                  <View style={[styles.iconWrap, { backgroundColor: category.bgColor }]}>
-                    <CategoryIcon name={category.icon} size={24} color={category.textColor} />
+                <View key={expense.id} style={[styles.expenseCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                  <View style={[styles.iconWrap, { backgroundColor: theme.surface_secondary }]}>
+                    <CategoryIcon name={category.icon} size={20} color={theme.text_primary} />
                   </View>
 
                   <View style={styles.expenseInfo}>
                     <View style={styles.titleRow}>
-                      <Text style={styles.expenseTitle} numberOfLines={1}>
+                      <Text style={[styles.expenseTitle, { color: theme.text_primary }]} numberOfLines={1}>
                         {category.name}
                       </Text>
-                      {expense.scope === 'personal' && <User size={12} color="#3b82f6" />}
-                      {expense.scope === 'family' && <Users size={12} color="#a855f7" />}
+                      {expense.scope === 'personal' && <User size={10} color={theme.brand_primary} />}
+                      {expense.scope === 'family' && <Users size={10} color={theme.brand_secondary} />}
                     </View>
-                    <Text style={styles.expenseNote} numberOfLines={1}>
+                    <Text style={[styles.expenseNote, { color: theme.text_secondary }]} numberOfLines={1}>
                       {expense.spenderName ? `${expense.spenderName} · ` : ''}
                       {expense.note || 'Izohsiz'}
                     </Text>
                   </View>
 
                   <View style={styles.amountWrap}>
-                    <Text style={styles.amountText}>-{formatMoney(expense.amount)}</Text>
-                    <Text style={styles.dateText}>{formatDisplayDate(expense.date)}</Text>
+                    <Text style={[styles.amountText, { color: theme.danger }]}>-{formatMoney(expense.amount)}</Text>
+                    <Text style={[styles.dateText, { color: theme.text_secondary }]}>{formatDisplayDate(expense.date)}</Text>
                   </View>
                 </View>
               );
@@ -82,24 +84,25 @@ export function Dashboard({ stats, expenses }: DashboardProps) {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#059669',
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
-    paddingTop: 40,
-    paddingBottom: 32,
+    paddingTop: 32,
+    paddingBottom: 40,
     paddingHorizontal: 24,
   },
   headerSubtitle: {
-    color: '#d1fae5',
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 13,
+    fontWeight: '600',
     marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   headerTotal: {
     color: '#ffffff',
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: 36,
+    fontWeight: '800',
     marginBottom: 24,
+    letterSpacing: -1,
   },
   summaryRow: {
     flexDirection: 'row',
@@ -107,19 +110,18 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 16,
+    borderRadius: 20,
     padding: 16,
   },
   summaryLabel: {
-    color: '#ecfdf5',
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: 11,
+    fontWeight: '700',
     marginBottom: 4,
+    textTransform: 'uppercase',
   },
   summaryValue: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
   },
   content: {
@@ -127,47 +129,38 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontWeight: '800',
     marginBottom: 16,
+    letterSpacing: -0.3,
   },
   emptyState: {
-    paddingVertical: 40,
-    backgroundColor: '#f9fafb',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
+    paddingVertical: 48,
+    borderRadius: 20,
+    borderWidth: 1.5,
     borderStyle: 'dashed',
     alignItems: 'center',
   },
   emptyText: {
-    color: '#9ca3af',
     fontSize: 14,
+    fontWeight: '500',
   },
   list: {
-    gap: 16,
+    gap: 12,
   },
   expenseCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
-    padding: 16,
-    borderRadius: 16,
+    padding: 14,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#f3f4f6',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
   },
   iconWrap: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
+    width: 44,
+    height: 44,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 16,
+    marginRight: 14,
   },
   expenseInfo: {
     flex: 1,
@@ -177,30 +170,28 @@ const styles = StyleSheet.create({
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   expenseTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '700',
     flexShrink: 1,
   },
   expenseNote: {
     fontSize: 12,
-    color: '#9ca3af',
     marginTop: 2,
+    fontWeight: '500',
   },
   amountWrap: {
     alignItems: 'flex-end',
   },
   amountText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '800',
   },
   dateText: {
-    fontSize: 12,
-    color: '#9ca3af',
+    fontSize: 11,
     marginTop: 2,
+    fontWeight: '500',
   },
 });

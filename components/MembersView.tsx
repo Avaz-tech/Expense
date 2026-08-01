@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, UsersRound } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
 import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
@@ -12,6 +13,7 @@ type MembersViewProps = {
 };
 
 export function MembersView({ stats, expenses }: MembersViewProps) {
+  const { theme } = useTheme();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
 
@@ -30,23 +32,23 @@ export function MembersView({ stats, expenses }: MembersViewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Jamoa</Text>
-      <Text style={styles.subtitle}>Kim qancha sarfladi</Text>
+      <Text style={[styles.title, { color: theme.text_primary }]}>Jamoa</Text>
+      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>Kim qancha sarfladi</Text>
 
-      <View style={styles.periodToggle}>
+      <View style={[styles.periodToggle, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
-          style={[styles.periodButton, period === 'week' && styles.periodButtonActive]}
+          style={[styles.periodButton, period === 'week' && [styles.periodButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setPeriod('week')}
         >
-          <Text style={[styles.periodText, period === 'week' && styles.periodTextActive]}>
+          <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'week' && { color: theme.brand_primary }]}>
             Haftalik
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.periodButton, period === 'month' && styles.periodButtonActive]}
+          style={[styles.periodButton, period === 'month' && [styles.periodButtonActive, { backgroundColor: theme.surface }]]}
           onPress={() => setPeriod('month')}
         >
-          <Text style={[styles.periodText, period === 'month' && styles.periodTextActive]}>
+          <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'month' && { color: theme.brand_primary }]}>
             Oylik
           </Text>
         </Pressable>
@@ -54,20 +56,20 @@ export function MembersView({ stats, expenses }: MembersViewProps) {
 
       {period === 'month' && (
         <View style={styles.monthNav}>
-          <Pressable onPress={handlePrevMonth} style={styles.navButton}>
-            <ChevronLeft size={20} color="#059669" />
+          <Pressable onPress={handlePrevMonth} style={[styles.navButton, { backgroundColor: theme.surface_secondary }]}>
+            <ChevronLeft size={16} color={theme.brand_primary} />
           </Pressable>
-          <Text style={styles.monthLabel}>{getMonthName(currentMonth)}</Text>
-          <Pressable onPress={handleNextMonth} style={styles.navButton}>
-            <ChevronRight size={20} color="#059669" />
+          <Text style={[styles.monthLabel, { color: theme.text_primary }]}>{getMonthName(currentMonth)}</Text>
+          <Pressable onPress={handleNextMonth} style={[styles.navButton, { backgroundColor: theme.surface_secondary }]}>
+            <ChevronRight size={16} color={theme.brand_primary} />
           </Pressable>
         </View>
       )}
 
       {members.length === 0 ? (
-        <View style={styles.emptyState}>
-          <UsersRound size={40} color="#d1d5db" />
-          <Text style={styles.emptyText}>Ma'lumot yo'q</Text>
+        <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <UsersRound size={40} color={theme.text_secondary} opacity={0.5} />
+          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Ma'lumot yo'q</Text>
         </View>
       ) : (
         <View style={styles.list}>
@@ -79,19 +81,19 @@ export function MembersView({ stats, expenses }: MembersViewProps) {
               <View key={member.name} style={styles.memberRow}>
                 <View style={styles.memberHeader}>
                   <View style={styles.memberTitleWrap}>
-                    <View style={styles.avatar}>
-                      <Text style={styles.avatarText}>{initial}</Text>
+                    <View style={[styles.avatar, { backgroundColor: theme.brand_primary + '10' }]}>
+                      <Text style={[styles.avatarText, { color: theme.brand_primary }]}>{initial}</Text>
                     </View>
                     <View>
-                      <Text style={styles.memberName}>{member.name}</Text>
-                      <Text style={styles.memberCount}>{member.count} ta xarajat</Text>
+                      <Text style={[styles.memberName, { color: theme.text_primary }]}>{member.name}</Text>
+                      <Text style={[styles.memberCount, { color: theme.text_secondary }]}>{member.count} ta xarajat</Text>
                     </View>
                   </View>
-                  <Text style={styles.memberTotal}>{formatMoney(member.total)}</Text>
+                  <Text style={[styles.memberTotal, { color: theme.text_primary }]}>{formatMoney(member.total)}</Text>
                 </View>
 
-                <View style={styles.progressTrack}>
-                  <View style={[styles.progressFill, { width: `${percentage}%` }]} />
+                <View style={[styles.progressTrack, { backgroundColor: theme.surface_secondary }]}>
+                  <View style={[styles.progressFill, { width: `${percentage}%`, backgroundColor: theme.brand_primary }]} />
                 </View>
               </View>
             );
@@ -104,25 +106,24 @@ export function MembersView({ stats, expenses }: MembersViewProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
     paddingBottom: 120,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1f2937',
-    marginBottom: 4,
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#6b7280',
-    marginBottom: 20,
+    fontSize: 13,
+    fontWeight: '500',
+    marginTop: 2,
+    marginBottom: 24,
   },
   periodToggle: {
     flexDirection: 'row',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 4,
     marginBottom: 24,
   },
@@ -133,20 +134,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   periodButtonActive: {
-    backgroundColor: '#ffffff',
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
   },
   periodText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  periodTextActive: {
-    color: '#059669',
+    fontSize: 13,
+    fontWeight: '700',
   },
   monthNav: {
     flexDirection: 'row',
@@ -156,88 +152,77 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   monthLabel: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#374151',
     textTransform: 'capitalize',
     minWidth: 140,
     textAlign: 'center',
   },
   navButton: {
-    padding: 8,
-    backgroundColor: '#ecfdf5',
-    borderRadius: 8,
+    padding: 10,
+    borderRadius: 12,
   },
   emptyState: {
     alignItems: 'center',
-    paddingVertical: 80,
-    backgroundColor: '#f9fafb',
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
+    paddingVertical: 64,
+    borderRadius: 20,
+    borderWidth: 1.5,
     borderStyle: 'dashed',
     gap: 12,
   },
   emptyText: {
-    color: '#9ca3af',
     fontSize: 14,
+    fontWeight: '600',
   },
   list: {
-    gap: 20,
+    gap: 28,
   },
   memberRow: {
-    gap: 8,
+    gap: 12,
   },
   memberHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   memberTitleWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
     flex: 1,
-    paddingRight: 12,
   },
   avatar: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: '#d1fae5',
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarText: {
-    color: '#059669',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   memberName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
+    fontSize: 15,
+    fontWeight: '700',
   },
   memberCount: {
-    fontSize: 12,
-    color: '#9ca3af',
+    fontSize: 11,
+    fontWeight: '500',
     marginTop: 2,
   },
   memberTotal: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#1f2937',
   },
   progressTrack: {
     width: '100%',
-    height: 10,
-    backgroundColor: '#f3f4f6',
+    height: 8,
     borderRadius: 999,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#10b981',
     borderRadius: 999,
   },
 });

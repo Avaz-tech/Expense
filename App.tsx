@@ -12,6 +12,7 @@ import { History } from './components/History';
 import { MembersView } from './components/MembersView';
 import { StatsView } from './components/StatsView';
 import { LEGACY_EXPENSES_KEY } from './constants/storage';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { useExpenses } from './hooks/useExpenses';
 import { useFamily } from './hooks/useFamily';
 import { calculateStats } from './utils/stats';
@@ -19,9 +20,10 @@ import { calculateStats } from './utils/stats';
 type Tab = 'home' | 'stats' | 'add' | 'history' | 'members';
 
 function ScrollableScreen({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
   return (
     <ScrollView
-      style={styles.scroll}
+      style={[styles.scroll, { backgroundColor: theme.background_base }]}
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
@@ -31,7 +33,8 @@ function ScrollableScreen({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+function AppContent() {
+  const { theme, isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const { family, isLoaded: familyLoaded, isSyncEnabled, createFamily, joinFamily, leaveFamily } =
     useFamily();
@@ -53,8 +56,8 @@ export default function App() {
 
   if (!familyLoaded || !expensesLoaded) {
     return (
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#059669" />
+      <View style={[styles.loading, { backgroundColor: theme.surface }]}>
+        <ActivityIndicator size="large" color={theme.brand_primary} />
       </View>
     );
   }
@@ -62,8 +65,8 @@ export default function App() {
   if (!family) {
     return (
       <SafeAreaProvider>
-        <View style={styles.app}>
-          <StatusBar style="dark" />
+        <View style={[styles.app, { backgroundColor: theme.background_base }]}>
+          <StatusBar style={isDark ? "light" : "dark"} />
           <FamilySetup
             isSyncEnabled={isSyncEnabled}
             onCreateFamily={createFamily}
@@ -76,8 +79,8 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <View style={styles.app}>
-        <StatusBar style="dark" />
+      <View style={[styles.app, { backgroundColor: theme.background_base }]}>
+        <StatusBar style={isDark ? "light" : "dark"} />
         <FamilyBanner
           family={family}
           isSyncEnabled={isSyncEnabled}
@@ -118,12 +121,20 @@ export default function App() {
         {activeTab !== 'add' && <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />}
 
         {isSyncing ? (
-          <View style={styles.syncBadge}>
+          <View style={[styles.syncBadge, { backgroundColor: theme.brand_primary }]}>
             <ActivityIndicator size="small" color="#ffffff" />
           </View>
         ) : null}
       </View>
     </SafeAreaProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

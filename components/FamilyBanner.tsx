@@ -1,7 +1,8 @@
-import { Copy, LogOut } from 'lucide-react-native';
+import { Copy, LogOut, Moon, Sun } from 'lucide-react-native';
 import * as Clipboard from 'expo-clipboard';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../context/ThemeContext';
 import { Family } from '../types/family';
 
 type FamilyBannerProps = {
@@ -11,6 +12,7 @@ type FamilyBannerProps = {
 };
 
 export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBannerProps) {
+  const { theme, toggleTheme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
   const copyInviteCode = async () => {
     await Clipboard.setStringAsync(family.inviteCode);
@@ -29,21 +31,39 @@ export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBan
   };
 
   return (
-    <View style={[styles.container, { paddingTop: Math.max(insets.top, 10) }]}>
+    <View style={[
+      styles.container,
+      {
+        paddingTop: Math.max(insets.top, 10),
+        backgroundColor: theme.surface,
+        borderBottomColor: theme.border
+      }
+    ]}>
       <View style={styles.info}>
-        <Text style={styles.familyName}>{family.name}</Text>
+        <Text style={[styles.familyName, { color: theme.text_primary }]}>{family.name}</Text>
         {isSyncEnabled ? (
           <Pressable style={styles.codeRow} onPress={copyInviteCode}>
-            <Text style={styles.codeLabel}>Taklif kodi: {family.inviteCode}</Text>
-            <Copy size={14} color="#047857" />
+            <Text style={[styles.codeLabel, { color: theme.brand_primary }]}>Taklif kodi: {family.inviteCode}</Text>
+            <Copy size={12} color={theme.brand_primary} />
           </Pressable>
         ) : (
-          <Text style={styles.offlineText}>Offline rejim</Text>
+          <Text style={[styles.offlineText, { color: theme.text_secondary }]}>Offline rejim</Text>
         )}
       </View>
-      <Pressable style={styles.leaveButton} onPress={confirmLeave}>
-        <LogOut size={18} color="#6b7280" />
-      </Pressable>
+
+      <View style={styles.actions}>
+        <Pressable style={[styles.iconButton, { backgroundColor: theme.surface_secondary }]} onPress={toggleTheme}>
+          {isDark ? (
+            <Sun size={18} color={theme.warning} />
+          ) : (
+            <Moon size={18} color={theme.brand_primary} />
+          )}
+        </Pressable>
+
+        <Pressable style={[styles.iconButton, { backgroundColor: theme.surface_secondary }]} onPress={confirmLeave}>
+          <LogOut size={18} color={theme.text_secondary} />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -53,37 +73,40 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#ecfdf5',
     borderBottomWidth: 1,
-    borderBottomColor: '#d1fae5',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
   },
   info: {
     flex: 1,
   },
   familyName: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#065f46',
+    fontSize: 16,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   codeRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 4,
     marginTop: 2,
   },
   codeLabel: {
-    fontSize: 12,
-    color: '#047857',
-    fontWeight: '500',
+    fontSize: 11,
+    fontWeight: '600',
+    textTransform: 'uppercase',
   },
   offlineText: {
-    fontSize: 12,
-    color: '#6b7280',
+    fontSize: 11,
     marginTop: 2,
   },
-  leaveButton: {
-    padding: 8,
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  iconButton: {
+    padding: 10,
+    borderRadius: 12,
   },
 });

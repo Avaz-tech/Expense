@@ -1,5 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ChevronLeft, User, Users } from 'lucide-react-native';
+import { Calendar, ChevronLeft, User, Users } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CATEGORIES } from '../constants/categories';
+import { useTheme } from '../context/ThemeContext';
 import { ExpenseScope } from '../types';
 import { getTodayDateString } from '../utils/dates';
 import { CategoryIcon } from './CategoryIcon';
@@ -30,6 +31,7 @@ type AddExpenseProps = {
 };
 
 export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const [amount, setAmount] = useState('');
   const [spenderName, setSpenderName] = useState('');
@@ -59,7 +61,6 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
   };
 
   const handleSubmit = () => {
-    // Sanitize: strip commas and spaces so "1,000" parses correctly as 1000
     const sanitizedAmount = amount.replace(/[,\s]/g, '');
     const parsedAmount = parseFloat(sanitizedAmount);
 
@@ -81,67 +82,67 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: theme.surface }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
-      <View style={[styles.topBar, { paddingTop: Math.max(insets.top, 24) }]}>
-        <Pressable style={styles.backButton} onPress={onCancel}>
-          <ChevronLeft size={24} color="#4b5563" />
+      <View style={[styles.topBar, { paddingTop: Math.max(insets.top, 24), borderBottomColor: theme.border }]}>
+        <Pressable style={[styles.backButton, { backgroundColor: theme.surface_secondary }]} onPress={onCancel}>
+          <ChevronLeft size={20} color={theme.text_primary} />
         </Pressable>
-        <Text style={styles.title}>Xarajat qo'shish</Text>
+        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat qo'shish</Text>
         <View style={styles.topBarSpacer} />
       </View>
 
       <ScrollView contentContainerStyle={styles.form} keyboardShouldPersistTaps="handled">
         {error ? (
-          <View style={styles.errorBox}>
-            <Text style={styles.errorText}>{error}</Text>
+          <View style={[styles.errorBox, { backgroundColor: theme.danger + '10' }]}>
+            <Text style={[styles.errorText, { color: theme.danger }]}>{error}</Text>
           </View>
         ) : null}
 
         <View style={styles.amountSection}>
-          <Text style={styles.amountLabel}>Summa (so'm)</Text>
+          <Text style={[styles.amountLabel, { color: theme.text_secondary }]}>Summa (so'm)</Text>
           <TextInput
             value={amount}
             onChangeText={setAmount}
             keyboardType="numeric"
             placeholder="0"
-            placeholderTextColor="#d1d5db"
-            style={styles.amountInput}
+            placeholderTextColor={theme.text_secondary + '50'}
+            style={[styles.amountInput, { color: theme.brand_primary }]}
             autoFocus
           />
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Kim sarfladi?</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kim sarfladi?</Text>
           <TextInput
             value={spenderName}
             onChangeText={setSpenderName}
-            placeholder="Masalan: Muje, Ona, Otam..."
-            placeholderTextColor="#9ca3af"
-            style={styles.nameInput}
+            placeholder="Ismingiz..."
+            placeholderTextColor={theme.text_secondary + '80'}
+            style={[styles.nameInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border, color: theme.text_primary }]}
           />
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Kim uchun?</Text>
-          <View style={styles.scopeToggle}>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kim uchun?</Text>
+          <View style={[styles.scopeToggle, { backgroundColor: theme.surface_secondary }]}>
             <Pressable
-              style={[styles.scopeButton, scope === 'family' && styles.scopeButtonActive]}
+              style={[styles.scopeButton, scope === 'family' && [styles.scopeButtonActive, { backgroundColor: theme.surface }]]}
               onPress={() => setScope('family')}
             >
-              <Users size={16} color={scope === 'family' ? '#059669' : '#6b7280'} />
-              <Text style={[styles.scopeText, scope === 'family' && styles.scopeTextActive]}>
+              <Users size={16} color={scope === 'family' ? theme.brand_primary : theme.text_secondary} />
+              <Text style={[styles.scopeText, { color: theme.text_secondary }, scope === 'family' && { color: theme.brand_primary }]}>
                 Oilaviy
               </Text>
             </Pressable>
             <Pressable
-              style={[styles.scopeButton, scope === 'personal' && styles.scopeButtonActive]}
+              style={[styles.scopeButton, scope === 'personal' && [styles.scopeButtonActive, { backgroundColor: theme.surface }]]}
               onPress={() => setScope('personal')}
             >
-              <User size={16} color={scope === 'personal' ? '#059669' : '#6b7280'} />
-              <Text style={[styles.scopeText, scope === 'personal' && styles.scopeTextActive]}>
+              <User size={16} color={scope === 'personal' ? theme.brand_primary : theme.text_secondary} />
+              <Text style={[styles.scopeText, { color: theme.text_secondary }, scope === 'personal' && { color: theme.brand_primary }]}>
                 Shaxsiy
               </Text>
             </Pressable>
@@ -149,33 +150,41 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Kategoriyalar</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kategoriyalar</Text>
           <View style={styles.categoryGrid}>
             {CATEGORIES.map((category) => {
               const isSelected = categoryId === category.id;
               return (
                 <Pressable
                   key={category.id}
-                  style={[styles.categoryCard, isSelected && styles.categoryCardSelected]}
+                  style={[
+                    styles.categoryCard,
+                    { backgroundColor: theme.surface_secondary, borderColor: theme.border },
+                    isSelected && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '05' }
+                  ]}
                   onPress={() => setCategoryId(category.id)}
                 >
                   <View
                     style={[
                       styles.categoryIconCircle,
                       {
-                        backgroundColor: isSelected ? '#10b981' : category.bgColor,
+                        backgroundColor: isSelected ? theme.brand_primary : theme.surface,
                       },
                     ]}
                   >
                     <CategoryIcon
                       name={category.icon}
-                      size={20}
-                      color={isSelected ? '#ffffff' : category.textColor}
+                      size={18}
+                      color={isSelected ? '#ffffff' : theme.text_primary}
                     />
                   </View>
                   <Text
-                    style={[styles.categoryName, isSelected && styles.categoryNameSelected]}
-                    numberOfLines={2}
+                    style={[
+                      styles.categoryName,
+                      { color: theme.text_secondary },
+                      isSelected && { color: theme.brand_primary }
+                    ]}
+                    numberOfLines={1}
                   >
                     {category.name}
                   </Text>
@@ -186,9 +195,13 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Sana</Text>
-          <Pressable style={styles.dateInput} onPress={() => setShowDatePicker(true)}>
-            <Text style={styles.dateText}>{date.split('-').reverse().join('.')}</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Sana</Text>
+          <Pressable
+            style={[styles.dateInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border }]}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Text style={[styles.dateText, { color: theme.text_primary }]}>{date.split('-').reverse().join('.')}</Text>
+            <Calendar size={18} color={theme.brand_primary} />
           </Pressable>
           {showDatePicker && (
             <DateTimePicker
@@ -201,23 +214,30 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
           )}
           {Platform.OS === 'ios' && showDatePicker ? (
             <Pressable style={styles.dateDoneButton} onPress={() => setShowDatePicker(false)}>
-              <Text style={styles.dateDoneText}>Tayyor</Text>
+              <Text style={[styles.dateDoneText, { color: theme.brand_primary }]}>Tayyor</Text>
             </Pressable>
           ) : null}
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Izoh (ixtiyoriy)</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Izoh (ixtiyoriy)</Text>
           <TextInput
             value={note}
             onChangeText={setNote}
-            placeholder="Nima uchun xarajat qilindi?"
-            placeholderTextColor="#9ca3af"
-            style={styles.noteInput}
+            placeholder="Xarajat haqida..."
+            placeholderTextColor={theme.text_secondary + '80'}
+            style={[styles.noteInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border, color: theme.text_primary }]}
           />
         </View>
 
-        <Pressable style={({ pressed }) => [styles.saveButton, pressed && styles.saveButtonPressed]} onPress={handleSubmit}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.saveButton,
+            { backgroundColor: theme.brand_primary },
+            pressed && styles.saveButtonPressed
+          ]}
+          onPress={handleSubmit}
+        >
           <Text style={styles.saveButtonText}>Saqlash</Text>
         </Pressable>
       </ScrollView>
@@ -228,77 +248,72 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
   topBar: {
-    paddingTop: 40,
     paddingBottom: 16,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#f3f4f6',
   },
   backButton: {
-    padding: 8,
-    marginLeft: -8,
-    borderRadius: 999,
+    padding: 10,
+    borderRadius: 12,
   },
   title: {
     flex: 1,
     textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#1f2937',
+    fontSize: 17,
+    fontWeight: '800',
+    letterSpacing: -0.5,
   },
   topBarSpacer: {
     width: 40,
   },
   form: {
-    padding: 24,
+    padding: 20,
     paddingBottom: 120,
   },
   errorBox: {
-    backgroundColor: '#fef2f2',
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 16,
+    padding: 14,
+    borderRadius: 14,
+    marginBottom: 20,
   },
   errorText: {
-    color: '#dc2626',
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 13,
+    fontWeight: '700',
     textAlign: 'center',
   },
   amountSection: {
     marginBottom: 32,
+    alignItems: 'center',
   },
   amountLabel: {
-    textAlign: 'center',
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#6b7280',
+    fontSize: 12,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
     marginBottom: 8,
   },
   amountInput: {
+    fontSize: 48,
+    fontWeight: '800',
+    letterSpacing: -1,
+    minWidth: 200,
     textAlign: 'center',
-    fontSize: 40,
-    fontWeight: '700',
-    color: '#059669',
   },
   section: {
-    marginBottom: 24,
+    marginBottom: 28,
   },
   sectionLabel: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#374151',
+    fontWeight: '800',
     marginBottom: 12,
+    letterSpacing: -0.2,
   },
   scopeToggle: {
     flexDirection: 'row',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 4,
   },
   scopeButton: {
@@ -311,44 +326,34 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   scopeButtonActive: {
-    backgroundColor: '#ffffff',
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
   },
   scopeText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  scopeTextActive: {
-    color: '#059669',
+    fontSize: 13,
+    fontWeight: '700',
   },
   categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 10,
   },
   categoryCard: {
-    width: '30%',
-    flexGrow: 1,
+    width: '31%',
+    aspectRatio: 1,
     alignItems: 'center',
-    padding: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#f3f4f6',
-    backgroundColor: '#f9fafb',
-  },
-  categoryCardSelected: {
-    borderColor: '#10b981',
-    backgroundColor: '#ecfdf5',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 18,
+    borderWidth: 1.5,
   },
   categoryIconCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 36,
+    height: 36,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
@@ -356,24 +361,20 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 10,
     textAlign: 'center',
-    fontWeight: '500',
-    color: '#4b5563',
-    lineHeight: 14,
-  },
-  categoryNameSelected: {
-    color: '#047857',
+    fontWeight: '700',
   },
   dateInput: {
-    backgroundColor: '#f9fafb',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 12,
+    borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
   dateText: {
-    fontSize: 16,
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '600',
   },
   dateDoneButton: {
     marginTop: 8,
@@ -382,47 +383,39 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   dateDoneText: {
-    color: '#059669',
-    fontWeight: '600',
+    fontWeight: '700',
   },
   noteInput: {
-    backgroundColor: '#f9fafb',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 12,
+    borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    fontSize: 16,
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '600',
   },
   nameInput: {
-    backgroundColor: '#f9fafb',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    borderRadius: 12,
+    borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    fontSize: 16,
-    color: '#1f2937',
+    fontSize: 15,
+    fontWeight: '600',
   },
   saveButton: {
-    backgroundColor: '#059669',
     borderRadius: 16,
-    paddingVertical: 16,
+    paddingVertical: 18,
     alignItems: 'center',
-    marginTop: 8,
-    shadowColor: '#10b981',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 4,
+    marginTop: 12,
   },
   saveButtonPressed: {
+    opacity: 0.9,
     transform: [{ scale: 0.98 }],
   },
   saveButtonText: {
     color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 16,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });
