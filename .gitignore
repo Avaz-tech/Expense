@@ -44,3 +44,6 @@ yarn-error.*
 
 #idea dir xml files
 .idea/
+
+# Agent artifacts
+.artifacts/

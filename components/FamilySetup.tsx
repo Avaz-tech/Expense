@@ -1,7 +1,7 @@
-import { Users } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -59,9 +59,11 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
   return (
     <View style={[styles.container, { paddingTop: insets.top + 48, backgroundColor: theme.background_base }]}>
       <View style={styles.hero}>
-        <View style={[styles.iconWrap, { backgroundColor: theme.brand_primary + '10' }]}>
-          <Users size={40} color={theme.brand_primary} />
-        </View>
+        <Image
+          source={require('../assets/mark.png')}
+          style={styles.logoMark}
+          resizeMode="contain"
+        />
         <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat</Text>
         <Text style={[styles.subtitle, { color: theme.text_secondary }]}>
           Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
@@ -154,12 +156,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
-  iconWrap: {
+  logoMark: {
     width: 80,
     height: 80,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginBottom: 20,
   },
   title: {

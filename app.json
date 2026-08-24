@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Expense",
-    "slug": "expense-tracker",
+    "name": "Xarajat",
+    "slug": "xarajat-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "scheme": "expense",
+    "userInterfaceStyle": "automatic",
+    "scheme": "xarajat",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.expense.family",
@@ -16,13 +16,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#059669",
+        "backgroundColor": "#0F172A",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.expense.family"
+      "package": "com..family"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,7 +32,16 @@
       }
     },
     "plugins": [
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 280,
+          "resizeMode": "contain",
+          "backgroundColor": "#0F172A"
+        }
+      ]
     ]
   }
 }
