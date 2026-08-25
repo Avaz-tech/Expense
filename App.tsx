@@ -9,6 +9,7 @@ import { Dashboard } from './components/Dashboard';
 import { FamilyBanner } from './components/FamilyBanner';
 import { FamilySetup } from './components/FamilySetup';
 import { History } from './components/History';
+import { LegalView } from './components/LegalView';
 import { MembersView } from './components/MembersView';
 import { StatsView } from './components/StatsView';
 import { LEGACY_EXPENSES_KEY } from './constants/storage';
@@ -17,7 +18,7 @@ import { useExpenses } from './hooks/useExpenses';
 import { useFamily } from './hooks/useFamily';
 import { calculateStats } from './utils/stats';
 
-type Tab = 'home' | 'stats' | 'add' | 'history' | 'members';
+type Tab = 'home' | 'stats' | 'add' | 'history' | 'members' | 'privacy' | 'terms';
 
 function ScrollableScreen({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
@@ -114,11 +115,19 @@ function AppContent() {
 
         {activeTab === 'members' && (
           <ScrollableScreen>
-            <MembersView stats={stats} expenses={expenses} />
+            <MembersView stats={stats} expenses={expenses} onNavigate={setActiveTab} />
           </ScrollableScreen>
         )}
 
-        {activeTab !== 'add' && <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />}
+        {activeTab === 'privacy' && (
+          <LegalView type="privacy" onBack={() => setActiveTab('members')} />
+        )}
+
+        {activeTab === 'terms' && (
+          <LegalView type="terms" onBack={() => setActiveTab('members')} />
+        )}
+
+        {(activeTab !== 'add' && activeTab !== 'privacy' && activeTab !== 'terms') && <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />}
 
         {isSyncing ? (
           <View style={[styles.syncBadge, { backgroundColor: theme.brand_primary }]}>

@@ -10,9 +10,10 @@ import { buildMemberTotals } from '../utils/stats';
 type MembersViewProps = {
   stats: Stats;
   expenses: Expense[];
+  onNavigate: (tab: any) => void;
 };
 
-export function MembersView({ stats, expenses }: MembersViewProps) {
+export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
   const { theme } = useTheme();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
@@ -100,6 +101,16 @@ export function MembersView({ stats, expenses }: MembersViewProps) {
           })}
         </View>
       )}
+
+      <View style={styles.legalSection}>
+        <Pressable onPress={() => onNavigate('privacy')} style={styles.legalButton}>
+          <Text style={[styles.legalText, { color: theme.brand_primary }]}>Maxfiylik siyosati</Text>
+        </Pressable>
+        <Text style={[styles.legalDivider, { color: theme.text_secondary }]}>•</Text>
+        <Pressable onPress={() => onNavigate('terms')} style={styles.legalButton}>
+          <Text style={[styles.legalText, { color: theme.brand_primary }]}>Foydalanish shartlari</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -225,4 +236,22 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 999,
   },
+  legalSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 48,
+    gap: 12,
+  },
+  legalButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  },
+  legalText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  legalDivider: {
+    fontSize: 14,
+  }
 });
