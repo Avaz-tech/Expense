@@ -14,31 +14,35 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CATEGORIES } from '../constants/categories';
 import { useTheme } from '../context/ThemeContext';
-import { ExpenseScope } from '../types';
+import { Expense, ExpenseScope } from '../types';
 import { getTodayDateString } from '../utils/dates';
 import { CategoryIcon } from './CategoryIcon';
 
+type ExpenseFormData = {
+  amount: string;
+  categoryId: string;
+  date: string;
+  note: string;
+  scope: ExpenseScope;
+  spenderName: string;
+};
+
 type AddExpenseProps = {
-  onSave: (expenseData: {
-    amount: string;
-    categoryId: string;
-    date: string;
-    note: string;
-    scope: ExpenseScope;
-    spenderName: string;
-  }) => void;
+  expense?: Expense;
+  onSave: (expenseData: ExpenseFormData) => void;
   onCancel: () => void;
 };
 
-export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
+export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const [amount, setAmount] = useState('');
-  const [spenderName, setSpenderName] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [date, setDate] = useState(getTodayDateString());
-  const [note, setNote] = useState('');
-  const [scope, setScope] = useState<ExpenseScope>('family');
+  const isEditing = Boolean(expense);
+  const [amount, setAmount] = useState(expense?.amount ?? '');
+  const [spenderName, setSpenderName] = useState(expense?.spenderName ?? '');
+  const [categoryId, setCategoryId] = useState(expense?.categoryId ?? '');
+  const [date, setDate] = useState(expense?.date ?? getTodayDateString());
+  const [note, setNote] = useState(expense?.note ?? '');
+  const [scope, setScope] = useState<ExpenseScope>(expense?.scope ?? 'family');
   const [error, setError] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -90,7 +94,9 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
         <Pressable style={[styles.backButton, { backgroundColor: theme.surface_secondary }]} onPress={onCancel}>
           <ChevronLeft size={20} color={theme.text_primary} />
         </Pressable>
-        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat qo'shish</Text>
+        <Text style={[styles.title, { color: theme.text_primary }]}>
+          {isEditing ? 'Xarajatni tahrirlash' : "Xarajat qo'shish"}
+        </Text>
         <View style={styles.topBarSpacer} />
       </View>
 
@@ -110,7 +116,7 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
             placeholder="0"
             placeholderTextColor={theme.text_secondary + '50'}
             style={[styles.amountInput, { color: theme.brand_primary }]}
-            autoFocus
+            autoFocus={!isEditing}
           />
         </View>
 
@@ -238,7 +244,7 @@ export function AddExpense({ onSave, onCancel }: AddExpenseProps) {
           ]}
           onPress={handleSubmit}
         >
-          <Text style={styles.saveButtonText}>Saqlash</Text>
+          <Text style={styles.saveButtonText}>{isEditing ? 'Yangilash' : 'Saqlash'}</Text>
         </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>

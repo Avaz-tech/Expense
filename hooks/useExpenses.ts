@@ -37,7 +37,9 @@ type UseExpensesResult = {
   isLoaded: boolean;
   isSyncing: boolean;
   addExpense: (expense: Omit<Expense, "id">) => Promise<void>;
+  updateExpense: (id: string, expense: Omit<Expense, "id">) => Promise<void>;
   deleteExpense: (id: string) => Promise<void>;
+  deleteExpenses: (ids: string[]) => Promise<void>;
 };
 
 export function useExpenses(familyId: string | null): UseExpensesResult {
@@ -161,12 +163,46 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
     [familyId, expenses, persistLocalExpenses]
   );
 
-  const deleteExpense = useCallback(
-    async (id: string) => {
+  const updateExpense = useCallback(
+    async (id: string, expense: Omit<Expense, "id">) => {
       if (!familyId) return;
 
       if (isLocalMode(familyId)) {
-        const next = expenses.filter((e) => e.id !== id);
+        const next = expenses.map((e) =>
+          e.id === id ? { ...expense, id } : e
+        );
+        setExpenses(next);
+        await persistLocalExpenses(next);
+        return;
+      }
+
+      const { data, error } = await supabase!
+        .from("expenses")
+        .update(toDbExpense(expense, familyId))
+        .eq("id", id)
+        .eq("family_id", familyId)
+        .select("*")
+        .single();
+
+      if (error || !data) {
+        throw new Error(error?.message ?? "Xarajat yangilanmadi");
+      }
+
+      setExpenses((prev) =>
+        prev.map((e) => (e.id === id ? toExpense(data) : e))
+      );
+    },
+    [familyId, expenses, persistLocalExpenses]
+  );
+
+  const deleteExpenses = useCallback(
+    async (ids: string[]) => {
+      if (!familyId || ids.length === 0) return;
+
+      const idSet = new Set(ids);
+
+      if (isLocalMode(familyId)) {
+        const next = expenses.filter((e) => !idSet.has(e.id));
         setExpenses(next);
         await persistLocalExpenses(next);
         return;
@@ -175,14 +211,21 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
       const { error } = await supabase!
         .from("expenses")
         .delete()
-        .eq("id", id)
+        .in("id", ids)
         .eq("family_id", familyId);
 
       if (error) throw new Error(error.message);
 
-      setExpenses((prev) => prev.filter((e) => e.id !== id));
+      setExpenses((prev) => prev.filter((e) => !idSet.has(e.id)));
     },
     [familyId, expenses, persistLocalExpenses]
+  );
+
+  const deleteExpense = useCallback(
+    async (id: string) => {
+      await deleteExpenses([id]);
+    },
+    [deleteExpenses]
   );
 
   return {
@@ -190,6 +233,8 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
     isLoaded,
     isSyncing,
     addExpense,
+    updateExpense,
     deleteExpense,
+    deleteExpenses,
   };
 }

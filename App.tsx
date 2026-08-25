@@ -16,6 +16,7 @@ import { LEGACY_EXPENSES_KEY } from './constants/storage';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { useExpenses } from './hooks/useExpenses';
 import { useFamily } from './hooks/useFamily';
+import { Expense } from './types';
 import { calculateStats } from './utils/stats';
 
 type Tab = 'home' | 'stats' | 'add' | 'history' | 'members' | 'privacy' | 'terms';
@@ -37,9 +38,10 @@ function ScrollableScreen({ children }: { children: React.ReactNode }) {
 function AppContent() {
   const { theme, isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>('home');
+  const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const { family, isLoaded: familyLoaded, isSyncEnabled, createFamily, joinFamily, leaveFamily } =
     useFamily();
-  const { expenses, isLoaded: expensesLoaded, isSyncing, addExpense, deleteExpense } =
+  const { expenses, isLoaded: expensesLoaded, isSyncing, addExpense, updateExpense, deleteExpenses } =
     useExpenses(family?.id ?? null);
 
   const stats = useMemo(() => calculateStats(expenses), [expenses]);
@@ -47,6 +49,26 @@ function AppContent() {
   const handleAddExpense = async (expenseData: Parameters<typeof addExpense>[0]) => {
     await addExpense(expenseData);
     setActiveTab('home');
+  };
+
+  const handleUpdateExpense = async (
+    id: string,
+    expenseData: Parameters<typeof updateExpense>[1]
+  ) => {
+    await updateExpense(id, expenseData);
+    setEditingExpense(null);
+    setActiveTab('history');
+  };
+
+  const handleEditExpense = (expense: Expense) => {
+    setEditingExpense(expense);
+    setActiveTab('add');
+  };
+
+  const handleCancelExpenseForm = () => {
+    const returnTab = editingExpense ? 'history' : 'home';
+    setEditingExpense(null);
+    setActiveTab(returnTab);
   };
 
   const handleLeaveFamily = async () => {
@@ -102,14 +124,20 @@ function AppContent() {
 
         {activeTab === 'add' && (
           <AddExpense
-            onSave={handleAddExpense}
-            onCancel={() => setActiveTab('home')}
+            key={editingExpense?.id ?? 'new'}
+            expense={editingExpense ?? undefined}
+            onSave={(expenseData) =>
+              editingExpense
+                ? handleUpdateExpense(editingExpense.id, expenseData)
+                : handleAddExpense(expenseData)
+            }
+            onCancel={handleCancelExpenseForm}
           />
         )}
 
         {activeTab === 'history' && (
           <ScrollableScreen>
-            <History stats={stats} onDelete={deleteExpense} />
+            <History stats={stats} onDeleteMany={deleteExpenses} onEdit={handleEditExpense} />
           </ScrollableScreen>
         )}
 

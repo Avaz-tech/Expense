@@ -47,6 +47,12 @@ create policy "Family expenses can be inserted"
   to anon, authenticated
   with check (family_id is not null);
 
+create policy "Family expenses can be updated"
+  on expenses for update
+  to anon, authenticated
+  using (true)
+  with check (family_id is not null);
+
 create policy "Family expenses can be deleted"
   on expenses for delete
   to anon, authenticated

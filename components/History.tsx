@@ -1,30 +1,84 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ArrowRight, Calendar, List, X } from 'lucide-react-native';
+import { ArrowRight, Calendar, Check, List, Trash2, User, Users, X } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { CATEGORIES } from '../constants/categories';
 import { useTheme } from '../context/ThemeContext';
-import { Stats } from '../types';
+import { Expense, Stats } from '../types';
 import { formatDisplayDate } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
 import { CategoryIcon } from './CategoryIcon';
 
 type HistoryProps = {
   stats: Stats;
-  onDelete: (id: string) => void;
+  onDeleteMany: (ids: string[]) => Promise<void>;
+  onEdit: (expense: Expense) => void;
 };
 
-export function History({ stats, onDelete }: HistoryProps) {
+export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
   const { theme } = useTheme();
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
   const [activePicker, setActivePicker] = useState<'start' | 'end' | null>(null);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  const confirmDelete = (id: string) => {
-    Alert.alert("O'chirish", "Rostdan ham ushbu xarajatni o'chirmoqchimisiz?", [
-      { text: 'Bekor qilish', style: 'cancel' },
-      { text: "O'chirish", style: 'destructive', onPress: () => onDelete(id) },
-    ]);
+  const selectedCount = selectedIds.size;
+
+  const exitSelection = () => {
+    setIsSelecting(false);
+    setSelectedIds(new Set());
+  };
+
+  const toggleSelection = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const enterSelection = (id: string) => {
+    setIsSelecting(true);
+    setSelectedIds(new Set([id]));
+  };
+
+  const handlePress = (expense: Expense) => {
+    if (isSelecting) {
+      toggleSelection(expense.id);
+      return;
+    }
+    onEdit(expense);
+  };
+
+  const handleLongPress = (expense: Expense) => {
+    if (isSelecting) {
+      toggleSelection(expense.id);
+      return;
+    }
+    enterSelection(expense.id);
+  };
+
+  const confirmBulkDelete = () => {
+    const ids = Array.from(selectedIds);
+    if (ids.length === 0) return;
+
+    Alert.alert(
+      "O'chirish",
+      `${ids.length} ta xarajatni o'chirmoqchimisiz?`,
+      [
+        { text: 'Bekor qilish', style: 'cancel' },
+        {
+          text: "O'chirish",
+          style: 'destructive',
+          onPress: async () => {
+            await onDeleteMany(ids);
+            exitSelection();
+          },
+        },
+      ]
+    );
   };
 
   const handleValueChange = (_event: any, date?: Date) => {
@@ -66,16 +120,47 @@ export function History({ stats, onDelete }: HistoryProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajatlar tarixi</Text>
-        <View style={styles.headerActions}>
-          {(startDate || endDate) && (
-            <Pressable onPress={clearFilters} style={[styles.clearFilter, { backgroundColor: theme.danger + '15' }]}>
-              <X size={14} color={theme.danger} />
-              <Text style={[styles.clearText, { color: theme.danger }]}>Tozalash</Text>
+        {isSelecting ? (
+          <>
+            <Pressable onPress={exitSelection} hitSlop={8}>
+              <Text style={[styles.cancelText, { color: theme.brand_primary }]}>Bekor qilish</Text>
             </Pressable>
-          )}
-        </View>
+            <Text style={[styles.title, styles.titleCenter, { color: theme.text_primary }]}>
+              {selectedCount} ta tanlandi
+            </Text>
+            <Pressable
+              onPress={confirmBulkDelete}
+              disabled={selectedCount === 0}
+              style={({ pressed }) => [
+                styles.deleteAction,
+                { backgroundColor: theme.danger + '15', opacity: selectedCount === 0 ? 0.4 : pressed ? 0.7 : 1 },
+              ]}
+            >
+              <Trash2 size={16} color={theme.danger} />
+            </Pressable>
+          </>
+        ) : (
+          <>
+            <Text style={[styles.title, styles.titleLeft, { color: theme.text_primary }]}>
+              Xarajatlar tarixi
+            </Text>
+            <View style={styles.headerActions}>
+              {(startDate || endDate) && (
+                <Pressable onPress={clearFilters} style={[styles.clearFilter, { backgroundColor: theme.danger + '15' }]}>
+                  <X size={14} color={theme.danger} />
+                  <Text style={[styles.clearText, { color: theme.danger }]}>Tozalash</Text>
+                </Pressable>
+              )}
+            </View>
+          </>
+        )}
       </View>
+
+      {!isSelecting && filteredDates.length > 0 ? (
+        <Text style={[styles.hintText, { color: theme.text_secondary }]}>
+          O'chirish uchun uzoq bosing va tanlang
+        </Text>
+      ) : null}
 
       <View style={[styles.filterBar, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
@@ -83,15 +168,11 @@ export function History({ stats, onDelete }: HistoryProps) {
           style={[
             styles.dateBtn,
             { backgroundColor: theme.surface },
-            activePicker === 'start' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' }
+            activePicker === 'start' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' },
           ]}
         >
           <Calendar size={14} color={startDate ? theme.brand_primary : theme.text_secondary} />
-          <Text style={[
-            styles.dateBtnText,
-            { color: theme.text_secondary },
-            startDate && { color: theme.brand_primary }
-          ]}>
+          <Text style={[styles.dateBtnText, { color: theme.text_secondary }, startDate && { color: theme.brand_primary }]}>
             {startDate ? formatDisplayDate(startDate) : 'Dan...'}
           </Text>
         </Pressable>
@@ -103,15 +184,11 @@ export function History({ stats, onDelete }: HistoryProps) {
           style={[
             styles.dateBtn,
             { backgroundColor: theme.surface },
-            activePicker === 'end' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' }
+            activePicker === 'end' && { borderColor: theme.brand_primary, backgroundColor: theme.brand_primary + '10' },
           ]}
         >
           <Calendar size={14} color={endDate ? theme.brand_primary : theme.text_secondary} />
-          <Text style={[
-            styles.dateBtnText,
-            { color: theme.text_secondary },
-            endDate && { color: theme.brand_primary }
-          ]}>
+          <Text style={[styles.dateBtnText, { color: theme.text_secondary }, endDate && { color: theme.brand_primary }]}>
             {endDate ? formatDisplayDate(endDate) : 'Gacha...'}
           </Text>
         </Pressable>
@@ -145,7 +222,7 @@ export function History({ stats, onDelete }: HistoryProps) {
           <Text style={[styles.emptyText, { color: theme.text_secondary }]}>
             {startDate || endDate
               ? 'Tanlangan oraliqda xarajatlar topilmadi'
-              : 'Hozircha xarajatlar yo\'q'}
+              : "Hozircha xarajatlar yo'q"}
           </Text>
         </View>
       ) : (
@@ -165,9 +242,35 @@ export function History({ stats, onDelete }: HistoryProps) {
                     const category =
                       CATEGORIES.find((item) => item.id === expense.categoryId) ||
                       CATEGORIES[CATEGORIES.length - 1];
+                    const isSelected = selectedIds.has(expense.id);
 
                     return (
-                      <View key={expense.id} style={[styles.expenseCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                      <Pressable
+                        key={expense.id}
+                        onPress={() => handlePress(expense)}
+                        onLongPress={() => handleLongPress(expense)}
+                        style={[
+                          styles.expenseCard,
+                          {
+                            backgroundColor: isSelected ? theme.brand_primary + '10' : theme.surface,
+                            borderColor: isSelected ? theme.brand_primary : theme.border,
+                          },
+                        ]}
+                      >
+                        {isSelecting ? (
+                          <View
+                            style={[
+                              styles.checkbox,
+                              {
+                                borderColor: isSelected ? theme.brand_primary : theme.border,
+                                backgroundColor: isSelected ? theme.brand_primary : 'transparent',
+                              },
+                            ]}
+                          >
+                            {isSelected ? <Check size={12} color="#ffffff" strokeWidth={3} /> : null}
+                          </View>
+                        ) : null}
+
                         <View style={[styles.iconWrap, { backgroundColor: theme.surface_secondary }]}>
                           <CategoryIcon name={category.icon} size={20} color={theme.text_primary} />
                         </View>
@@ -177,31 +280,19 @@ export function History({ stats, onDelete }: HistoryProps) {
                             <Text style={[styles.expenseTitle, { color: theme.text_primary }]} numberOfLines={1}>
                               {category.name}
                             </Text>
-                            {expense.scope === 'personal' ? (
-                              <View style={[styles.personalBadge, { backgroundColor: theme.brand_primary + '10' }]}>
-                                <Text style={[styles.personalBadgeText, { color: theme.brand_primary }]}>Shaxsiy</Text>
-                              </View>
-                            ) : null}
-                            {expense.scope === 'family' ? (
-                              <View style={[styles.familyBadge, { backgroundColor: theme.brand_secondary + '10' }]}>
-                                <Text style={[styles.familyBadgeText, { color: theme.brand_secondary }]}>Oilaviy</Text>
-                              </View>
-                            ) : null}
+                            {expense.scope === 'personal' && <User size={10} color={theme.brand_primary} />}
+                            {expense.scope === 'family' && <Users size={10} color={theme.brand_secondary} />}
                           </View>
                           <Text style={[styles.expenseNote, { color: theme.text_secondary }]} numberOfLines={1}>
-                            {expense.spenderName ? `${expense.spenderName}` : "Noma'lum"}
+                            {expense.spenderName ? expense.spenderName : "Noma'lum"}
                             {expense.note ? ` · ${expense.note}` : ''}
                           </Text>
                         </View>
 
-                        <View style={styles.amountWrap}>
-                          <Text style={[styles.amountText, { color: theme.text_primary }]}>-{formatMoney(expense.amount)}</Text>
-                        </View>
-
-                        <Pressable style={[styles.deleteButton, { backgroundColor: theme.danger + '10' }]} onPress={() => confirmDelete(expense.id)}>
-                          <Text style={[styles.deleteText, { color: theme.danger }]}>O'chirish</Text>
-                        </Pressable>
-                      </View>
+                        <Text style={[styles.amountText, { color: theme.text_primary }]}>
+                          -{formatMoney(expense.amount)}
+                        </Text>
+                      </Pressable>
                     );
                   })}
                 </View>
@@ -224,17 +315,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 8,
+    minHeight: 32,
   },
   title: {
     fontSize: 22,
     fontWeight: '800',
     letterSpacing: -0.5,
   },
+  titleLeft: {
+    flex: 1,
+  },
+  titleCenter: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  cancelText: {
+    fontSize: 14,
+    fontWeight: '700',
+    minWidth: 80,
+  },
+  deleteAction: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 80,
+    marginLeft: 'auto',
+  },
   headerActions: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    minWidth: 80,
+    justifyContent: 'flex-end',
+  },
+  hintText: {
+    fontSize: 12,
+    fontWeight: '500',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   filterBar: {
     flexDirection: 'row',
@@ -332,11 +453,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 14,
     borderRadius: 20,
-    borderWidth: 1,
+    borderWidth: 1.5,
+  },
+  checkbox: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
   },
   iconWrap: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -345,60 +475,26 @@ const styles = StyleSheet.create({
   expenseInfo: {
     flex: 1,
     minWidth: 0,
-    paddingRight: 8,
+    paddingRight: 10,
   },
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    flexWrap: 'wrap',
   },
   expenseTitle: {
     fontSize: 15,
     fontWeight: '700',
     flexShrink: 1,
   },
-  personalBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
-  },
-  personalBadgeText: {
-    fontSize: 8,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-  },
-  familyBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
-  },
-  familyBadgeText: {
-    fontSize: 8,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-  },
   expenseNote: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '500',
     marginTop: 2,
   },
-  amountWrap: {
-    alignItems: 'flex-end',
-    marginRight: 10,
-  },
   amountText: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '800',
-  },
-  deleteButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderRadius: 10,
-  },
-  deleteText: {
-    fontSize: 10,
-    fontWeight: '800',
-    textTransform: 'uppercase',
+    flexShrink: 0,
   },
 });
