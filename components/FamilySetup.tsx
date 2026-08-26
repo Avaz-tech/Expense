@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { Check, X } from 'lucide-react-native';
+import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,20 +16,70 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { Family } from '../types/family';
 
+type NameAvailability = 'idle' | 'checking' | 'available' | 'taken';
+
 type FamilySetupProps = {
   isSyncEnabled: boolean;
-  onCreateFamily: (name: string) => Promise<Family>;
-  onJoinFamily: (inviteCode: string) => Promise<Family>;
+  onCreateFamily: (name: string, pin: string) => Promise<Family>;
+  onJoinFamilyByCode: (inviteCode: string) => Promise<Family>;
+  onJoinFamilyByNameAndPin: (name: string, pin: string) => Promise<Family>;
+  onCheckFamilyNameAvailable?: (name: string) => Promise<boolean | null>;
 };
 
-export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: FamilySetupProps) {
+export function FamilySetup({
+  isSyncEnabled,
+  onCreateFamily,
+  onJoinFamilyByCode,
+  onJoinFamilyByNameAndPin,
+  onCheckFamilyNameAvailable,
+}: FamilySetupProps) {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const [mode, setMode] = useState<'create' | 'join'>('create');
+  const [joinMethod, setJoinMethod] = useState<'code' | 'pin'>('code');
   const [familyName, setFamilyName] = useState('');
+  const [familyPin, setFamilyPin] = useState('');
   const [inviteCode, setInviteCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [nameAvailability, setNameAvailability] = useState<NameAvailability>('idle');
+  const checkRequestId = useRef(0);
+
+  useEffect(() => {
+    if (mode !== 'create' || !isSyncEnabled || !onCheckFamilyNameAvailable) {
+      setNameAvailability('idle');
+      return;
+    }
+
+    const trimmedName = familyName.trim();
+    if (trimmedName.length < 2) {
+      setNameAvailability('idle');
+      return;
+    }
+
+    setNameAvailability('checking');
+    const requestId = ++checkRequestId.current;
+
+    const timer = setTimeout(async () => {
+      try {
+        const isAvailable = await onCheckFamilyNameAvailable(trimmedName);
+        if (requestId !== checkRequestId.current) return;
+
+        if (isAvailable === null) {
+          setNameAvailability('idle');
+          return;
+        }
+
+        setNameAvailability(isAvailable ? 'available' : 'taken');
+      } catch {
+        if (requestId === checkRequestId.current) {
+          setNameAvailability('idle');
+        }
+      }
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [familyName, mode, isSyncEnabled, onCheckFamilyNameAvailable]);
 
   const handleSubmit = async () => {
     setError('');
@@ -37,17 +91,39 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
           setError('Oila nomini kiriting');
           return;
         }
-        await onCreateFamily(familyName);
-      } else {
+        if (nameAvailability === 'taken') {
+          setError('Bu oila nomi band. Boshqa nom tanlang yoki "Qo\'shilish" bo\'limidan kiring.');
+          return;
+        }
+        if (!familyPin.trim()) {
+          setError('Oila PIN kodini kiriting');
+          return;
+        }
+        await onCreateFamily(familyName, familyPin);
+      } else if (joinMethod === 'code') {
         if (!inviteCode.trim()) {
           setError('Taklif kodini kiriting');
           return;
         }
         if (!isSyncEnabled) {
-          setError('Bulut sinxronizatsiyasi sozlanmagan. .env faylini to\'ldiring.');
+          setError("Bulut sinxronizatsiyasi sozlanmagan. .env faylini to'ldiring.");
           return;
         }
-        await onJoinFamily(inviteCode);
+        await onJoinFamilyByCode(inviteCode);
+      } else {
+        if (!familyName.trim()) {
+          setError('Oila nomini kiriting');
+          return;
+        }
+        if (!familyPin.trim()) {
+          setError('Oila PIN kodini kiriting');
+          return;
+        }
+        if (!isSyncEnabled) {
+          setError("Bulut sinxronizatsiyasi sozlanmagan. Qo'shilish uchun internet kerak.");
+          return;
+        }
+        await onJoinFamilyByNameAndPin(familyName, familyPin);
       }
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : 'Xatolik yuz berdi');
@@ -56,110 +132,267 @@ export function FamilySetup({ isSyncEnabled, onCreateFamily, onJoinFamily }: Fam
     }
   };
 
+  const switchMode = (nextMode: 'create' | 'join') => {
+    setMode(nextMode);
+    setError('');
+    setNameAvailability('idle');
+  };
+
+  const nameInputBorderColor =
+    nameAvailability === 'available'
+      ? theme.brand_secondary
+      : nameAvailability === 'taken'
+        ? theme.danger
+        : theme.border;
+
+  const isCreateDisabled =
+    loading || (mode === 'create' && isSyncEnabled && nameAvailability === 'taken');
+
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 48, backgroundColor: theme.background_base }]}>
-      <View style={styles.hero}>
-        <Image
-          source={require('../assets/mark.png')}
-          style={styles.logoMark}
-          resizeMode="contain"
-        />
-        <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat</Text>
-        <Text style={[styles.subtitle, { color: theme.text_secondary }]}>
-          Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
-        </Text>
-      </View>
-
-      <View style={[styles.modeToggle, { backgroundColor: theme.surface_secondary }]}>
-        <Pressable
-          style={[styles.modeButton, mode === 'create' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
-          onPress={() => setMode('create')}
-        >
-          <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'create' && { color: theme.brand_primary }]}>
-            Oila yaratish
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[styles.modeButton, mode === 'join' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
-          onPress={() => setMode('join')}
-        >
-          <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'join' && { color: theme.brand_primary }]}>
-            Qo'shilish
-          </Text>
-        </Pressable>
-      </View>
-
-      {error ? (
-        <View style={[styles.errorBox, { backgroundColor: theme.danger + '10' }]}>
-          <Text style={[styles.errorText, { color: theme.danger }]}>{error}</Text>
-        </View>
-      ) : null}
-
-      {mode === 'create' ? (
-        <View style={styles.field}>
-          <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
-          <TextInput
-            value={familyName}
-            onChangeText={setFamilyName}
-            placeholder="Masalan: Karimovlar"
-            placeholderTextColor={theme.text_secondary + '80'}
-            style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
-          />
-        </View>
-      ) : (
-        <View style={styles.field}>
-          <Text style={[styles.label, { color: theme.text_primary }]}>Taklif kodi</Text>
-          <TextInput
-            value={inviteCode}
-            onChangeText={setInviteCode}
-            placeholder="FAM-7X2K"
-            placeholderTextColor={theme.text_secondary + '80'}
-            autoCapitalize="characters"
-            style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
-          />
-        </View>
-      )}
-
-      {!isSyncEnabled ? (
-        <Text style={[styles.syncHint, { color: theme.text_secondary }]}>
-          Sinxronizatsiya hozircha o'chiq. Supabase sozlasangiz, oila a'zolari bir xil ma'lumotlarni ko'radi.
-        </Text>
-      ) : null}
-
-      <Pressable
-        style={({ pressed }) => [
-          styles.submitButton,
-          { backgroundColor: theme.brand_primary },
-          pressed && styles.submitButtonPressed
+    <KeyboardAvoidingView
+      style={[styles.flex, { backgroundColor: theme.background_base }]}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
+    >
+      <ScrollView
+        style={styles.flex}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: insets.top + 32, paddingBottom: Math.max(insets.bottom, 24) + 24 },
         ]}
-        onPress={handleSubmit}
-        disabled={loading}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        {loading ? (
-          <ActivityIndicator color="#ffffff" />
-        ) : (
-          <Text style={styles.submitText}>
-            {mode === 'create' ? 'Oila yaratish' : 'Qo\'shilish'}
+        <View style={styles.hero}>
+          <Image
+            source={require('../assets/mark.png')}
+            style={styles.logoMark}
+            resizeMode="contain"
+          />
+          <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat</Text>
+          <Text style={[styles.subtitle, { color: theme.text_secondary }]}>
+            Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
           </Text>
+        </View>
+
+        <View style={[styles.modeToggle, { backgroundColor: theme.surface_secondary }]}>
+          <Pressable
+            style={[styles.modeButton, mode === 'create' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
+            onPress={() => switchMode('create')}
+          >
+            <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'create' && { color: theme.brand_primary }]}>
+              Oila yaratish
+            </Text>
+          </Pressable>
+          <Pressable
+            style={[styles.modeButton, mode === 'join' && [styles.modeButtonActive, { backgroundColor: theme.surface }]]}
+            onPress={() => switchMode('join')}
+          >
+            <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'join' && { color: theme.brand_primary }]}>
+              Qo'shilish
+            </Text>
+          </Pressable>
+        </View>
+
+        {error ? (
+          <View style={[styles.errorBox, { backgroundColor: theme.danger + '10' }]}>
+            <Text style={[styles.errorText, { color: theme.danger }]}>{error}</Text>
+          </View>
+        ) : null}
+
+        {mode === 'create' ? (
+          <>
+            <View style={styles.field}>
+              <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
+              <View style={styles.nameInputWrap}>
+                <TextInput
+                  value={familyName}
+                  onChangeText={setFamilyName}
+                  placeholder="Masalan: Karimovlar"
+                  placeholderTextColor={theme.text_secondary + '80'}
+                  style={[
+                    styles.input,
+                    styles.nameInput,
+                    {
+                      backgroundColor: theme.surface,
+                      borderColor: nameInputBorderColor,
+                      color: theme.text_primary,
+                    },
+                  ]}
+                />
+                {nameAvailability === 'checking' ? (
+                  <ActivityIndicator size="small" color={theme.brand_primary} style={styles.nameStatusIcon} />
+                ) : null}
+                {nameAvailability === 'available' ? (
+                  <Check size={18} color={theme.brand_secondary} style={styles.nameStatusIcon} />
+                ) : null}
+                {nameAvailability === 'taken' ? (
+                  <X size={18} color={theme.danger} style={styles.nameStatusIcon} />
+                ) : null}
+              </View>
+              {nameAvailability === 'available' ? (
+                <Text style={[styles.fieldHint, { color: theme.brand_secondary }]}>
+                  Bu nom bo'sh — foydalanishingiz mumkin
+                </Text>
+              ) : null}
+              {nameAvailability === 'taken' ? (
+                <Text style={[styles.fieldHint, { color: theme.danger }]}>
+                  Bu nom band. Boshqa nom tanlang yoki "Qo'shilish"dan kiring
+                </Text>
+              ) : null}
+            </View>
+            <View style={styles.field}>
+              <Text style={[styles.label, { color: theme.text_primary }]}>Oila PIN kodi</Text>
+              <TextInput
+                value={familyPin}
+                onChangeText={setFamilyPin}
+                placeholder="4–8 raqam"
+                placeholderTextColor={theme.text_secondary + '80'}
+                keyboardType="number-pad"
+                secureTextEntry
+                maxLength={8}
+                style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
+              />
+              <Text style={[styles.fieldHint, { color: theme.text_secondary }]}>
+                Oiladagi hammaga ayting — taklif kodini unutganda qayta kirish uchun kerak
+              </Text>
+            </View>
+          </>
+        ) : (
+          <>
+            <View style={[styles.joinMethodToggle, { backgroundColor: theme.surface_secondary }]}>
+              <Pressable
+                style={[
+                  styles.joinMethodButton,
+                  joinMethod === 'code' && [styles.joinMethodButtonActive, { backgroundColor: theme.surface }],
+                ]}
+                onPress={() => {
+                  setJoinMethod('code');
+                  setError('');
+                }}
+              >
+                <Text
+                  style={[
+                    styles.joinMethodText,
+                    { color: theme.text_secondary },
+                    joinMethod === 'code' && { color: theme.brand_primary },
+                  ]}
+                >
+                  Taklif kodi
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[
+                  styles.joinMethodButton,
+                  joinMethod === 'pin' && [styles.joinMethodButtonActive, { backgroundColor: theme.surface }],
+                ]}
+                onPress={() => {
+                  setJoinMethod('pin');
+                  setError('');
+                }}
+              >
+                <Text
+                  style={[
+                    styles.joinMethodText,
+                    { color: theme.text_secondary },
+                    joinMethod === 'pin' && { color: theme.brand_primary },
+                  ]}
+                >
+                  Oila nomi + PIN
+                </Text>
+              </Pressable>
+            </View>
+
+            {joinMethod === 'code' ? (
+              <View style={styles.field}>
+                <Text style={[styles.label, { color: theme.text_primary }]}>Taklif kodi</Text>
+                <TextInput
+                  value={inviteCode}
+                  onChangeText={setInviteCode}
+                  placeholder="FAM-7X2K"
+                  placeholderTextColor={theme.text_secondary + '80'}
+                  autoCapitalize="characters"
+                  style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
+                />
+              </View>
+            ) : (
+              <>
+                <View style={styles.field}>
+                  <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
+                  <TextInput
+                    value={familyName}
+                    onChangeText={setFamilyName}
+                    placeholder="Masalan: Uchqunovichlar"
+                    placeholderTextColor={theme.text_secondary + '80'}
+                    style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
+                  />
+                </View>
+                <View style={styles.field}>
+                  <Text style={[styles.label, { color: theme.text_primary }]}>Oila PIN kodi</Text>
+                  <TextInput
+                    value={familyPin}
+                    onChangeText={setFamilyPin}
+                    placeholder="4–8 raqam"
+                    placeholderTextColor={theme.text_secondary + '80'}
+                    keyboardType="number-pad"
+                    secureTextEntry
+                    maxLength={8}
+                    style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
+                  />
+                  <Text style={[styles.fieldHint, { color: theme.text_secondary }]}>
+                    Taklif kodini unutgan bo'lsangiz, oila nomi va PIN bilan qayta qo'shilishingiz mumkin
+                  </Text>
+                </View>
+              </>
+            )}
+          </>
         )}
-      </Pressable>
-    </View>
+
+        {!isSyncEnabled ? (
+          <Text style={[styles.syncHint, { color: theme.text_secondary }]}>
+            Sinxronizatsiya hozircha o'chiq. Yangi oila qurilmada saqlanadi. Boshqa qurilmadan qo'shilish uchun Supabase sozlang.
+          </Text>
+        ) : null}
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.submitButton,
+            { backgroundColor: theme.brand_primary },
+            (pressed || isCreateDisabled) && styles.submitButtonPressed,
+            isCreateDisabled && { opacity: 0.5 },
+          ]}
+          onPress={handleSubmit}
+          disabled={isCreateDisabled}
+        >
+          {loading ? (
+            <ActivityIndicator color="#ffffff" />
+          ) : (
+            <Text style={styles.submitText}>
+              {mode === 'create' ? 'Oila yaratish' : "Qo'shilish"}
+            </Text>
+          )}
+        </Pressable>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  flex: {
     flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
     paddingHorizontal: 32,
   },
   hero: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 32,
   },
   logoMark: {
-    width: 80,
-    height: 80,
-    marginBottom: 20,
+    width: 72,
+    height: 72,
+    marginBottom: 16,
   },
   title: {
     fontSize: 32,
@@ -177,7 +410,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 16,
     padding: 4,
-    marginBottom: 32,
+    marginBottom: 24,
   },
   modeButton: {
     flex: 1,
@@ -196,6 +429,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
   },
+  joinMethodToggle: {
+    flexDirection: 'row',
+    borderRadius: 14,
+    padding: 4,
+    marginBottom: 20,
+  },
+  joinMethodButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  joinMethodButtonActive: {
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  joinMethodText: {
+    fontSize: 13,
+    fontWeight: '700',
+  },
   errorBox: {
     padding: 14,
     borderRadius: 14,
@@ -207,13 +463,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   field: {
-    marginBottom: 24,
+    marginBottom: 20,
   },
   label: {
     fontSize: 14,
     fontWeight: '800',
     marginBottom: 10,
     letterSpacing: -0.2,
+  },
+  fieldHint: {
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: 8,
+    fontWeight: '500',
   },
   input: {
     borderWidth: 1.5,
@@ -223,10 +485,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  nameInputWrap: {
+    position: 'relative',
+  },
+  nameInput: {
+    paddingRight: 44,
+  },
+  nameStatusIcon: {
+    position: 'absolute',
+    right: 16,
+    top: '50%',
+    marginTop: -9,
+  },
   syncHint: {
     fontSize: 12,
     lineHeight: 18,
-    marginBottom: 24,
+    marginBottom: 20,
     fontWeight: '500',
     textAlign: 'center',
   },
@@ -234,7 +508,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     paddingVertical: 18,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 4,
   },
   submitButtonPressed: {
     opacity: 0.9,

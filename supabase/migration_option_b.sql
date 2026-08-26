@@ -1,20 +1,19 @@
--- Xarajat Supabase schema (Option B: anonymous auth + family membership)
+-- =============================================================================
+-- XARAJAT — Option B migration (EXISTING Supabase project)
+-- Run this ONCE in SQL Editor. Do NOT run the full schema.sql on an old project.
 --
--- NEW empty project  → run this entire file once.
--- EXISTING project   → run migration_option_b.sql only (NOT this file).
---
--- Enable "Anonymous sign-ins" in Supabase Dashboard → Authentication → Providers
+-- Before running:
+--   1. Supabase Dashboard → Authentication → Providers → enable "Anonymous"
+--   2. Back up data if needed (existing families without PIN must be recreated
+--      or given a PIN manually — see note at bottom)
+-- =============================================================================
 
 create extension if not exists pgcrypto with schema extensions;
 
-create table if not exists families (
-  id uuid primary key default gen_random_uuid(),
-  name text unique not null,
-  invite_code text unique not null,
-  pin_hash text not null,
-  created_at timestamptz not null default now()
-);
+-- Step 1: Add PIN column to existing families table (nullable for old rows)
+alter table families add column if not exists pin_hash text;
 
+-- Step 2: Membership table
 create table if not exists family_members (
   user_id uuid not null references auth.users(id) on delete cascade,
   family_id uuid not null references families(id) on delete cascade,
@@ -22,27 +21,11 @@ create table if not exists family_members (
   primary key (user_id, family_id)
 );
 
-create table if not exists expenses (
-  id uuid primary key default gen_random_uuid(),
-  family_id uuid not null references families(id) on delete cascade,
-  amount text not null,
-  category_id text not null,
-  date text not null,
-  note text not null default '',
-  scope text not null check (scope in ('family', 'personal')),
-  spender_name text not null,
-  created_at timestamptz not null default now()
-);
-
-create index if not exists expenses_family_id_idx on expenses(family_id);
-create index if not exists expenses_family_date_idx on expenses(family_id, date desc);
 create index if not exists family_members_family_id_idx on family_members(family_id);
 
-alter table families enable row level security;
 alter table family_members enable row level security;
-alter table expenses enable row level security;
 
--- Invite code generator
+-- Step 3: Functions
 create or replace function generate_invite_code()
 returns text
 language plpgsql
@@ -59,7 +42,6 @@ begin
 end;
 $$;
 
--- Returns family json: { id, name, invite_code }
 create or replace function create_family(p_name text, p_pin text)
 returns json
 language plpgsql
@@ -219,7 +201,7 @@ $$;
 
 grant execute on function check_family_name_available(text) to authenticated;
 
--- RLS: drop permissive policies if re-running (safe for fresh install)
+-- Step 4: Drop OLD open policies
 drop policy if exists "Anyone can create a family" on families;
 drop policy if exists "Anyone can read families by invite code lookup" on families;
 drop policy if exists "Family expenses are readable" on expenses;
@@ -227,6 +209,7 @@ drop policy if exists "Family expenses can be inserted" on expenses;
 drop policy if exists "Family expenses can be updated" on expenses;
 drop policy if exists "Family expenses can be deleted" on expenses;
 
+-- Drop new policies too (safe re-run)
 drop policy if exists "Members can read their families" on families;
 drop policy if exists "Users can read own memberships" on family_members;
 drop policy if exists "Users can delete own memberships" on family_members;
@@ -235,6 +218,7 @@ drop policy if exists "Members can insert family expenses" on expenses;
 drop policy if exists "Members can update family expenses" on expenses;
 drop policy if exists "Members can delete family expenses" on expenses;
 
+-- Step 5: NEW strict policies
 create policy "Members can read their families"
   on families for select
   to authenticated
@@ -283,6 +267,7 @@ create policy "Members can delete family expenses"
     family_id in (select family_id from family_members where user_id = auth.uid())
   );
 
+-- Step 6: Realtime (skip if already added — this causes errors on re-run otherwise)
 do $$
 begin
   if not exists (
@@ -292,3 +277,14 @@ begin
     alter publication supabase_realtime add table expenses;
   end if;
 end $$;
+
+-- =============================================================================
+-- OLD FAMILIES (created before Option B):
+--   They have no PIN. Either delete them and create fresh in the app, OR run:
+--
+--   update families
+--   set pin_hash = extensions.crypt('1234', extensions.gen_salt('bf'))
+--   where pin_hash is null;
+--
+--   (replace 1234 with your chosen PIN, tell all family members)
+-- =============================================================================

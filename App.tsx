@@ -39,7 +39,7 @@ function AppContent() {
   const { theme, isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
-  const { family, isLoaded: familyLoaded, isSyncEnabled, createFamily, joinFamily, leaveFamily } =
+  const { family, isLoaded: familyLoaded, isSyncEnabled, createFamily, joinFamilyByCode, joinFamilyByNameAndPin, checkFamilyNameAvailable, leaveFamily } =
     useFamily();
   const { expenses, isLoaded: expensesLoaded, isSyncing, addExpense, updateExpense, deleteExpenses } =
     useExpenses(family?.id ?? null);
@@ -93,7 +93,9 @@ function AppContent() {
           <FamilySetup
             isSyncEnabled={isSyncEnabled}
             onCreateFamily={createFamily}
-            onJoinFamily={joinFamily}
+            onJoinFamilyByCode={joinFamilyByCode}
+            onJoinFamilyByNameAndPin={joinFamilyByNameAndPin}
+            onCheckFamilyNameAvailable={checkFamilyNameAvailable}
           />
         </View>
       </SafeAreaProvider>

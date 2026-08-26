@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useState } from "react";
+import { ensureAnonymousSession } from "../lib/session";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
 import { Expense } from "../types";
 import { DbExpense } from "../types/family";
@@ -84,6 +85,8 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
     setIsSyncing(true);
 
     try {
+      await ensureAnonymousSession();
+
       const { data, error } = await supabase!
         .from("expenses")
         .select("*")
@@ -148,6 +151,8 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
         return;
       }
 
+      await ensureAnonymousSession();
+
       const { data, error } = await supabase!
         .from("expenses")
         .insert(toDbExpense(expense, familyId))
@@ -175,6 +180,8 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
         await persistLocalExpenses(next);
         return;
       }
+
+      await ensureAnonymousSession();
 
       const { data, error } = await supabase!
         .from("expenses")
@@ -207,6 +214,8 @@ export function useExpenses(familyId: string | null): UseExpensesResult {
         await persistLocalExpenses(next);
         return;
       }
+
+      await ensureAnonymousSession();
 
       const { error } = await supabase!
         .from("expenses")
