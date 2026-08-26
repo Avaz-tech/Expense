@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "완료",
+    "cancel": "취소",
+    "save": "저장",
+    "update": "수정",
+    "delete": "삭제",
+    "clear": "지우기",
+    "unknown": "알 수 없음",
+    "noData": "데이터 없음",
+    "noNote": "메모 없음",
+    "error": "오류가 발생했습니다",
+    "today": "오늘",
+    "currency": "숨"
+  },
+  "language": {
+    "title": "언어 선택",
+    "subtitle": "앱의 모든 안내와 내용을 이해할 수 있도록 언어를 선택하세요.",
+    "search": "언어 검색...",
+    "continue": "계속"
+  },
+  "nav": {
+    "home": "홈",
+    "stats": "보고서",
+    "history": "기록",
+    "members": "팀"
+  },
+  "onboarding": {
+    "subtitle": "가족 예산을 함께 관리하세요. 모든 구성원이 같은 데이터를 볼 수 있습니다.",
+    "createFamily": "가족 만들기",
+    "join": "참여하기",
+    "familyName": "가족 이름",
+    "familyPin": "가족 PIN 코드",
+    "inviteCode": "초대 코드",
+    "familyNameAndPin": "가족 이름 + PIN",
+    "familyNamePlaceholder": "예: 김씨 가족",
+    "familyNameJoinPlaceholder": "예: 이씨 가족",
+    "pinPlaceholder": "4–8자리",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "사용 가능한 이름입니다",
+    "nameTaken": "이미 사용 중인 이름입니다. 다른 이름을 선택하거나 참여하기 탭에서 참여하세요",
+    "pinHint": "가족과 공유하세요 — 초대 코드를 잊었을 때 다시 참여하는 데 필요합니다",
+    "pinJoinHint": "초대 코드를 잊었다면 가족 이름과 PIN으로 다시 참여할 수 있습니다",
+    "syncHint": "동기화가 현재 꺼져 있습니다. 새 가족은 이 기기에 저장됩니다. 다른 기기에서 참여하려면 Supabase를 설정하세요.",
+    "errors": {
+      "familyNameRequired": "가족 이름을 입력하세요",
+      "nameTaken": "이 가족 이름은 이미 사용 중입니다. 다른 이름을 선택하거나 참여하기 탭에서 참여하세요.",
+      "pinRequired": "가족 PIN 코드를 입력하세요",
+      "inviteCodeRequired": "초대 코드를 입력하세요",
+      "syncNotConfigured": "클라우드 동기화가 설정되지 않았습니다. .env 파일을 작성하세요.",
+      "syncRequired": "클라우드 동기화가 설정되지 않았습니다. 참여하려면 인터넷이 필요합니다.",
+      "familyExists": "이 이름의 가족이 이미 존재합니다. 참여하기 탭에서 참여하세요.",
+      "inviteNotFound": "초대 코드를 찾을 수 없습니다",
+      "familyNotFound": "가족을 찾을 수 없거나 PIN이 올바르지 않습니다",
+      "authFailed": "로그인에 실패했습니다. 앱을 다시 시작하세요.",
+      "createFailed": "가족을 만들 수 없습니다",
+      "syncNotConfiguredShort": "클라우드 동기화가 설정되지 않았습니다"
+    }
+  },
+  "family": {
+    "inviteCode": "초대 코드: {{code}}",
+    "offlineMode": "오프라인 모드",
+    "copied": "복사됨",
+    "copiedMessage": "초대 코드 {{code}}가 복사되었습니다",
+    "leaveTitle": "가족 나가기",
+    "leaveMessage": "나가면 이 휴대폰에서 가족 데이터가 더 이상 표시되지 않습니다. 계속하시겠습니까?",
+    "leave": "나가기"
+  },
+  "dashboard": {
+    "monthExpenses": "이번 달 지출",
+    "thisWeek": "이번 주",
+    "today": "오늘",
+    "recentExpenses": "최근 지출",
+    "noExpenses": "아직 지출이 없습니다."
+  },
+  "expense": {
+    "add": "지출 추가",
+    "edit": "지출 수정",
+    "amount": "금액 (숨)",
+    "whoSpent": "누가 지출했나요?",
+    "whoFor": "누구를 위한 지출인가요?",
+    "family": "가족",
+    "personal": "개인",
+    "categories": "카테고리",
+    "date": "날짜",
+    "noteOptional": "메모 (선택)",
+    "namePlaceholder": "이름...",
+    "notePlaceholder": "지출에 대해...",
+    "errors": {
+      "amountRequired": "금액을 입력하세요!",
+      "categoryRequired": "카테고리를 선택하세요!",
+      "nameRequired": "이름을 입력하세요!"
+    }
+  },
+  "history": {
+    "title": "지출 기록",
+    "selected": "{{count}}개 선택됨",
+    "deleteConfirm": "{{count}}개의 지출을 삭제하시겠습니까?",
+    "longPressHint": "길게 눌러 선택하고 삭제",
+    "from": "시작...",
+    "to": "종료...",
+    "noExpensesInRange": "선택한 기간에 지출이 없습니다",
+    "noExpensesYet": "아직 지출이 없습니다"
+  },
+  "stats": {
+    "title": "보고서",
+    "subtitle": "지출 분포",
+    "weekly": "주간",
+    "monthly": "월간",
+    "weekTotal": "이번 주 합계",
+    "monthTotal": "{{month}} 합계"
+  },
+  "members": {
+    "title": "팀",
+    "subtitle": "누가 얼마나 지출했는지",
+    "expenseCount": "지출 {{count}}건",
+    "privacyPolicy": "개인정보 처리방침",
+    "termsOfService": "이용약관"
+  },
+  "categories": {
+    "food": "식료품",
+    "eatout": "외식",
+    "internet": "인터넷 및 통신",
+    "electricity": "전기",
+    "gas": "가스",
+    "gatherings": "카페 / 행사",
+    "transport": "교통",
+    "clothing": "의류",
+    "hygiene": "위생 / 청소",
+    "health": "의약품",
+    "sheep_food": "가축 사료",
+    "sheep_meds": "가축 약",
+    "house": "집 수리",
+    "birthdays": "생일 / 선물",
+    "unplanned": "예상치 못한"
+  },
+  "errors": {
+    "pinLength": "PIN은 4–8자리여야 합니다",
+    "pinDigits": "PIN은 숫자만 포함해야 합니다",
+    "saveFailed": "지출 저장에 실패했습니다",
+    "updateFailed": "지출 수정에 실패했습니다"
+  },
+  "legal": {
+    "privacyTitle": "개인정보 처리방침",
+    "termsTitle": "이용약관",
+    "lastUpdated": "최종 업데이트: 2026년 8월",
+    "privacy": {
+      "s1title": "1. Introduction",
+      "s1content": "Welcome to Xarajat (\"we,\" \"our,\" or \"us\"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the \"App\").",
+      "s2title": "2. Information We Collect",
+      "s2content": "We collect information that you voluntarily provide to us when you register for the App, such as:\n\n• Personal Information: Name, email address, and authentication credentials.\n• Financial Data: Expense amounts, categories, dates, and descriptions that you manually enter into the App to track your family expenses.\n\nWe do not link directly to your bank accounts or collect credit card information.",
+      "s3title": "3. How We Use Your Information",
+      "s3content": "We use the information we collect primarily to provide, maintain, and improve the App, specifically to:\n\n• Create and manage your account.\n• Sync your expense data across your devices and with your designated family members.\n• Provide customer support and respond to your requests.\n• Improve the functionality and user experience of the App.",
+      "s4title": "4. How We Share Your Information",
+      "s4content": "We may share your information in the following situations:\n\n• With Family Members: Data you enter (expenses, notes) is shared with other users who join your designated \"Family\" group within the App.\n• Service Providers: We use third-party services (such as Supabase for database and authentication hosting) to facilitate our App. These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n• Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests by public authorities.",
+      "s5title": "5. Security of Your Information",
+      "s5content": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse."
+    },
+    "terms": {
+      "s1title": "1. Acceptance of Terms",
+      "s1content": "By downloading, accessing, or using Xarajat (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App.",
+      "s2title": "2. Description of Service",
+      "s2content": "Xarajat is a family expense tracking application that allows users to record, categorize, and monitor shared expenses. The App is provided for informational and personal organization purposes only and does not constitute professional financial advice.",
+      "s3title": "3. User Accounts",
+      "s3content": "To use certain features of the App, you must register for an account. You agree to:\n\n• Provide accurate, current, and complete information during registration.\n• Maintain the security of your password and account credentials.\n• Be fully responsible for all use of your account and for any actions that take place using your account.",
+      "s4title": "4. User Content",
+      "s4content": "You are solely responsible for all data, information, text, and other materials (\"Content\") that you upload, post, or otherwise transmit via the App. By submitting Content, you grant us a non-exclusive, worldwide, royalty-free license to use, store, and process your Content solely for the purpose of providing the App's services to you and your designated family group.",
+      "s5title": "5. Prohibited Conduct",
+      "s5content": "You agree not to:\n\n• Use the App for any illegal or unauthorized purpose.\n• Attempt to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the App.\n• Upload invalid data, viruses, worms, or other software agents through the App.\n• Use the App to harass, abuse, or harm another person."
+    }
+  }
+}

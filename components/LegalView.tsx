@@ -1,5 +1,6 @@
 import { ChevronLeft, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react-native';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 
 type LegalViewProps = {
@@ -55,6 +56,7 @@ const TERMS_SECTIONS = [
 
 export function LegalView({ type, onBack }: LegalViewProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   
   const sections = type === 'privacy' ? PRIVACY_SECTIONS : TERMS_SECTIONS;
   const isPrivacy = type === 'privacy';
@@ -74,7 +76,7 @@ export function LegalView({ type, onBack }: LegalViewProps) {
           <ChevronLeft color={theme.text_primary} size={24} />
         </Pressable>
         <Text style={[styles.title, { color: theme.text_primary }]}>
-          {isPrivacy ? 'Maxfiylik siyosati' : 'Foydalanish shartlari'}
+          {isPrivacy ? t('legal.privacyTitle') : t('legal.termsTitle')}
         </Text>
       </View>
 
@@ -88,10 +90,10 @@ export function LegalView({ type, onBack }: LegalViewProps) {
             <Icon size={40} color={theme.brand_primary} strokeWidth={1.5} />
           </View>
           <Text style={[styles.heroTitle, { color: theme.text_primary }]}>
-            {isPrivacy ? 'Privacy Policy' : 'Terms of Service'}
+            {isPrivacy ? t('legal.privacyTitle') : t('legal.termsTitle')}
           </Text>
           <Text style={[styles.heroSubtitle, { color: theme.text_secondary }]}>
-            Last updated: August 2026
+            {t('legal.lastUpdated')}
           </Text>
         </View>
 

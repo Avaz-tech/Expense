@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Fatto",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "update": "Aggiorna",
+    "delete": "Elimina",
+    "clear": "Cancella",
+    "unknown": "Sconosciuto",
+    "noData": "Nessun dato",
+    "noNote": "Nessuna nota",
+    "error": "Si è verificato un errore",
+    "today": "Oggi",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Scegli la lingua",
+    "subtitle": "Seleziona una lingua per capire tutte le istruzioni nell'app.",
+    "search": "Cerca lingue...",
+    "continue": "Continua"
+  },
+  "nav": {
+    "home": "Home",
+    "stats": "Report",
+    "history": "Cronologia",
+    "members": "Squadra"
+  },
+  "onboarding": {
+    "subtitle": "Gestite il budget familiare insieme. Tutti vedono gli stessi dati.",
+    "createFamily": "Crea Famiglia",
+    "join": "Unisciti",
+    "familyName": "Nome Famiglia",
+    "familyPin": "PIN Famiglia",
+    "inviteCode": "Codice Invito",
+    "familyNameAndPin": "Nome + PIN",
+    "familyNamePlaceholder": "Es. Rossi",
+    "familyNameJoinPlaceholder": "Es. Bianchi",
+    "pinPlaceholder": "4–8 cifre",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Nome disponibile",
+    "nameTaken": "Nome già in uso",
+    "pinHint": "Condividi con la famiglia — serve per rientrare se perdi il codice",
+    "pinJoinHint": "Se hai perso il codice, puoi unirti con nome e PIN",
+    "syncHint": "Sincronizzazione disattivata. La famiglia è salvata sul dispositivo.",
+    "errors": {
+      "familyNameRequired": "Inserisci un nome",
+      "nameTaken": "Nome già in uso.",
+      "pinRequired": "Inserisci il PIN",
+      "inviteCodeRequired": "Inserisci il codice di invito",
+      "syncNotConfigured": "Sincronizzazione cloud non configurata.",
+      "syncRequired": "Internet richiesto per unirsi.",
+      "familyExists": "Esiste già una famiglia con questo nome.",
+      "inviteNotFound": "Codice non trovato",
+      "familyNotFound": "Famiglia non trovata o PIN errato",
+      "authFailed": "Accesso fallito. Riavvia.",
+      "createFailed": "Impossibile creare",
+      "syncNotConfiguredShort": "Sincronizzazione non configurata"
+    }
+  },
+  "family": {
+    "inviteCode": "Codice: {{code}}",
+    "offlineMode": "Modalità Offline",
+    "copied": "Copiato",
+    "copiedMessage": "Codice {{code}} copiato",
+    "leaveTitle": "Lascia Famiglia",
+    "leaveMessage": "Se lasci, i dati non saranno più visibili. Continuare?",
+    "leave": "Lascia"
+  },
+  "dashboard": {
+    "monthExpenses": "Spese del mese",
+    "thisWeek": "Questa settimana",
+    "today": "Oggi",
+    "recentExpenses": "Spese Recenti",
+    "noExpenses": "Nessuna spesa ancora."
+  },
+  "expense": {
+    "add": "Aggiungi Spesa",
+    "edit": "Modifica Spesa",
+    "amount": "Importo (som)",
+    "whoSpent": "Chi ha speso?",
+    "whoFor": "Per chi?",
+    "family": "Famiglia",
+    "personal": "Personale",
+    "categories": "Categorie",
+    "date": "Data",
+    "noteOptional": "Nota (opzionale)",
+    "namePlaceholder": "Tuo nome...",
+    "notePlaceholder": "Riguardo a...",
+    "errors": {
+      "amountRequired": "Inserisci importo!",
+      "categoryRequired": "Seleziona categoria!",
+      "nameRequired": "Inserisci un nome!"
+    }
+  },
+  "history": {
+    "title": "Cronologia",
+    "selected": "{{count}} selezionati",
+    "deleteConfirm": "Eliminare {{count}} spese?",
+    "longPressHint": "Tieni premuto per selezionare ed eliminare",
+    "from": "Da...",
+    "to": "A...",
+    "noExpensesInRange": "Nessuna spesa nel periodo",
+    "noExpensesYet": "Nessuna spesa"
+  },
+  "stats": {
+    "title": "Report",
+    "subtitle": "Distribuzione spese",
+    "weekly": "Settimanale",
+    "monthly": "Mensile",
+    "weekTotal": "Totale settimana",
+    "monthTotal": "Totale {{month}}"
+  },
+  "members": {
+    "title": "Squadra",
+    "subtitle": "Chi ha speso quanto",
+    "expenseCount": "{{count}} spese",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Termini di Servizio"
+  },
+  "categories": {
+    "food": "Alimentari",
+    "eatout": "Mangiare fuori",
+    "internet": "Internet e Telefono",
+    "electricity": "Elettricità",
+    "gas": "Gas",
+    "gatherings": "Caffè / Eventi",
+    "transport": "Trasporti",
+    "clothing": "Abbigliamento",
+    "hygiene": "Igiene / Pulizia",
+    "health": "Salute",
+    "sheep_food": "Mangime",
+    "sheep_meds": "Veterinario",
+    "house": "Riparazioni",
+    "birthdays": "Regali",
+    "unplanned": "Imprevisti"
+  },
+  "errors": {
+    "pinLength": "Il PIN deve essere 4–8 cifre",
+    "pinDigits": "Solo numeri nel PIN",
+    "saveFailed": "Salvataggio fallito",
+    "updateFailed": "Aggiornamento fallito"
+  },
+  "legal": {
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Termini di Servizio",
+    "lastUpdated": "Aggiornato: Agosto 2026",
+    "privacy": {
+      "s1title": "1. Introduzione",
+      "s1content": "Benvenuti...",
+      "s2title": "2. Dati",
+      "s2content": "Raccogliamo dati...",
+      "s3title": "3. Uso",
+      "s3content": "Usiamo per...",
+      "s4title": "4. Condivisione",
+      "s4content": "Condividiamo...",
+      "s5title": "5. Sicurezza",
+      "s5content": "Proteggiamo..."
+    },
+    "terms": {
+      "s1title": "1. Accettazione",
+      "s1content": "Accetti...",
+      "s2title": "2. Servizio",
+      "s2content": "Traccia spese...",
+      "s3title": "3. Account",
+      "s3content": "Dati reali...",
+      "s4title": "4. Contenuti",
+      "s4content": "Sei responsabile...",
+      "s5title": "5. Divieti",
+      "s5content": "Nessun abuso..."
+    }
+  }
+}

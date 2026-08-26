@@ -12,9 +12,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { Family } from '../types/family';
+import { LanguagePicker } from './LanguagePicker';
 
 type NameAvailability = 'idle' | 'checking' | 'available' | 'taken';
 
@@ -34,6 +36,7 @@ export function FamilySetup({
   onCheckFamilyNameAvailable,
 }: FamilySetupProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const [mode, setMode] = useState<'create' | 'join'>('create');
   const [joinMethod, setJoinMethod] = useState<'code' | 'pin'>('code');
@@ -88,45 +91,45 @@ export function FamilySetup({
     try {
       if (mode === 'create') {
         if (!familyName.trim()) {
-          setError('Oila nomini kiriting');
+          setError(t('onboarding.errors.familyNameRequired'));
           return;
         }
         if (nameAvailability === 'taken') {
-          setError('Bu oila nomi band. Boshqa nom tanlang yoki "Qo\'shilish" bo\'limidan kiring.');
+          setError(t('onboarding.errors.nameTaken'));
           return;
         }
         if (!familyPin.trim()) {
-          setError('Oila PIN kodini kiriting');
+          setError(t('onboarding.errors.pinRequired'));
           return;
         }
         await onCreateFamily(familyName, familyPin);
       } else if (joinMethod === 'code') {
         if (!inviteCode.trim()) {
-          setError('Taklif kodini kiriting');
+          setError(t('onboarding.errors.inviteCodeRequired'));
           return;
         }
         if (!isSyncEnabled) {
-          setError("Bulut sinxronizatsiyasi sozlanmagan. .env faylini to'ldiring.");
+          setError(t('onboarding.errors.syncNotConfigured'));
           return;
         }
         await onJoinFamilyByCode(inviteCode);
       } else {
         if (!familyName.trim()) {
-          setError('Oila nomini kiriting');
+          setError(t('onboarding.errors.familyNameRequired'));
           return;
         }
         if (!familyPin.trim()) {
-          setError('Oila PIN kodini kiriting');
+          setError(t('onboarding.errors.pinRequired'));
           return;
         }
         if (!isSyncEnabled) {
-          setError("Bulut sinxronizatsiyasi sozlanmagan. Qo'shilish uchun internet kerak.");
+          setError(t('onboarding.errors.syncRequired'));
           return;
         }
         await onJoinFamilyByNameAndPin(familyName, familyPin);
       }
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : 'Xatolik yuz berdi');
+      setError(submitError instanceof Error ? submitError.message : t('common.error'));
     } finally {
       setLoading(false);
     }
@@ -163,6 +166,10 @@ export function FamilySetup({
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        <View style={styles.header}>
+          <LanguagePicker />
+        </View>
+
         <View style={styles.hero}>
           <Image
             source={require('../assets/mark.png')}
@@ -171,7 +178,7 @@ export function FamilySetup({
           />
           <Text style={[styles.title, { color: theme.text_primary }]}>Xarajat</Text>
           <Text style={[styles.subtitle, { color: theme.text_secondary }]}>
-            Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.
+            {t('onboarding.subtitle')}
           </Text>
         </View>
 
@@ -181,7 +188,7 @@ export function FamilySetup({
             onPress={() => switchMode('create')}
           >
             <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'create' && { color: theme.brand_primary }]}>
-              Oila yaratish
+              {t('onboarding.createFamily')}
             </Text>
           </Pressable>
           <Pressable
@@ -189,7 +196,7 @@ export function FamilySetup({
             onPress={() => switchMode('join')}
           >
             <Text style={[styles.modeText, { color: theme.text_secondary }, mode === 'join' && { color: theme.brand_primary }]}>
-              Qo'shilish
+              {t('onboarding.join')}
             </Text>
           </Pressable>
         </View>
@@ -203,12 +210,12 @@ export function FamilySetup({
         {mode === 'create' ? (
           <>
             <View style={styles.field}>
-              <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
+              <Text style={[styles.label, { color: theme.text_primary }]}>{t('onboarding.familyName')}</Text>
               <View style={styles.nameInputWrap}>
                 <TextInput
                   value={familyName}
                   onChangeText={setFamilyName}
-                  placeholder="Masalan: Karimovlar"
+                  placeholder={t('onboarding.familyNamePlaceholder')}
                   placeholderTextColor={theme.text_secondary + '80'}
                   style={[
                     styles.input,
@@ -232,21 +239,21 @@ export function FamilySetup({
               </View>
               {nameAvailability === 'available' ? (
                 <Text style={[styles.fieldHint, { color: theme.brand_secondary }]}>
-                  Bu nom bo'sh — foydalanishingiz mumkin
+                  {t('onboarding.nameAvailable')}
                 </Text>
               ) : null}
               {nameAvailability === 'taken' ? (
                 <Text style={[styles.fieldHint, { color: theme.danger }]}>
-                  Bu nom band. Boshqa nom tanlang yoki "Qo'shilish"dan kiring
+                  {t('onboarding.nameTaken')}
                 </Text>
               ) : null}
             </View>
             <View style={styles.field}>
-              <Text style={[styles.label, { color: theme.text_primary }]}>Oila PIN kodi</Text>
+              <Text style={[styles.label, { color: theme.text_primary }]}>{t('onboarding.familyPin')}</Text>
               <TextInput
                 value={familyPin}
                 onChangeText={setFamilyPin}
-                placeholder="4–8 raqam"
+                placeholder={t('onboarding.pinPlaceholder')}
                 placeholderTextColor={theme.text_secondary + '80'}
                 keyboardType="number-pad"
                 secureTextEntry
@@ -254,7 +261,7 @@ export function FamilySetup({
                 style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
               />
               <Text style={[styles.fieldHint, { color: theme.text_secondary }]}>
-                Oiladagi hammaga ayting — taklif kodini unutganda qayta kirish uchun kerak
+                {t('onboarding.pinHint')}
               </Text>
             </View>
           </>
@@ -278,7 +285,7 @@ export function FamilySetup({
                     joinMethod === 'code' && { color: theme.brand_primary },
                   ]}
                 >
-                  Taklif kodi
+                  {t('onboarding.inviteCode')}
                 </Text>
               </Pressable>
               <Pressable
@@ -298,18 +305,18 @@ export function FamilySetup({
                     joinMethod === 'pin' && { color: theme.brand_primary },
                   ]}
                 >
-                  Oila nomi + PIN
+                  {t('onboarding.familyNameAndPin')}
                 </Text>
               </Pressable>
             </View>
 
             {joinMethod === 'code' ? (
               <View style={styles.field}>
-                <Text style={[styles.label, { color: theme.text_primary }]}>Taklif kodi</Text>
+                <Text style={[styles.label, { color: theme.text_primary }]}>{t('onboarding.inviteCode')}</Text>
                 <TextInput
                   value={inviteCode}
                   onChangeText={setInviteCode}
-                  placeholder="FAM-7X2K"
+                  placeholder={t('onboarding.inviteCodePlaceholder')}
                   placeholderTextColor={theme.text_secondary + '80'}
                   autoCapitalize="characters"
                   style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
@@ -318,21 +325,21 @@ export function FamilySetup({
             ) : (
               <>
                 <View style={styles.field}>
-                  <Text style={[styles.label, { color: theme.text_primary }]}>Oila nomi</Text>
+                  <Text style={[styles.label, { color: theme.text_primary }]}>{t('onboarding.familyName')}</Text>
                   <TextInput
                     value={familyName}
                     onChangeText={setFamilyName}
-                    placeholder="Masalan: Uchqunovichlar"
+                    placeholder={t('onboarding.familyNameJoinPlaceholder')}
                     placeholderTextColor={theme.text_secondary + '80'}
                     style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
                   />
                 </View>
                 <View style={styles.field}>
-                  <Text style={[styles.label, { color: theme.text_primary }]}>Oila PIN kodi</Text>
+                  <Text style={[styles.label, { color: theme.text_primary }]}>{t('onboarding.familyPin')}</Text>
                   <TextInput
                     value={familyPin}
                     onChangeText={setFamilyPin}
-                    placeholder="4–8 raqam"
+                    placeholder={t('onboarding.pinPlaceholder')}
                     placeholderTextColor={theme.text_secondary + '80'}
                     keyboardType="number-pad"
                     secureTextEntry
@@ -340,7 +347,7 @@ export function FamilySetup({
                     style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text_primary }]}
                   />
                   <Text style={[styles.fieldHint, { color: theme.text_secondary }]}>
-                    Taklif kodini unutgan bo'lsangiz, oila nomi va PIN bilan qayta qo'shilishingiz mumkin
+                    {t('onboarding.pinJoinHint')}
                   </Text>
                 </View>
               </>
@@ -350,7 +357,7 @@ export function FamilySetup({
 
         {!isSyncEnabled ? (
           <Text style={[styles.syncHint, { color: theme.text_secondary }]}>
-            Sinxronizatsiya hozircha o'chiq. Yangi oila qurilmada saqlanadi. Boshqa qurilmadan qo'shilish uchun Supabase sozlang.
+            {t('onboarding.syncHint')}
           </Text>
         ) : null}
 
@@ -368,7 +375,7 @@ export function FamilySetup({
             <ActivityIndicator color="#ffffff" />
           ) : (
             <Text style={styles.submitText}>
-              {mode === 'create' ? 'Oila yaratish' : "Qo'shilish"}
+              {mode === 'create' ? t('onboarding.createFamily') : t('onboarding.join')}
             </Text>
           )}
         </Pressable>
@@ -384,6 +391,12 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 32,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+    zIndex: 10,
   },
   hero: {
     alignItems: 'center',

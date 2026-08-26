@@ -1,5 +1,6 @@
 import { User, Users } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { CATEGORIES } from '../constants/categories';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats } from '../types';
@@ -14,32 +15,33 @@ type DashboardProps = {
 
 export function Dashboard({ stats, expenses }: DashboardProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const recentExpenses = expenses.slice(0, 5);
 
   return (
     <View>
       <View style={[styles.header, { backgroundColor: theme.brand_primary }]}>
-        <Text style={[styles.headerSubtitle, { color: 'rgba(255,255,255,0.75)' }]}>Shu oygi xarajatlar</Text>
+        <Text style={[styles.headerSubtitle, { color: 'rgba(255,255,255,0.75)' }]}>{t('dashboard.monthExpenses')}</Text>
         <Text style={styles.headerTotal}>{formatMoney(stats.monthTotal)}</Text>
 
         <View style={styles.summaryRow}>
           <View style={[styles.summaryCard, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
-            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>Shu hafta</Text>
+            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>{t('dashboard.thisWeek')}</Text>
             <Text style={styles.summaryValue}>{formatMoney(stats.weekTotal)}</Text>
           </View>
           <View style={[styles.summaryCard, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
-            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>Bugun</Text>
+            <Text style={[styles.summaryLabel, { color: 'rgba(255,255,255,0.85)' }]}>{t('dashboard.today')}</Text>
             <Text style={styles.summaryValue}>{formatMoney(stats.todayTotal)}</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.content}>
-        <Text style={[styles.sectionTitle, { color: theme.text_primary }]}>Oxirgi xarajatlar</Text>
+        <Text style={[styles.sectionTitle, { color: theme.text_primary }]}>{t('dashboard.recentExpenses')}</Text>
 
         {recentExpenses.length === 0 ? (
           <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-            <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Hali xarajatlar yo'q.</Text>
+            <Text style={[styles.emptyText, { color: theme.text_secondary }]}>{t('dashboard.noExpenses')}</Text>
           </View>
         ) : (
           <View style={styles.list}>
@@ -57,14 +59,14 @@ export function Dashboard({ stats, expenses }: DashboardProps) {
                   <View style={styles.expenseInfo}>
                     <View style={styles.titleRow}>
                       <Text style={[styles.expenseTitle, { color: theme.text_primary }]} numberOfLines={1}>
-                        {category.name}
+                        {t(`categories.${category.id}`)}
                       </Text>
                       {expense.scope === 'personal' && <User size={10} color={theme.brand_primary} />}
                       {expense.scope === 'family' && <Users size={10} color={theme.brand_secondary} />}
                     </View>
                     <Text style={[styles.expenseNote, { color: theme.text_secondary }]} numberOfLines={1}>
                       {expense.spenderName ? `${expense.spenderName} · ` : ''}
-                      {expense.note || 'Izohsiz'}
+                      {expense.note || t('common.noNote')}
                     </Text>
                   </View>
 

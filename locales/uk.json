@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Готово",
+    "cancel": "Скасувати",
+    "save": "Зберегти",
+    "update": "Оновити",
+    "delete": "Видалити",
+    "clear": "Очистити",
+    "unknown": "Невідомо",
+    "noData": "Немає даних",
+    "noNote": "Без нотатки",
+    "error": "Сталася помилка",
+    "today": "Сьогодні",
+    "currency": "сум"
+  },
+  "language": {
+    "title": "Оберіть мову",
+    "subtitle": "Оберіть мову, щоб розуміти всі інструкції.",
+    "search": "Пошук мов...",
+    "continue": "Продовжити"
+  },
+  "nav": {
+    "home": "Головна",
+    "stats": "Звіти",
+    "history": "Історія",
+    "members": "Команда"
+  },
+  "onboarding": {
+    "subtitle": "Керуйте сімейним бюджетом разом.",
+    "createFamily": "Створити сім'ю",
+    "join": "Приєднатися",
+    "familyName": "Назва сім'ї",
+    "familyPin": "PIN-код сім'ї",
+    "inviteCode": "Код запрошення",
+    "familyNameAndPin": "Назва + PIN",
+    "familyNamePlaceholder": "Напр. Петренки",
+    "familyNameJoinPlaceholder": "Напр. Іванови",
+    "pinPlaceholder": "4–8 цифр",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Назва доступна",
+    "nameTaken": "Назва зайнята",
+    "pinHint": "Поділіться з сім'єю",
+    "pinJoinHint": "Можна приєднатися за назвою та PIN",
+    "syncHint": "Синхронізація вимкнена.",
+    "errors": {
+      "familyNameRequired": "Введіть назву",
+      "nameTaken": "Вже використовується.",
+      "pinRequired": "Введіть PIN",
+      "inviteCodeRequired": "Введіть код",
+      "syncNotConfigured": "Хмарна синхронізація не налаштована.",
+      "syncRequired": "Потрібен інтернет.",
+      "familyExists": "Сім'я вже існує.",
+      "inviteNotFound": "Код не знайдено",
+      "familyNotFound": "Сім'ю не знайдено",
+      "authFailed": "Помилка входу.",
+      "createFailed": "Не вдалося створити",
+      "syncNotConfiguredShort": "Немає синхронізації"
+    }
+  },
+  "family": {
+    "inviteCode": "Код: {{code}}",
+    "offlineMode": "Офлайн режим",
+    "copied": "Скопійовано",
+    "copiedMessage": "Код {{code}} скопійовано",
+    "leaveTitle": "Покинути сім'ю",
+    "leaveMessage": "Продовжити?",
+    "leave": "Покинути"
+  },
+  "dashboard": {
+    "monthExpenses": "Витрати цього місяця",
+    "thisWeek": "Цього тижня",
+    "today": "Сьогодні",
+    "recentExpenses": "Останні витрати",
+    "noExpenses": "Поки немає витрат."
+  },
+  "expense": {
+    "add": "Додати витрату",
+    "edit": "Редагувати витрату",
+    "amount": "Сума (сум)",
+    "whoSpent": "Хто витратив?",
+    "whoFor": "Для кого?",
+    "family": "Сім'я",
+    "personal": "Особисте",
+    "categories": "Категорії",
+    "date": "Дата",
+    "noteOptional": "Нотатка (необов'язково)",
+    "namePlaceholder": "Ваше ім'я...",
+    "notePlaceholder": "Про цю витрату...",
+    "errors": {
+      "amountRequired": "Введіть суму!",
+      "categoryRequired": "Оберіть категорію!",
+      "nameRequired": "Введіть ім'я!"
+    }
+  },
+  "history": {
+    "title": "Історія",
+    "selected": "{{count}} обрано",
+    "deleteConfirm": "Видалити {{count}} витрат?",
+    "longPressHint": "Довге натискання для вибору",
+    "from": "З...",
+    "to": "До...",
+    "noExpensesInRange": "Немає витрат",
+    "noExpensesYet": "Поки немає витрат"
+  },
+  "stats": {
+    "title": "Звіти",
+    "subtitle": "Розподіл витрат",
+    "weekly": "Щотижня",
+    "monthly": "Щомісяця",
+    "weekTotal": "Всього за тиждень",
+    "monthTotal": "Всього за {{month}}"
+  },
+  "members": {
+    "title": "Команда",
+    "subtitle": "Хто скільки витратив",
+    "expenseCount": "{{count}} витрат",
+    "privacyPolicy": "Політика конфіденційності",
+    "termsOfService": "Умови використання"
+  },
+  "categories": {
+    "food": "Продукти",
+    "eatout": "Їжа поза домом",
+    "internet": "Інтернет та телефон",
+    "electricity": "Електрика",
+    "gas": "Газ",
+    "gatherings": "Кафе / Події",
+    "transport": "Транспорт",
+    "clothing": "Одяг",
+    "hygiene": "Гігієна",
+    "health": "Здоров'я",
+    "sheep_food": "Корм для тварин",
+    "sheep_meds": "Ветеринар",
+    "house": "Ремонт",
+    "birthdays": "Подарунки",
+    "unplanned": "Незаплановане"
+  },
+  "errors": {
+    "pinLength": "PIN має бути 4–8 цифр",
+    "pinDigits": "Тільки цифри",
+    "saveFailed": "Не вдалося зберегти",
+    "updateFailed": "Не вдалося оновити"
+  },
+  "legal": {
+    "privacyTitle": "Політика конфіденційності",
+    "termsTitle": "Умови використання",
+    "lastUpdated": "Оновлено: Серпень 2026",
+    "privacy": {
+      "s1title": "1. Вступ",
+      "s1content": "Ласкаво просимо...",
+      "s2title": "2. Інформація",
+      "s2content": "Ми збираємо...",
+      "s3title": "3. Використання",
+      "s3content": "Ми використовуємо...",
+      "s4title": "4. Спільний доступ",
+      "s4content": "Ми ділимося...",
+      "s5title": "5. Безпека",
+      "s5content": "Ми захищаємо..."
+    },
+    "terms": {
+      "s1title": "1. Прийняття",
+      "s1content": "Ви погоджуєтесь...",
+      "s2title": "2. Сервіс",
+      "s2content": "Додаток...",
+      "s3title": "3. Акаунти",
+      "s3content": "Точні дані...",
+      "s4title": "4. Контент",
+      "s4content": "Ви несете відповідальність...",
+      "s5title": "5. Заборони",
+      "s5content": "Без зловживань..."
+    }
+  }
+}

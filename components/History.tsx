@@ -1,6 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ArrowRight, Calendar, Check, List, Trash2, User, Users, X } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { CATEGORIES } from '../constants/categories';
 import { useTheme } from '../context/ThemeContext';
@@ -17,6 +18,7 @@ type HistoryProps = {
 
 export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
   const [activePicker, setActivePicker] = useState<'start' | 'end' | null>(null);
@@ -65,12 +67,12 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
     if (ids.length === 0) return;
 
     Alert.alert(
-      "O'chirish",
-      `${ids.length} ta xarajatni o'chirmoqchimisiz?`,
+      t('common.delete'),
+      t('history.deleteConfirm', { count: ids.length }),
       [
-        { text: 'Bekor qilish', style: 'cancel' },
+        { text: t('common.cancel'), style: 'cancel' },
         {
-          text: "O'chirish",
+          text: t('common.delete'),
           style: 'destructive',
           onPress: async () => {
             await onDeleteMany(ids);
@@ -123,10 +125,10 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
         {isSelecting ? (
           <>
             <Pressable onPress={exitSelection} hitSlop={8}>
-              <Text style={[styles.cancelText, { color: theme.brand_primary }]}>Bekor qilish</Text>
+              <Text style={[styles.cancelText, { color: theme.brand_primary }]}>{t('common.cancel')}</Text>
             </Pressable>
             <Text style={[styles.title, styles.titleCenter, { color: theme.text_primary }]}>
-              {selectedCount} ta tanlandi
+              {t('history.selected', { count: selectedCount })}
             </Text>
             <Pressable
               onPress={confirmBulkDelete}
@@ -142,13 +144,13 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
         ) : (
           <>
             <Text style={[styles.title, styles.titleLeft, { color: theme.text_primary }]}>
-              Xarajatlar tarixi
+              {t('history.title')}
             </Text>
             <View style={styles.headerActions}>
               {(startDate || endDate) && (
                 <Pressable onPress={clearFilters} style={[styles.clearFilter, { backgroundColor: theme.danger + '15' }]}>
                   <X size={14} color={theme.danger} />
-                  <Text style={[styles.clearText, { color: theme.danger }]}>Tozalash</Text>
+                  <Text style={[styles.clearText, { color: theme.danger }]}>{t('common.clear')}</Text>
                 </Pressable>
               )}
             </View>
@@ -158,7 +160,7 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
 
       {!isSelecting && filteredDates.length > 0 ? (
         <Text style={[styles.hintText, { color: theme.text_secondary }]}>
-          O'chirish uchun uzoq bosing va tanlang
+          {t('history.longPressHint')}
         </Text>
       ) : null}
 
@@ -173,7 +175,7 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
         >
           <Calendar size={14} color={startDate ? theme.brand_primary : theme.text_secondary} />
           <Text style={[styles.dateBtnText, { color: theme.text_secondary }, startDate && { color: theme.brand_primary }]}>
-            {startDate ? formatDisplayDate(startDate) : 'Dan...'}
+            {startDate ? formatDisplayDate(startDate) : t('history.from')}
           </Text>
         </Pressable>
 
@@ -189,7 +191,7 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
         >
           <Calendar size={14} color={endDate ? theme.brand_primary : theme.text_secondary} />
           <Text style={[styles.dateBtnText, { color: theme.text_secondary }, endDate && { color: theme.brand_primary }]}>
-            {endDate ? formatDisplayDate(endDate) : 'Gacha...'}
+            {endDate ? formatDisplayDate(endDate) : t('history.to')}
           </Text>
         </Pressable>
       </View>
@@ -210,7 +212,7 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
 
       {Platform.OS === 'ios' && activePicker ? (
         <Pressable style={styles.doneBtn} onPress={() => setActivePicker(null)}>
-          <Text style={[styles.doneBtnText, { color: theme.brand_primary }]}>Tayyor</Text>
+          <Text style={[styles.doneBtnText, { color: theme.brand_primary }]}>{t('common.done')}</Text>
         </Pressable>
       ) : null}
 
@@ -220,9 +222,7 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
             <List size={32} color={theme.text_secondary} opacity={0.5} />
           </View>
           <Text style={[styles.emptyText, { color: theme.text_secondary }]}>
-            {startDate || endDate
-              ? 'Tanlangan oraliqda xarajatlar topilmadi'
-              : "Hozircha xarajatlar yo'q"}
+            {startDate || endDate ? t('history.noExpensesInRange') : t('history.noExpensesYet')}
           </Text>
         </View>
       ) : (
@@ -278,13 +278,13 @@ export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
                         <View style={styles.expenseInfo}>
                           <View style={styles.titleRow}>
                             <Text style={[styles.expenseTitle, { color: theme.text_primary }]} numberOfLines={1}>
-                              {category.name}
+                              {t(`categories.${category.id}`)}
                             </Text>
                             {expense.scope === 'personal' && <User size={10} color={theme.brand_primary} />}
                             {expense.scope === 'family' && <Users size={10} color={theme.brand_secondary} />}
                           </View>
                           <Text style={[styles.expenseNote, { color: theme.text_secondary }]} numberOfLines={1}>
-                            {expense.spenderName ? expense.spenderName : "Noma'lum"}
+                            {expense.spenderName ? expense.spenderName : t('common.unknown')}
                             {expense.note ? ` · ${expense.note}` : ''}
                           </Text>
                         </View>

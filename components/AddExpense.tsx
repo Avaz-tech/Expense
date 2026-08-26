@@ -1,6 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Calendar, ChevronLeft, User, Users } from 'lucide-react-native';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -35,6 +36,7 @@ type AddExpenseProps = {
 
 export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const isEditing = Boolean(expense);
   const [amount, setAmount] = useState(expense?.amount ?? '');
@@ -69,15 +71,15 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
     const parsedAmount = parseFloat(sanitizedAmount);
 
     if (!sanitizedAmount || isNaN(parsedAmount) || parsedAmount <= 0) {
-      setError('Summani kiriting!');
+      setError(t('expense.errors.amountRequired'));
       return;
     }
     if (!categoryId) {
-      setError('Kategoriyani tanlang!');
+      setError(t('expense.errors.categoryRequired'));
       return;
     }
     if (!spenderName.trim()) {
-      setError('Ismni kiriting!');
+      setError(t('expense.errors.nameRequired'));
       return;
     }
 
@@ -95,7 +97,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
           <ChevronLeft size={20} color={theme.text_primary} />
         </Pressable>
         <Text style={[styles.title, { color: theme.text_primary }]}>
-          {isEditing ? 'Xarajatni tahrirlash' : "Xarajat qo'shish"}
+          {isEditing ? t('expense.edit') : t('expense.add')}
         </Text>
         <View style={styles.topBarSpacer} />
       </View>
@@ -108,7 +110,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
         ) : null}
 
         <View style={styles.amountSection}>
-          <Text style={[styles.amountLabel, { color: theme.text_secondary }]}>Summa (so'm)</Text>
+          <Text style={[styles.amountLabel, { color: theme.text_secondary }]}>{t('expense.amount')}</Text>
           <TextInput
             value={amount}
             onChangeText={setAmount}
@@ -121,18 +123,18 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kim sarfladi?</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>{t('expense.whoSpent')}</Text>
           <TextInput
             value={spenderName}
             onChangeText={setSpenderName}
-            placeholder="Ismingiz..."
+            placeholder={t('expense.namePlaceholder')}
             placeholderTextColor={theme.text_secondary + '80'}
             style={[styles.nameInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border, color: theme.text_primary }]}
           />
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kim uchun?</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>{t('expense.whoFor')}</Text>
           <View style={[styles.scopeToggle, { backgroundColor: theme.surface_secondary }]}>
             <Pressable
               style={[styles.scopeButton, scope === 'family' && [styles.scopeButtonActive, { backgroundColor: theme.surface }]]}
@@ -140,7 +142,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
             >
               <Users size={16} color={scope === 'family' ? theme.brand_primary : theme.text_secondary} />
               <Text style={[styles.scopeText, { color: theme.text_secondary }, scope === 'family' && { color: theme.brand_primary }]}>
-                Oilaviy
+                {t('expense.family')}
               </Text>
             </Pressable>
             <Pressable
@@ -149,14 +151,14 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
             >
               <User size={16} color={scope === 'personal' ? theme.brand_primary : theme.text_secondary} />
               <Text style={[styles.scopeText, { color: theme.text_secondary }, scope === 'personal' && { color: theme.brand_primary }]}>
-                Shaxsiy
+                {t('expense.personal')}
               </Text>
             </Pressable>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Kategoriyalar</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>{t('expense.categories')}</Text>
           <View style={styles.categoryGrid}>
             {CATEGORIES.map((category) => {
               const isSelected = categoryId === category.id;
@@ -192,7 +194,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
                     ]}
                     numberOfLines={1}
                   >
-                    {category.name}
+                    {t(`categories.${category.id}`)}
                   </Text>
                 </Pressable>
               );
@@ -201,7 +203,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Sana</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>{t('expense.date')}</Text>
           <Pressable
             style={[styles.dateInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border }]}
             onPress={() => setShowDatePicker(true)}
@@ -220,17 +222,17 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
           )}
           {Platform.OS === 'ios' && showDatePicker ? (
             <Pressable style={styles.dateDoneButton} onPress={() => setShowDatePicker(false)}>
-              <Text style={[styles.dateDoneText, { color: theme.brand_primary }]}>Tayyor</Text>
+              <Text style={[styles.dateDoneText, { color: theme.brand_primary }]}>{t('common.done')}</Text>
             </Pressable>
           ) : null}
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>Izoh (ixtiyoriy)</Text>
+          <Text style={[styles.sectionLabel, { color: theme.text_primary }]}>{t('expense.noteOptional')}</Text>
           <TextInput
             value={note}
             onChangeText={setNote}
-            placeholder="Xarajat haqida..."
+            placeholder={t('expense.notePlaceholder')}
             placeholderTextColor={theme.text_secondary + '80'}
             style={[styles.noteInput, { backgroundColor: theme.surface_secondary, borderColor: theme.border, color: theme.text_primary }]}
           />
@@ -244,7 +246,7 @@ export function AddExpense({ expense, onSave, onCancel }: AddExpenseProps) {
           ]}
           onPress={handleSubmit}
         >
-          <Text style={styles.saveButtonText}>{isEditing ? 'Yangilash' : 'Saqlash'}</Text>
+          <Text style={styles.saveButtonText}>{isEditing ? t('common.update') : t('common.save')}</Text>
         </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>

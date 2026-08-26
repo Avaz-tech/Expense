@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "完了",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "update": "更新",
+    "delete": "削除",
+    "clear": "クリア",
+    "unknown": "不明",
+    "noData": "データなし",
+    "noNote": "メモなし",
+    "error": "エラーが発生しました",
+    "today": "今日",
+    "currency": "スム"
+  },
+  "language": {
+    "title": "言語を選択",
+    "subtitle": "アプリのすべての説明とコンテンツを理解するために言語を選択してください。",
+    "search": "言語を検索...",
+    "continue": "続ける"
+  },
+  "nav": {
+    "home": "ホーム",
+    "stats": "レポート",
+    "history": "履歴",
+    "members": "チーム"
+  },
+  "onboarding": {
+    "subtitle": "家族の予算を一緒に管理しましょう。",
+    "createFamily": "家族を作成",
+    "join": "参加",
+    "familyName": "家族名",
+    "familyPin": "家族PINコード",
+    "inviteCode": "招待コード",
+    "familyNameAndPin": "家族名 + PIN",
+    "familyNamePlaceholder": "例：田中家",
+    "familyNameJoinPlaceholder": "例：佐藤家",
+    "pinPlaceholder": "4–8桁",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "この名前は使用可能です",
+    "nameTaken": "この名前は使用中です",
+    "pinHint": "家族と共有してください",
+    "pinJoinHint": "招待コードを忘れた場合、家族名とPINで参加できます",
+    "syncHint": "同期は現在オフです。",
+    "errors": {
+      "familyNameRequired": "家族名を入力",
+      "nameTaken": "この家族名は使用中です。",
+      "pinRequired": "PINを入力",
+      "inviteCodeRequired": "招待コードを入力",
+      "syncNotConfigured": "クラウド同期が設定されていません。",
+      "syncRequired": "参加にはインターネットが必要です。",
+      "familyExists": "この名前の家族は既に存在します。",
+      "inviteNotFound": "招待コードが見つかりません",
+      "familyNotFound": "家族が見つからないかPINが間違っています",
+      "authFailed": "ログインに失敗しました。",
+      "createFailed": "家族を作成できませんでした",
+      "syncNotConfiguredShort": "同期未設定"
+    }
+  },
+  "family": {
+    "inviteCode": "招待コード: {{code}}",
+    "offlineMode": "オフラインモード",
+    "copied": "コピーしました",
+    "copiedMessage": "招待コード {{code}} をコピーしました",
+    "leaveTitle": "家族を退出",
+    "leaveMessage": "退出すると、この端末で家族データは表示されなくなります。続けますか？",
+    "leave": "退出"
+  },
+  "dashboard": {
+    "monthExpenses": "今月の支出",
+    "thisWeek": "今週",
+    "today": "今日",
+    "recentExpenses": "最近の支出",
+    "noExpenses": "支出はまだありません。"
+  },
+  "expense": {
+    "add": "支出を追加",
+    "edit": "支出を編集",
+    "amount": "金額（スム）",
+    "whoSpent": "誰が支出？",
+    "whoFor": "誰のため？",
+    "family": "家族",
+    "personal": "個人",
+    "categories": "カテゴリ",
+    "date": "日付",
+    "noteOptional": "メモ（任意）",
+    "namePlaceholder": "名前...",
+    "notePlaceholder": "この支出について...",
+    "errors": {
+      "amountRequired": "金額を入力！",
+      "categoryRequired": "カテゴリを選択！",
+      "nameRequired": "名前を入力！"
+    }
+  },
+  "history": {
+    "title": "支出履歴",
+    "selected": "{{count}}件選択",
+    "deleteConfirm": "{{count}}件の支出を削除しますか？",
+    "longPressHint": "長押しで選択して削除",
+    "from": "開始...",
+    "to": "終了...",
+    "noExpensesInRange": "選択範囲に支出がありません",
+    "noExpensesYet": "支出はまだありません"
+  },
+  "stats": {
+    "title": "レポート",
+    "subtitle": "支出の内訳",
+    "weekly": "週間",
+    "monthly": "月間",
+    "weekTotal": "今週の合計",
+    "monthTotal": "{{month}} 合計"
+  },
+  "members": {
+    "title": "チーム",
+    "subtitle": "誰がいくら使ったか",
+    "expenseCount": "支出 {{count}}件",
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfService": "利用規約"
+  },
+  "categories": {
+    "food": "食料品",
+    "eatout": "外食",
+    "internet": "インターネット・通信",
+    "electricity": "電気",
+    "gas": "ガス",
+    "gatherings": "カフェ・イベント",
+    "transport": "交通",
+    "clothing": "衣類",
+    "hygiene": "衛生・清掃",
+    "health": "医薬品",
+    "sheep_food": "家畜飼料",
+    "sheep_meds": "家畜薬",
+    "house": "家の修繕",
+    "birthdays": "誕生日・ギフト",
+    "unplanned": "予定外"
+  },
+  "errors": {
+    "pinLength": "PINは4–8桁",
+    "pinDigits": "PINは数字のみ",
+    "saveFailed": "保存に失敗",
+    "updateFailed": "更新に失敗"
+  },
+  "legal": {
+    "privacyTitle": "プライバシーポリシー",
+    "termsTitle": "利用規約",
+    "lastUpdated": "最終更新：2026年8月",
+    "privacy": {
+      "s1title": "1. Introduction",
+      "s1content": "Welcome to Xarajat (\"we,\" \"our,\" or \"us\"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the \"App\").",
+      "s2title": "2. Information We Collect",
+      "s2content": "We collect information that you voluntarily provide to us when you register for the App, such as:\n\n• Personal Information: Name, email address, and authentication credentials.\n• Financial Data: Expense amounts, categories, dates, and descriptions that you manually enter into the App to track your family expenses.\n\nWe do not link directly to your bank accounts or collect credit card information.",
+      "s3title": "3. How We Use Your Information",
+      "s3content": "We use the information we collect primarily to provide, maintain, and improve the App, specifically to:\n\n• Create and manage your account.\n• Sync your expense data across your devices and with your designated family members.\n• Provide customer support and respond to your requests.\n• Improve the functionality and user experience of the App.",
+      "s4title": "4. How We Share Your Information",
+      "s4content": "We may share your information in the following situations:\n\n• With Family Members: Data you enter (expenses, notes) is shared with other users who join your designated \"Family\" group within the App.\n• Service Providers: We use third-party services (such as Supabase for database and authentication hosting) to facilitate our App. These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n• Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests by public authorities.",
+      "s5title": "5. Security of Your Information",
+      "s5content": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse."
+    },
+    "terms": {
+      "s1title": "1. Acceptance of Terms",
+      "s1content": "By downloading, accessing, or using Xarajat (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App.",
+      "s2title": "2. Description of Service",
+      "s2content": "Xarajat is a family expense tracking application that allows users to record, categorize, and monitor shared expenses. The App is provided for informational and personal organization purposes only and does not constitute professional financial advice.",
+      "s3title": "3. User Accounts",
+      "s3content": "To use certain features of the App, you must register for an account. You agree to:\n\n• Provide accurate, current, and complete information during registration.\n• Maintain the security of your password and account credentials.\n• Be fully responsible for all use of your account and for any actions that take place using your account.",
+      "s4title": "4. User Content",
+      "s4content": "You are solely responsible for all data, information, text, and other materials (\"Content\") that you upload, post, or otherwise transmit via the App. By submitting Content, you grant us a non-exclusive, worldwide, royalty-free license to use, store, and process your Content solely for the purpose of providing the App's services to you and your designated family group.",
+      "s5title": "5. Prohibited Conduct",
+      "s5content": "You agree not to:\n\n• Use the App for any illegal or unauthorized purpose.\n• Attempt to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the App.\n• Upload invalid data, viruses, worms, or other software agents through the App.\n• Use the App to harass, abuse, or harm another person."
+    }
+  }
+}

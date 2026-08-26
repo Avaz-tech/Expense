@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Bitti",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "update": "Güncelle",
+    "delete": "Sil",
+    "clear": "Temizle",
+    "unknown": "Bilinmeyen",
+    "noData": "Veri yok",
+    "noNote": "Not yok",
+    "error": "Bir hata oluştu",
+    "today": "Bugün",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Dilinizi seçin",
+    "subtitle": "Uygulamadaki tüm talimatları ve içeriği anlamak için bir dil seçin.",
+    "search": "Dil ara...",
+    "continue": "Devam"
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "stats": "Raporlar",
+    "history": "Geçmiş",
+    "members": "Ekip"
+  },
+  "onboarding": {
+    "subtitle": "Aile bütçesini birlikte yönetin. Tüm üyeler aynı verileri görür.",
+    "createFamily": "Aile oluştur",
+    "join": "Katıl",
+    "familyName": "Aile adı",
+    "familyPin": "Aile PIN kodu",
+    "inviteCode": "Davet kodu",
+    "familyNameAndPin": "Aile adı + PIN",
+    "familyNamePlaceholder": "Örn: Yılmazlar",
+    "familyNameJoinPlaceholder": "Örn: Demirler",
+    "pinPlaceholder": "4–8 rakam",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Bu isim kullanılabilir",
+    "nameTaken": "Bu isim alınmış. Başka bir isim seçin veya Katıl sekmesinden katılın",
+    "pinHint": "Ailenizle paylaşın — davet kodu kaybolursa tekrar katılmak için gereklidir",
+    "pinJoinHint": "Davet kodunu kaybettiyseniz aile adı ve PIN ile katılabilirsiniz",
+    "syncHint": "Senkronizasyon şu anda kapalı. Yeni aile bu cihaza kaydedilir. Diğer cihazlardan katılmak için Supabase'i ayarlayın.",
+    "errors": {
+      "familyNameRequired": "Aile adını girin",
+      "nameTaken": "Bu aile adı alınmış. Başka bir isim seçin veya Katıl sekmesinden katılın.",
+      "pinRequired": "Aile PIN kodunu girin",
+      "inviteCodeRequired": "Davet kodunu girin",
+      "syncNotConfigured": "Bulut senkronizasyonu yapılandırılmamış. .env dosyasını doldurun.",
+      "syncRequired": "Bulut senkronizasyonu yapılandırılmamış. Katılmak için internet gereklidir.",
+      "familyExists": "Bu isimde bir aile zaten var. Katıl sekmesinden katılın.",
+      "inviteNotFound": "Davet kodu bulunamadı",
+      "familyNotFound": "Aile bulunamadı veya PIN yanlış",
+      "authFailed": "Giriş başarısız oldu. Uygulamayı yeniden başlatın.",
+      "createFailed": "Aile oluşturulamadı",
+      "syncNotConfiguredShort": "Bulut senkronizasyonu yapılandırılmamış"
+    }
+  },
+  "family": {
+    "inviteCode": "Davet kodu: {{code}}",
+    "offlineMode": "Çevrimdışı mod",
+    "copied": "Kopyalandı",
+    "copiedMessage": "Davet kodu {{code}} kopyalandı",
+    "leaveTitle": "Aileyi terk et",
+    "leaveMessage": "Ayrılırsanız, aile verileri artık bu telefonda görünmez. Devam edilsin mi?",
+    "leave": "Ayrıl"
+  },
+  "dashboard": {
+    "monthExpenses": "Bu ayki harcamalar",
+    "thisWeek": "Bu hafta",
+    "today": "Bugün",
+    "recentExpenses": "Son harcamalar",
+    "noExpenses": "Henüz harcama yok."
+  },
+  "expense": {
+    "add": "Harcama ekle",
+    "edit": "Harcamayı düzenle",
+    "amount": "Tutar (som)",
+    "whoSpent": "Kim harcadı?",
+    "whoFor": "Kimin için?",
+    "family": "Aile",
+    "personal": "Kişisel",
+    "categories": "Kategoriler",
+    "date": "Tarih",
+    "noteOptional": "Not (isteğe bağlı)",
+    "namePlaceholder": "Adınız...",
+    "notePlaceholder": "Bu harcama hakkında...",
+    "errors": {
+      "amountRequired": "Bir tutar girin!",
+      "categoryRequired": "Bir kategori seçin!",
+      "nameRequired": "Bir isim girin!"
+    }
+  },
+  "history": {
+    "title": "Harcama geçmişi",
+    "selected": "{{count}} seçildi",
+    "deleteConfirm": "{{count}} harcama silinsin mi?",
+    "longPressHint": "Seçmek ve silmek için uzun basın",
+    "from": "Başlangıç...",
+    "to": "Bitiş...",
+    "noExpensesInRange": "Seçilen aralıkta harcama bulunamadı",
+    "noExpensesYet": "Henüz harcama yok"
+  },
+  "stats": {
+    "title": "Raporlar",
+    "subtitle": "Harcama dağılımı",
+    "weekly": "Haftalık",
+    "monthly": "Aylık",
+    "weekTotal": "Bu hafta toplam",
+    "monthTotal": "{{month}} toplamı"
+  },
+  "members": {
+    "title": "Ekip",
+    "subtitle": "Kim ne kadar harcadı",
+    "expenseCount": "{{count}} harcama",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfService": "Hizmet Şartları"
+  },
+  "categories": {
+    "food": "Mutfak",
+    "eatout": "Dışarıda yeme",
+    "internet": "İnternet ve Telefon",
+    "electricity": "Elektrik",
+    "gas": "Gaz",
+    "gatherings": "Kafe / Etkinlikler",
+    "transport": "Ulaşım",
+    "clothing": "Giyim",
+    "hygiene": "Temizlik / Hijyen",
+    "health": "Sağlık",
+    "sheep_food": "Hayvan yemi",
+    "sheep_meds": "Veteriner hekim",
+    "house": "Ev onarımı",
+    "birthdays": "Doğum günü / Hediye",
+    "unplanned": "Planlanmayan"
+  },
+  "errors": {
+    "pinLength": "PIN 4–8 rakamdan oluşmalıdır",
+    "pinDigits": "PIN sadece rakam içermelidir",
+    "saveFailed": "Harcama kaydedilemedi",
+    "updateFailed": "Harcama güncellenemedi"
+  },
+  "legal": {
+    "privacyTitle": "Gizlilik Politikası",
+    "termsTitle": "Hizmet Şartları",
+    "lastUpdated": "Son güncelleme: Ağustos 2026",
+    "privacy": {
+      "s1title": "1. Giriş",
+      "s1content": "Xarajat'a (\"biz\", \"bizim\" veya \"bize\") hoş geldiniz. Gizliliğinizi korumayı taahhüt ediyoruz. Bu Gizlilik Politikası, mobil uygulamamızı (\"Uygulama\") kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, açıkladığımızı ve koruduğumuzu açıklar.",
+      "s2title": "2. Topladığımız Bilgiler",
+      "s2content": "Uygulamaya kaydolduğunuzda bize gönüllü olarak sağladığınız bilgileri topluyoruz, örneğin:\n\n• Kişisel Bilgiler: Ad, e-posta adresi ve kimlik doğrulama bilgileri.\n• Finansal Veriler: Aile harcamalarınızı izlemek için Uygulamaya manuel olarak girdiğiniz harcama tutarları, kategorileri, tarihleri ve açıklamaları.\n\nDoğrudan banka hesaplarınıza bağlantı kurmuyoruz veya kredi kartı bilgilerinizi toplamıyoruz.",
+      "s3title": "3. Bilgilerinizi Nasıl Kullanıyoruz",
+      "s3content": "Topladığımız bilgileri öncelikle Uygulamayı sağlamak, sürdürmek ve iyileştirmek için, özellikle aşağıdakileri yapmak için kullanırız:\n\n• Hesabınızı oluşturmak ve yönetmek.\n• Harcama verilerinizi cihazlarınız arasında ve belirlediğiniz aile üyeleriyle senkronize etmek.\n• Müşteri desteği sağlamak ve taleplerinize yanıt vermek.\n• Uygulamanın işlevselliğini ve kullanıcı deneyimini iyileştirmek.",
+      "s4title": "4. Bilgilerinizi Nasıl Paylaşıyoruz",
+      "s4content": "Bilgilerinizi aşağıdaki durumlarda paylaşabiliriz:\n\n• Aile Üyeleriyle: Girdiğiniz veriler (harcamalar, notlar), Uygulama içinde belirlediğiniz \"Aile\" grubuna katılan diğer kullanıcılarla paylaşılır.\n• Hizmet Sağlayıcılar: Uygulamamızı kolaylaştırmak için üçüncü taraf hizmetleri (veritabanı ve kimlik doğrulama barındırma için Supabase gibi) kullanıyoruz. Bu üçüncü tarafların Kişisel Bilgilerinize yalnızca bu görevleri bizim adımıza gerçekleştirmek için erişimi vardır ve bilgileri başka herhangi bir amaçla açıklamamak veya kullanmamakla yükümlüdürler.\n• Yasal Gereksinimler: Yasa gereği veya kamu makamlarının geçerli taleplerine yanıt olarak bilgilerinizi açıklamamız gerekirse açıklayabiliriz.",
+      "s5title": "5. Bilgilerinizin Güvenliği",
+      "s5content": "Kişisel bilgilerinizi korumaya yardımcı olmak için idari, teknik ve fiziksel güvenlik önlemleri kullanıyoruz. Bize sağladığınız kişisel bilgileri korumak için makul adımlar atmış olsak da, lütfen çabalarımıza rağmen hiçbir güvenlik önleminin mükemmel veya aşılamaz olmadığını ve hiçbir veri iletim yönteminin herhangi bir engellemeye veya diğer türde yanlış kullanıma karşı garanti edilemeyeceğini unutmayın."
+    },
+    "terms": {
+      "s1title": "1. Şartların Kabulü",
+      "s1content": "Xarajat'ı (\"Uygulama\") indirerek, erişerek veya kullanarak bu Hizmet Şartlarına (\"Şartlar\") bağlı kalmayı kabul edersiniz. Bu Şartları kabul etmiyorsanız Uygulamayı kullanmayın.",
+      "s2title": "2. Hizmetin Tanımı",
+      "s2content": "Xarajat, kullanıcıların paylaşılan harcamaları kaydetmesine, kategorize etmesine ve izlemesine olanak tanıyan bir aile harcama izleme uygulamasıdır. Uygulama yalnızca bilgi amaçlı ve kişisel organizasyon amacıyla sağlanmıştır ve profesyonel finansal tavsiye teşkil etmez.",
+      "s3title": "3. Kullanıcı Hesapları",
+      "s3content": "Uygulamanın belirli özelliklerini kullanmak için bir hesaba kaydolmanız gerekir. Aşağıdakileri yapmayı kabul edersiniz:\n\n• Kayıt sırasında doğru, güncel ve eksiksiz bilgi sağlamak.\n• Şifrenizin ve hesap bilgilerinizin güvenliğini sağlamak.\n• Hesabınızın tüm kullanımından ve hesabınızı kullanarak gerçekleştirilen her türlü eylemden tamamen sorumlu olmak.",
+      "s4title": "4. Kullanıcı İçeriği",
+      "s4content": "Uygulama aracılığıyla yüklediğiniz, yayınladığınız veya başka bir şekilde ilettiğiniz tüm veriler, bilgiler, metinler ve diğer materyallerden (\"İçerik\") yalnızca siz sorumlusunuz. İçerik göndererek bize, İçeriğinizi yalnızca Uygulamanın hizmetlerini size ve belirlediğiniz aile grubunuza sağlamak amacıyla kullanmamız, depolamamız ve işlememiz için özel olmayan, dünya çapında, telifsiz bir lisans vermiş olursunuz.",
+      "s5title": "5. Yasaklanan Davranışlar",
+      "s5content": "Aşağıdakileri yapmamayı kabul edersiniz:\n\n• Uygulamayı herhangi bir yasa dışı veya yetkisiz amaç için kullanmak.\n• Sistemin bütünlüğüne veya güvenliğine müdahale etmeye veya Uygulamayı çalıştıran sunuculara yapılan veya sunuculardan gelen herhangi bir iletimi deşifre etmeye çalışmak.\n• Uygulama aracılığıyla geçersiz veri, virüs, solucan veya diğer yazılım ajanları yüklemek.\n• Uygulamayı başka bir kişiyi taciz etmek, istismar etmek veya ona zarar vermek için kullanmak."
+    }
+  }
+}

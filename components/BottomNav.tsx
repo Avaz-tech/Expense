@@ -1,6 +1,7 @@
 import { Home, List, PieChart, PlusCircle, UsersRound } from 'lucide-react-native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 
 type Tab = 'home' | 'stats' | 'add' | 'history' | 'members';
@@ -34,6 +35,7 @@ function NavItem({ label, active, onPress, children }: NavItemProps) {
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const { theme, isDark } = useTheme();
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <View style={[
@@ -45,7 +47,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
       }
     ]}>
       <NavItem
-        label="Asosiy"
+        label={t('nav.home')}
         active={activeTab === 'home'}
         onPress={() => onTabChange('home')}
       >
@@ -53,7 +55,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
       </NavItem>
 
       <NavItem
-        label="Hisobot"
+        label={t('nav.stats')}
         active={activeTab === 'stats'}
         onPress={() => onTabChange('stats')}
       >
@@ -74,7 +76,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
       </View>
 
       <NavItem
-        label="Tarix"
+        label={t('nav.history')}
         active={activeTab === 'history'}
         onPress={() => onTabChange('history')}
       >
@@ -82,7 +84,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
       </NavItem>
 
       <NavItem
-        label="Jamoa"
+        label={t('nav.members')}
         active={activeTab === 'members'}
         onPress={() => onTabChange('members')}
       >

@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "เสร็จ",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "update": "อัปเดต",
+    "delete": "ลบ",
+    "clear": "ล้าง",
+    "unknown": "ไม่ทราบ",
+    "noData": "ไม่มีข้อมูล",
+    "noNote": "ไม่มีหมายเหตุ",
+    "error": "เกิดข้อผิดพลาด",
+    "today": "วันนี้",
+    "currency": "ซอม"
+  },
+  "language": {
+    "title": "เลือกภาษา",
+    "subtitle": "เลือกภาษาเพื่อเข้าใจคำแนะนำและเนื้อหาทั้งหมดในแอป",
+    "search": "ค้นหาภาษา...",
+    "continue": "ดำเนินการต่อ"
+  },
+  "nav": {
+    "home": "หน้าแรก",
+    "stats": "รายงาน",
+    "history": "ประวัติ",
+    "members": "ทีม"
+  },
+  "onboarding": {
+    "subtitle": "จัดการงบครอบครัวร่วมกัน",
+    "createFamily": "สร้างครอบครัว",
+    "join": "เข้าร่วม",
+    "familyName": "ชื่อครอบครัว",
+    "familyPin": "รหัส PIN ครอบครัว",
+    "inviteCode": "รหัสเชิญ",
+    "familyNameAndPin": "ชื่อ + PIN",
+    "familyNamePlaceholder": "เช่น ครอบครัวสมชาย",
+    "familyNameJoinPlaceholder": "เช่น ครอบครัวสมหญิง",
+    "pinPlaceholder": "4–8 หลัก",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "ชื่อนี้ใช้ได้",
+    "nameTaken": "ชื่อนี้ถูกใช้แล้ว",
+    "pinHint": "แชร์กับครอบครัว",
+    "pinJoinHint": "หากลืมรหัสเชิญ ใช้ชื่อและ PIN",
+    "syncHint": "การซิงค์ปิดอยู่",
+    "errors": {
+      "familyNameRequired": "กรอกชื่อครอบครัว",
+      "nameTaken": "ชื่อครอบครัวถูกใช้แล้ว",
+      "pinRequired": "กรอก PIN",
+      "inviteCodeRequired": "กรอกรหัสเชิญ",
+      "syncNotConfigured": "ยังไม่ได้ตั้งค่าซิงค์",
+      "syncRequired": "ต้องใช้อินเทอร์เน็ต",
+      "familyExists": "มีครอบครัวชื่อนี้แล้ว",
+      "inviteNotFound": "ไม่พบรหัสเชิญ",
+      "familyNotFound": "ไม่พบครอบครัวหรือ PIN ผิด",
+      "authFailed": "เข้าสู่ระบบล้มเหลว",
+      "createFailed": "สร้างครอบครัวไม่ได้",
+      "syncNotConfiguredShort": "ยังไม่ตั้งค่าซิงค์"
+    }
+  },
+  "family": {
+    "inviteCode": "รหัสเชิญ: {{code}}",
+    "offlineMode": "โหมดออฟไลน์",
+    "copied": "คัดลอกแล้ว",
+    "copiedMessage": "คัดลอกรหัส {{code}} แล้ว",
+    "leaveTitle": "ออกจากครอบครัว",
+    "leaveMessage": "ข้อมูลครอบครัวจะไม่แสดงบนโทรศัพท์นี้ ดำเนินการต่อ?",
+    "leave": "ออก"
+  },
+  "dashboard": {
+    "monthExpenses": "ค่าใช้จ่ายเดือนนี้",
+    "thisWeek": "สัปดาห์นี้",
+    "today": "วันนี้",
+    "recentExpenses": "ค่าใช้จ่ายล่าสุด",
+    "noExpenses": "ยังไม่มีค่าใช้จ่าย"
+  },
+  "expense": {
+    "add": "เพิ่มค่าใช้จ่าย",
+    "edit": "แก้ไขค่าใช้จ่าย",
+    "amount": "จำนวน (ซอม)",
+    "whoSpent": "ใครจ่าย?",
+    "whoFor": "เพื่อใคร?",
+    "family": "ครอบครัว",
+    "personal": "ส่วนตัว",
+    "categories": "หมวดหมู่",
+    "date": "วันที่",
+    "noteOptional": "หมายเหตุ (ไม่บังคับ)",
+    "namePlaceholder": "ชื่อของคุณ...",
+    "notePlaceholder": "เกี่ยวกับค่าใช้จ่าย...",
+    "errors": {
+      "amountRequired": "กรอกจำนวนเงิน!",
+      "categoryRequired": "เลือกหมวดหมู่!",
+      "nameRequired": "กรอกชื่อ!"
+    }
+  },
+  "history": {
+    "title": "ประวัติค่าใช้จ่าย",
+    "selected": "เลือก {{count}} รายการ",
+    "deleteConfirm": "ลบ {{count}} รายการ?",
+    "longPressHint": "กดค้างเพื่อเลือกและลบ",
+    "from": "จาก...",
+    "to": "ถึง...",
+    "noExpensesInRange": "ไม่พบค่าใช้จ่ายในช่วงที่เลือก",
+    "noExpensesYet": "ยังไม่มีค่าใช้จ่าย"
+  },
+  "stats": {
+    "title": "รายงาน",
+    "subtitle": "การก distribusi ค่าใช้จ่าย",
+    "weekly": "รายสัปดาห์",
+    "monthly": "รายเดือน",
+    "weekTotal": "รวมสัปดาห์นี้",
+    "monthTotal": "รวม {{month}}"
+  },
+  "members": {
+    "title": "ทีม",
+    "subtitle": "ใครจ่ายเท่าไหร่",
+    "expenseCount": "{{count}} รายการ",
+    "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+    "termsOfService": "เงื่อนไขการใช้งาน"
+  },
+  "categories": {
+    "food": "ของชำ",
+    "eatout": "กินนอกบ้าน",
+    "internet": "อินเทอร์เน็ตและโทรศัพท์",
+    "electricity": "ไฟฟ้า",
+    "gas": "แก๊ส",
+    "gatherings": "คาเฟ่ / งาน",
+    "transport": "การเดินทาง",
+    "clothing": "เสื้อผ้า",
+    "hygiene": "สุขอนามัย",
+    "health": "ยา",
+    "sheep_food": "อาหารสัตว์",
+    "sheep_meds": "ยาสัตว์",
+    "house": "ซ่อมบ้าน",
+    "birthdays": "วันเกิด / ของขวัญ",
+    "unplanned": "ไม่คาดคิด"
+  },
+  "errors": {
+    "pinLength": "PIN ต้อง 4–8 หลัก",
+    "pinDigits": "PIN ต้องเป็นตัวเลข",
+    "saveFailed": "บันทึกล้มเหลว",
+    "updateFailed": "อัปเดตล้มเหลว"
+  },
+  "legal": {
+    "privacyTitle": "นโยบายความเป็นส่วนตัว",
+    "termsTitle": "เงื่อนไขการใช้งาน",
+    "lastUpdated": "อัปเดตล่าสุด: สิงหาคม 2026",
+    "privacy": {
+      "s1title": "1. Introduction",
+      "s1content": "Welcome to Xarajat (\"we,\" \"our,\" or \"us\"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the \"App\").",
+      "s2title": "2. Information We Collect",
+      "s2content": "We collect information that you voluntarily provide to us when you register for the App, such as:\n\n• Personal Information: Name, email address, and authentication credentials.\n• Financial Data: Expense amounts, categories, dates, and descriptions that you manually enter into the App to track your family expenses.\n\nWe do not link directly to your bank accounts or collect credit card information.",
+      "s3title": "3. How We Use Your Information",
+      "s3content": "We use the information we collect primarily to provide, maintain, and improve the App, specifically to:\n\n• Create and manage your account.\n• Sync your expense data across your devices and with your designated family members.\n• Provide customer support and respond to your requests.\n• Improve the functionality and user experience of the App.",
+      "s4title": "4. How We Share Your Information",
+      "s4content": "We may share your information in the following situations:\n\n• With Family Members: Data you enter (expenses, notes) is shared with other users who join your designated \"Family\" group within the App.\n• Service Providers: We use third-party services (such as Supabase for database and authentication hosting) to facilitate our App. These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n• Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests by public authorities.",
+      "s5title": "5. Security of Your Information",
+      "s5content": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse."
+    },
+    "terms": {
+      "s1title": "1. Acceptance of Terms",
+      "s1content": "By downloading, accessing, or using Xarajat (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App.",
+      "s2title": "2. Description of Service",
+      "s2content": "Xarajat is a family expense tracking application that allows users to record, categorize, and monitor shared expenses. The App is provided for informational and personal organization purposes only and does not constitute professional financial advice.",
+      "s3title": "3. User Accounts",
+      "s3content": "To use certain features of the App, you must register for an account. You agree to:\n\n• Provide accurate, current, and complete information during registration.\n• Maintain the security of your password and account credentials.\n• Be fully responsible for all use of your account and for any actions that take place using your account.",
+      "s4title": "4. User Content",
+      "s4content": "You are solely responsible for all data, information, text, and other materials (\"Content\") that you upload, post, or otherwise transmit via the App. By submitting Content, you grant us a non-exclusive, worldwide, royalty-free license to use, store, and process your Content solely for the purpose of providing the App's services to you and your designated family group.",
+      "s5title": "5. Prohibited Conduct",
+      "s5content": "You agree not to:\n\n• Use the App for any illegal or unauthorized purpose.\n• Attempt to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the App.\n• Upload invalid data, viruses, worms, or other software agents through the App.\n• Use the App to harass, abuse, or harm another person."
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Listo",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "update": "Actualizar",
+    "delete": "Eliminar",
+    "clear": "Limpiar",
+    "unknown": "Desconocido",
+    "noData": "Sin datos",
+    "noNote": "Sin nota",
+    "error": "Ocurrió un error",
+    "today": "Hoy",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Elige tu idioma",
+    "subtitle": "Selecciona un idioma para entender todas las instrucciones y contenido de la app.",
+    "search": "Buscar idiomas...",
+    "continue": "Continuar"
+  },
+  "nav": {
+    "home": "Inicio",
+    "stats": "Informes",
+    "history": "Historial",
+    "members": "Equipo"
+  },
+  "onboarding": {
+    "subtitle": "Gestiona el presupuesto familiar juntos. Todos los miembros ven los mismos datos.",
+    "createFamily": "Crear familia",
+    "join": "Unirse",
+    "familyName": "Nombre de la familia",
+    "familyPin": "Código PIN familiar",
+    "inviteCode": "Código de invitación",
+    "familyNameAndPin": "Nombre + PIN",
+    "familyNamePlaceholder": "Ej: Los García",
+    "familyNameJoinPlaceholder": "Ej: Los López",
+    "pinPlaceholder": "4–8 dígitos",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Este nombre está disponible",
+    "nameTaken": "Este nombre está ocupado. Elige otro o únete desde la pestaña Unirse",
+    "pinHint": "Comparte con tu familia — necesario para volver a unirse si se pierde el código",
+    "pinJoinHint": "Si perdiste el código, puedes unirte con el nombre y PIN",
+    "syncHint": "La sincronización está desactivada. La nueva familia se guarda en este dispositivo.",
+    "errors": {
+      "familyNameRequired": "Ingresa el nombre de la familia",
+      "nameTaken": "Este nombre de familia está ocupado.",
+      "pinRequired": "Ingresa el código PIN",
+      "inviteCodeRequired": "Ingresa el código de invitación",
+      "syncNotConfigured": "Sincronización en la nube no configurada.",
+      "syncRequired": "Se requiere internet para unirse.",
+      "familyExists": "Ya existe una familia con este nombre.",
+      "inviteNotFound": "Código de invitación no encontrado",
+      "familyNotFound": "Familia no encontrada o PIN incorrecto",
+      "authFailed": "Error al iniciar sesión. Reinicia la app.",
+      "createFailed": "No se pudo crear la familia",
+      "syncNotConfiguredShort": "Sincronización no configurada"
+    }
+  },
+  "family": {
+    "inviteCode": "Código: {{code}}",
+    "offlineMode": "Modo sin conexión",
+    "copied": "Copiado",
+    "copiedMessage": "Código {{code}} copiado",
+    "leaveTitle": "Salir de la familia",
+    "leaveMessage": "Si sales, los datos de la familia ya no aparecerán en este teléfono. ¿Continuar?",
+    "leave": "Salir"
+  },
+  "dashboard": {
+    "monthExpenses": "Gastos de este mes",
+    "thisWeek": "Esta semana",
+    "today": "Hoy",
+    "recentExpenses": "Gastos recientes",
+    "noExpenses": "Aún no hay gastos."
+  },
+  "expense": {
+    "add": "Agregar gasto",
+    "edit": "Editar gasto",
+    "amount": "Monto (som)",
+    "whoSpent": "¿Quién gastó?",
+    "whoFor": "¿Para quién?",
+    "family": "Familiar",
+    "personal": "Personal",
+    "categories": "Categorías",
+    "date": "Fecha",
+    "noteOptional": "Nota (opcional)",
+    "namePlaceholder": "Tu nombre...",
+    "notePlaceholder": "Sobre este gasto...",
+    "errors": {
+      "amountRequired": "¡Ingresa un monto!",
+      "categoryRequired": "¡Selecciona una categoría!",
+      "nameRequired": "¡Ingresa un nombre!"
+    }
+  },
+  "history": {
+    "title": "Historial de gastos",
+    "selected": "{{count}} seleccionados",
+    "deleteConfirm": "¿Eliminar {{count}} gastos?",
+    "longPressHint": "Mantén presionado para seleccionar y eliminar",
+    "from": "Desde...",
+    "to": "Hasta...",
+    "noExpensesInRange": "No se encontraron gastos en el rango",
+    "noExpensesYet": "Aún no hay gastos"
+  },
+  "stats": {
+    "title": "Informes",
+    "subtitle": "Distribución de gastos",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "weekTotal": "Total esta semana",
+    "monthTotal": "Total {{month}}"
+  },
+  "members": {
+    "title": "Equipo",
+    "subtitle": "Quién gastó cuánto",
+    "expenseCount": "{{count}} gastos",
+    "privacyPolicy": "Política de privacidad",
+    "termsOfService": "Términos de servicio"
+  },
+  "categories": {
+    "food": "Comestibles",
+    "eatout": "Comer fuera",
+    "internet": "Internet y teléfono",
+    "electricity": "Electricidad",
+    "gas": "Gas",
+    "gatherings": "Café / Eventos",
+    "transport": "Transporte",
+    "clothing": "Ropa",
+    "hygiene": "Higiene / Limpieza",
+    "health": "Medicina",
+    "sheep_food": "Alimento para ganado",
+    "sheep_meds": "Medicina veterinaria",
+    "house": "Reparación del hogar",
+    "birthdays": "Cumpleaños / Regalos",
+    "unplanned": "Imprevisto"
+  },
+  "errors": {
+    "pinLength": "El PIN debe tener 4–8 dígitos",
+    "pinDigits": "El PIN solo debe contener dígitos",
+    "saveFailed": "Error al guardar el gasto",
+    "updateFailed": "Error al actualizar el gasto"
+  },
+  "legal": {
+    "privacyTitle": "Política de privacidad",
+    "termsTitle": "Términos de servicio",
+    "lastUpdated": "Última actualización: agosto 2026",
+    "privacy": {
+      "s1title": "1. Introduction",
+      "s1content": "Welcome to Xarajat (\"we,\" \"our,\" or \"us\"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the \"App\").",
+      "s2title": "2. Information We Collect",
+      "s2content": "We collect information that you voluntarily provide to us when you register for the App, such as:\n\n• Personal Information: Name, email address, and authentication credentials.\n• Financial Data: Expense amounts, categories, dates, and descriptions that you manually enter into the App to track your family expenses.\n\nWe do not link directly to your bank accounts or collect credit card information.",
+      "s3title": "3. How We Use Your Information",
+      "s3content": "We use the information we collect primarily to provide, maintain, and improve the App, specifically to:\n\n• Create and manage your account.\n• Sync your expense data across your devices and with your designated family members.\n• Provide customer support and respond to your requests.\n• Improve the functionality and user experience of the App.",
+      "s4title": "4. How We Share Your Information",
+      "s4content": "We may share your information in the following situations:\n\n• With Family Members: Data you enter (expenses, notes) is shared with other users who join your designated \"Family\" group within the App.\n• Service Providers: We use third-party services (such as Supabase for database and authentication hosting) to facilitate our App. These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n• Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests by public authorities.",
+      "s5title": "5. Security of Your Information",
+      "s5content": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse."
+    },
+    "terms": {
+      "s1title": "1. Acceptance of Terms",
+      "s1content": "By downloading, accessing, or using Xarajat (the \"App\"), you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree to these Terms, do not use the App.",
+      "s2title": "2. Description of Service",
+      "s2content": "Xarajat is a family expense tracking application that allows users to record, categorize, and monitor shared expenses. The App is provided for informational and personal organization purposes only and does not constitute professional financial advice.",
+      "s3title": "3. User Accounts",
+      "s3content": "To use certain features of the App, you must register for an account. You agree to:\n\n• Provide accurate, current, and complete information during registration.\n• Maintain the security of your password and account credentials.\n• Be fully responsible for all use of your account and for any actions that take place using your account.",
+      "s4title": "4. User Content",
+      "s4content": "You are solely responsible for all data, information, text, and other materials (\"Content\") that you upload, post, or otherwise transmit via the App. By submitting Content, you grant us a non-exclusive, worldwide, royalty-free license to use, store, and process your Content solely for the purpose of providing the App's services to you and your designated family group.",
+      "s5title": "5. Prohibited Conduct",
+      "s5content": "You agree not to:\n\n• Use the App for any illegal or unauthorized purpose.\n• Attempt to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the App.\n• Upload invalid data, viruses, worms, or other software agents through the App.\n• Use the App to harass, abuse, or harm another person."
+    }
+  }
+}

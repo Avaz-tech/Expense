@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Gotowe",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "update": "Aktualizuj",
+    "delete": "Usuń",
+    "clear": "Wyczyść",
+    "unknown": "Nieznany",
+    "noData": "Brak danych",
+    "noNote": "Brak notatki",
+    "error": "Wystąpił błąd",
+    "today": "Dzisiaj",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Wybierz język",
+    "subtitle": "Wybierz język, aby zrozumieć instrukcje w aplikacji.",
+    "search": "Szukaj języków...",
+    "continue": "Kontynuuj"
+  },
+  "nav": {
+    "home": "Główna",
+    "stats": "Raporty",
+    "history": "Historia",
+    "members": "Zespół"
+  },
+  "onboarding": {
+    "subtitle": "Zarządzaj budżetem rodzinnym.",
+    "createFamily": "Utwórz Rodzinę",
+    "join": "Dołącz",
+    "familyName": "Nazwa Rodziny",
+    "familyPin": "PIN Rodziny",
+    "inviteCode": "Kod Zaproszenia",
+    "familyNameAndPin": "Nazwa + PIN",
+    "familyNamePlaceholder": "Np. Kowalscy",
+    "familyNameJoinPlaceholder": "Np. Nowakowie",
+    "pinPlaceholder": "4–8 cyfr",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Nazwa jest dostępna",
+    "nameTaken": "Nazwa zajęta",
+    "pinHint": "Udostępnij rodzinie",
+    "pinJoinHint": "Możesz dołączyć za pomocą nazwy i kodu PIN",
+    "syncHint": "Synchronizacja wyłączona.",
+    "errors": {
+      "familyNameRequired": "Wpisz nazwę",
+      "nameTaken": "Nazwa zajęta.",
+      "pinRequired": "Wpisz PIN",
+      "inviteCodeRequired": "Wpisz kod",
+      "syncNotConfigured": "Chmura nieskonfigurowana.",
+      "syncRequired": "Wymagany Internet.",
+      "familyExists": "Rodzina już istnieje.",
+      "inviteNotFound": "Nie znaleziono kodu",
+      "familyNotFound": "Nie znaleziono rodziny",
+      "authFailed": "Błąd logowania.",
+      "createFailed": "Nie udało się utworzyć",
+      "syncNotConfiguredShort": "Brak synchronizacji"
+    }
+  },
+  "family": {
+    "inviteCode": "Kod: {{code}}",
+    "offlineMode": "Tryb Offline",
+    "copied": "Skopiowano",
+    "copiedMessage": "Kod {{code}} skopiowany",
+    "leaveTitle": "Opuść Rodzinę",
+    "leaveMessage": "Dane nie będą widocžne. Kontynuować?",
+    "leave": "Opuść"
+  },
+  "dashboard": {
+    "monthExpenses": "Wydatki w tym miesiącu",
+    "thisWeek": "W tym tygodniu",
+    "today": "Dzisiaj",
+    "recentExpenses": "Ostatnie Wydatki",
+    "noExpenses": "Brak wydatków."
+  },
+  "expense": {
+    "add": "Dodaj Wydatek",
+    "edit": "Edytuj Wydatek",
+    "amount": "Kwota (som)",
+    "whoSpent": "Kto wydał?",
+    "whoFor": "Dla kogo?",
+    "family": "Rodzina",
+    "personal": "Osobiste",
+    "categories": "Kategorie",
+    "date": "Data",
+    "noteOptional": "Notatka (opcjonalnie)",
+    "namePlaceholder": "Twoje imię...",
+    "notePlaceholder": "O wydatku...",
+    "errors": {
+      "amountRequired": "Wpisz kwotę!",
+      "categoryRequired": "Wybierz kategorię!",
+      "nameRequired": "Wpisz imię!"
+    }
+  },
+  "history": {
+    "title": "Historia",
+    "selected": "{{count}} wybrano",
+    "deleteConfirm": "Usunąć {{count}} wydatków?",
+    "longPressHint": "Naciśnij długo, aby wybrać",
+    "from": "Od...",
+    "to": "Do...",
+    "noExpensesInRange": "Brak wydatków w okresie",
+    "noExpensesYet": "Brak wydatków"
+  },
+  "stats": {
+    "title": "Raporty",
+    "subtitle": "Podział wydatków",
+    "weekly": "Tygodniowo",
+    "monthly": "Miesięcznie",
+    "weekTotal": "Suma w tym tygodniu",
+    "monthTotal": "Suma {{month}}"
+  },
+  "members": {
+    "title": "Zespół",
+    "subtitle": "Kto ile wydał",
+    "expenseCount": "{{count}} wydatków",
+    "privacyPolicy": "Polityka Prywatności",
+    "termsOfService": "Regulamin"
+  },
+  "categories": {
+    "food": "Spożywcze",
+    "eatout": "Restauracje",
+    "internet": "Internet i Telefon",
+    "electricity": "Prąd",
+    "gas": "Gaz",
+    "gatherings": "Kawiarnia / Wydarzenia",
+    "transport": "Transport",
+    "clothing": "Odzież",
+    "hygiene": "Higiena",
+    "health": "Leki",
+    "sheep_food": "Karma",
+    "sheep_meds": "Weterynarz",
+    "house": "Naprawa Domu",
+    "birthdays": "Urodziny",
+    "unplanned": "Niezaplanowane"
+  },
+  "errors": {
+    "pinLength": "PIN musi mieć 4–8 cyfr",
+    "pinDigits": "PIN tylko cyfry",
+    "saveFailed": "Błąd zapisu",
+    "updateFailed": "Błąd aktualizacji"
+  },
+  "legal": {
+    "privacyTitle": "Polityka Prywatności",
+    "termsTitle": "Regulamin",
+    "lastUpdated": "Zaktualizowano: Sierpień 2026",
+    "privacy": {
+      "s1title": "1. Wprowadzenie",
+      "s1content": "Witamy...",
+      "s2title": "2. Informacje",
+      "s2content": "Zbieramy...",
+      "s3title": "3. Wykorzystanie",
+      "s3content": "Używamy...",
+      "s4title": "4. Udostępnianie",
+      "s4content": "Dzielimy się...",
+      "s5title": "5. Bezpieczeństwo",
+      "s5content": "Chronimy..."
+    },
+    "terms": {
+      "s1title": "1. Akceptacja",
+      "s1content": "Akceptujesz...",
+      "s2title": "2. Usługa",
+      "s2content": "Aplikacja...",
+      "s3title": "3. Konta",
+      "s3content": "Dokładne dane...",
+      "s4title": "4. Treść",
+      "s4content": "Odpowiadasz...",
+      "s5title": "5. Zakazy",
+      "s5content": "Zakazane zachowania..."
+    }
+  }
+}

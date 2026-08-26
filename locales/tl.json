@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Tapos na",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "update": "I-update",
+    "delete": "Tanggalin",
+    "clear": "Alisin",
+    "unknown": "Hindi alam",
+    "noData": "Walang data",
+    "noNote": "Walang tala",
+    "error": "May naganap na error",
+    "today": "Ngayon",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Piliin ang wika",
+    "subtitle": "Pumili ng wika upang maunawaan ang lahat ng tagubilin sa app.",
+    "search": "Maghanap ng wika...",
+    "continue": "Magpatuloy"
+  },
+  "nav": {
+    "home": "Home",
+    "stats": "Ulat",
+    "history": "Kasaysayan",
+    "members": "Koponan"
+  },
+  "onboarding": {
+    "subtitle": "Pamahalaan ang badyet ng pamilya nang magkasama.",
+    "createFamily": "Gumawa ng Pamilya",
+    "join": "Sumali",
+    "familyName": "Pangalan ng Pamilya",
+    "familyPin": "PIN ng Pamilya",
+    "inviteCode": "Code ng Imbitasyon",
+    "familyNameAndPin": "Pangalan + PIN",
+    "familyNamePlaceholder": "Hal. Pamilya Santos",
+    "familyNameJoinPlaceholder": "Hal. Pamilya Reyes",
+    "pinPlaceholder": "4–8 numero",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Available ang pangalan",
+    "nameTaken": "Nagamit na ang pangalan",
+    "pinHint": "Ibahagi sa pamilya",
+    "pinJoinHint": "Maaaring sumali gamit ang pangalan at PIN",
+    "syncHint": "Naka-off ang sync.",
+    "errors": {
+      "familyNameRequired": "Maglagay ng pangalan",
+      "nameTaken": "Nagamit na.",
+      "pinRequired": "Maglagay ng PIN",
+      "inviteCodeRequired": "Maglagay ng code",
+      "syncNotConfigured": "Hindi naka-configure ang cloud.",
+      "syncRequired": "Kailangan ng internet.",
+      "familyExists": "Umiiral na ang pamilya.",
+      "inviteNotFound": "Hindi nahanap ang code",
+      "familyNotFound": "Hindi nahanap ang pamilya",
+      "authFailed": "Nabigong mag-login.",
+      "createFailed": "Hindi nagawa",
+      "syncNotConfiguredShort": "Walang cloud sync"
+    }
+  },
+  "family": {
+    "inviteCode": "Code: {{code}}",
+    "offlineMode": "Offline Mode",
+    "copied": "Nakopya",
+    "copiedMessage": "Nakopya ang code {{code}}",
+    "leaveTitle": "Umalis sa Pamilya",
+    "leaveMessage": "Mawawala ang data. Magpatuloy?",
+    "leave": "Umalis"
+  },
+  "dashboard": {
+    "monthExpenses": "Gastos ngayong buwan",
+    "thisWeek": "Ngayong linggo",
+    "today": "Ngayon",
+    "recentExpenses": "Kamakailang Gastos",
+    "noExpenses": "Wala pang gastos."
+  },
+  "expense": {
+    "add": "Magdagdag ng Gastos",
+    "edit": "I-edit ang Gastos",
+    "amount": "Halaga (som)",
+    "whoSpent": "Sino ang gumastos?",
+    "whoFor": "Para kanino?",
+    "family": "Pamilya",
+    "personal": "Personal",
+    "categories": "Mga Kategorya",
+    "date": "Petsa",
+    "noteOptional": "Tala (opsyonal)",
+    "namePlaceholder": "Pangalan mo...",
+    "notePlaceholder": "Tungkol sa gastos...",
+    "errors": {
+      "amountRequired": "Maglagay ng halaga!",
+      "categoryRequired": "Pumili ng kategorya!",
+      "nameRequired": "Maglagay ng pangalan!"
+    }
+  },
+  "history": {
+    "title": "Kasaysayan",
+    "selected": "{{count}} pinili",
+    "deleteConfirm": "Tanggalin ang {{count}} gastos?",
+    "longPressHint": "Pindutin nang matagal para pumili",
+    "from": "Mula...",
+    "to": "Hanggang...",
+    "noExpensesInRange": "Walang gastos sa saklaw",
+    "noExpensesYet": "Wala pang gastos"
+  },
+  "stats": {
+    "title": "Mga Ulat",
+    "subtitle": "Pamamahagi ng gastos",
+    "weekly": "Lingguhan",
+    "monthly": "Buwanan",
+    "weekTotal": "Kabuuan ngayong linggo",
+    "monthTotal": "Kabuuan ng {{month}}"
+  },
+  "members": {
+    "title": "Koponan",
+    "subtitle": "Sino ang gumastos at magkano",
+    "expenseCount": "{{count}} gastos",
+    "privacyPolicy": "Patakaran sa Privacy",
+    "termsOfService": "Mga Tuntunin ng Serbisyo"
+  },
+  "categories": {
+    "food": "Pagkain",
+    "eatout": "Kumain sa Labas",
+    "internet": "Internet at Telepono",
+    "electricity": "Kuryente",
+    "gas": "Gas",
+    "gatherings": "Kape / Kaganapan",
+    "transport": "Transportasyon",
+    "clothing": "Damit",
+    "hygiene": "Kalinisan",
+    "health": "Gamot",
+    "sheep_food": "Pagkain ng Hayop",
+    "sheep_meds": "Gamot ng Hayop",
+    "house": "Pag-aayos ng Bahay",
+    "birthdays": "Kaarawan",
+    "unplanned": "Hindi Inaasahan"
+  },
+  "errors": {
+    "pinLength": "Dapat 4–8 numero ang PIN",
+    "pinDigits": "Mga numero lang",
+    "saveFailed": "Nabigong i-save",
+    "updateFailed": "Nabigong i-update"
+  },
+  "legal": {
+    "privacyTitle": "Patakaran sa Privacy",
+    "termsTitle": "Mga Tuntunin ng Serbisyo",
+    "lastUpdated": "Na-update: Agosto 2026",
+    "privacy": {
+      "s1title": "1. Panimula",
+      "s1content": "Maligayang pagdating...",
+      "s2title": "2. Impormasyon",
+      "s2content": "Nangongolekta kami...",
+      "s3title": "3. Paggamit",
+      "s3content": "Ginagamit namin...",
+      "s4title": "4. Pagbabahagi",
+      "s4content": "Ibinabahagi namin...",
+      "s5title": "5. Seguridad",
+      "s5content": "Pinoprotektahan namin..."
+    },
+    "terms": {
+      "s1title": "1. Pagtanggap",
+      "s1content": "Sumasang-ayon ka...",
+      "s2title": "2. Serbisyo",
+      "s2content": "App para sa pamilya...",
+      "s3title": "3. Account",
+      "s3content": "Tumpak na data...",
+      "s4title": "4. Nilalaman",
+      "s4content": "Responsibilidad mo...",
+      "s5title": "5. Mga Ipinagbabawal",
+      "s5content": "Bawal ang pang-aabuso..."
+    }
+  }
+}

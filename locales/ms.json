@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Selesai",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "update": "Kemaskini",
+    "delete": "Padam",
+    "clear": "Kosongkan",
+    "unknown": "Tidak diketahui",
+    "noData": "Tiada data",
+    "noNote": "Tiada nota",
+    "error": "Ralat berlaku",
+    "today": "Hari ini",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Pilih bahasa anda",
+    "subtitle": "Pilih bahasa untuk memahami semua arahan dalam aplikasi.",
+    "search": "Cari bahasa...",
+    "continue": "Teruskan"
+  },
+  "nav": {
+    "home": "Utama",
+    "stats": "Laporan",
+    "history": "Sejarah",
+    "members": "Pasukan"
+  },
+  "onboarding": {
+    "subtitle": "Urus bajet keluarga bersama.",
+    "createFamily": "Cipta Keluarga",
+    "join": "Sertai",
+    "familyName": "Nama Keluarga",
+    "familyPin": "PIN Keluarga",
+    "inviteCode": "Kod Jemputan",
+    "familyNameAndPin": "Nama + PIN",
+    "familyNamePlaceholder": "Cth: Keluarga Ahmad",
+    "familyNameJoinPlaceholder": "Cth: Keluarga Siti",
+    "pinPlaceholder": "4–8 digit",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Nama ini tersedia",
+    "nameTaken": "Nama ini telah digunakan",
+    "pinHint": "Kongsi dengan keluarga",
+    "pinJoinHint": "Boleh sertai dengan nama dan PIN",
+    "syncHint": "Segerak dimatikan. Disimpan pada peranti ini.",
+    "errors": {
+      "familyNameRequired": "Masukkan nama",
+      "nameTaken": "Nama telah digunakan.",
+      "pinRequired": "Masukkan PIN",
+      "inviteCodeRequired": "Masukkan kod jemputan",
+      "syncNotConfigured": "Awan tidak dikonfigurasi.",
+      "syncRequired": "Internet diperlukan.",
+      "familyExists": "Keluarga telah wujud.",
+      "inviteNotFound": "Kod tidak dijumpai",
+      "familyNotFound": "Keluarga tidak dijumpai",
+      "authFailed": "Gagal log masuk.",
+      "createFailed": "Gagal mencipta",
+      "syncNotConfiguredShort": "Awan tidak dikonfigurasi"
+    }
+  },
+  "family": {
+    "inviteCode": "Kod: {{code}}",
+    "offlineMode": "Mod Luar Talian",
+    "copied": "Disalin",
+    "copiedMessage": "Kod {{code}} disalin",
+    "leaveTitle": "Tinggalkan Keluarga",
+    "leaveMessage": "Data tidak lagi akan dipaparkan. Teruskan?",
+    "leave": "Tinggalkan"
+  },
+  "dashboard": {
+    "monthExpenses": "Perbelanjaan bulan ini",
+    "thisWeek": "Minggu ini",
+    "today": "Hari ini",
+    "recentExpenses": "Perbelanjaan Terkini",
+    "noExpenses": "Belum ada perbelanjaan."
+  },
+  "expense": {
+    "add": "Tambah Perbelanjaan",
+    "edit": "Edit Perbelanjaan",
+    "amount": "Jumlah (som)",
+    "whoSpent": "Siapa belanja?",
+    "whoFor": "Untuk siapa?",
+    "family": "Keluarga",
+    "personal": "Peribadi",
+    "categories": "Kategori",
+    "date": "Tarikh",
+    "noteOptional": "Nota (pilihan)",
+    "namePlaceholder": "Nama anda...",
+    "notePlaceholder": "Mengenai perbelanjaan...",
+    "errors": {
+      "amountRequired": "Masukkan jumlah!",
+      "categoryRequired": "Pilih kategori!",
+      "nameRequired": "Masukkan nama!"
+    }
+  },
+  "history": {
+    "title": "Sejarah",
+    "selected": "{{count}} dipilih",
+    "deleteConfirm": "Padam {{count}} perbelanjaan?",
+    "longPressHint": "Tekan lama untuk pilih dan padam",
+    "from": "Dari...",
+    "to": "Hingga...",
+    "noExpensesInRange": "Tiada perbelanjaan ditemui",
+    "noExpensesYet": "Belum ada perbelanjaan"
+  },
+  "stats": {
+    "title": "Laporan",
+    "subtitle": "Taburan perbelanjaan",
+    "weekly": "Mingguan",
+    "monthly": "Bulanan",
+    "weekTotal": "Jumlah minggu ini",
+    "monthTotal": "Jumlah {{month}}"
+  },
+  "members": {
+    "title": "Pasukan",
+    "subtitle": "Siapa belanja berapa",
+    "expenseCount": "{{count}} perbelanjaan",
+    "privacyPolicy": "Dasar Privasi",
+    "termsOfService": "Syarat Perkhidmatan"
+  },
+  "categories": {
+    "food": "Barangan runcit",
+    "eatout": "Makan Luar",
+    "internet": "Internet & Telefon",
+    "electricity": "Elektrik",
+    "gas": "Gas",
+    "gatherings": "Kafe / Acara",
+    "transport": "Pengangkutan",
+    "clothing": "Pakaian",
+    "hygiene": "Kebersihan",
+    "health": "Kesihatan",
+    "sheep_food": "Makanan Haiwan",
+    "sheep_meds": "Ubat Haiwan",
+    "house": "Pembaikan Rumah",
+    "birthdays": "Hari Jadi",
+    "unplanned": "Tidak dirancang"
+  },
+  "errors": {
+    "pinLength": "PIN mesti 4–8 digit",
+    "pinDigits": "PIN hanya nombor",
+    "saveFailed": "Gagal simpan",
+    "updateFailed": "Gagal kemaskini"
+  },
+  "legal": {
+    "privacyTitle": "Dasar Privasi",
+    "termsTitle": "Syarat Perkhidmatan",
+    "lastUpdated": "Dikemaskini: Ogos 2026",
+    "privacy": {
+      "s1title": "1. Pengenalan",
+      "s1content": "Selamat datang...",
+      "s2title": "2. Maklumat",
+      "s2content": "Kami kumpul...",
+      "s3title": "3. Penggunaan",
+      "s3content": "Kami guna...",
+      "s4title": "4. Perkongsian",
+      "s4content": "Kami kongsi...",
+      "s5title": "5. Keselamatan",
+      "s5content": "Kami lindung..."
+    },
+    "terms": {
+      "s1title": "1. Penerimaan",
+      "s1content": "Anda setuju...",
+      "s2title": "2. Perkhidmatan",
+      "s2content": "Aplikasi keluarga...",
+      "s3title": "3. Akaun",
+      "s3content": "Maklumat tepat...",
+      "s4title": "4. Kandungan",
+      "s4content": "Anda bertanggungjawab...",
+      "s5title": "5. Larangan",
+      "s5content": "Tiada salah laku..."
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { Copy, LogOut, Moon, Sun } from 'lucide-react-native';
 import * as Clipboard from 'expo-clipboard';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { Family } from '../types/family';
 
@@ -13,19 +14,20 @@ type FamilyBannerProps = {
 
 export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBannerProps) {
   const { theme, toggleTheme, isDark } = useTheme();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const copyInviteCode = async () => {
     await Clipboard.setStringAsync(family.inviteCode);
-    Alert.alert('Nusxa olindi', `${family.inviteCode} taklif kodi nusxalandi`);
+    Alert.alert(t('family.copied'), t('family.copiedMessage', { code: family.inviteCode }));
   };
 
   const confirmLeave = () => {
     Alert.alert(
-      'Oiladan chiqish',
-      'Chiqsangiz, bu telefondagi oila ma\'lumotlari ko\'rinmaydi. Davom etasizmi?',
+      t('family.leaveTitle'),
+      t('family.leaveMessage'),
       [
-        { text: 'Bekor qilish', style: 'cancel' },
-        { text: 'Chiqish', style: 'destructive', onPress: onLeaveFamily },
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('family.leave'), style: 'destructive', onPress: onLeaveFamily },
       ]
     );
   };
@@ -43,11 +45,11 @@ export function FamilyBanner({ family, isSyncEnabled, onLeaveFamily }: FamilyBan
         <Text style={[styles.familyName, { color: theme.text_primary }]}>{family.name}</Text>
         {isSyncEnabled ? (
           <Pressable style={styles.codeRow} onPress={copyInviteCode}>
-            <Text style={[styles.codeLabel, { color: theme.brand_primary }]}>Taklif kodi: {family.inviteCode}</Text>
+            <Text style={[styles.codeLabel, { color: theme.brand_primary }]}>{t('family.inviteCode', { code: family.inviteCode })}</Text>
             <Copy size={12} color={theme.brand_primary} />
           </Pressable>
         ) : (
-          <Text style={[styles.offlineText, { color: theme.text_secondary }]}>Offline rejim</Text>
+          <Text style={[styles.offlineText, { color: theme.text_secondary }]}>{t('family.offlineMode')}</Text>
         )}
       </View>
 

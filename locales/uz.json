@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Tayyor",
+    "cancel": "Bekor qilish",
+    "save": "Saqlash",
+    "update": "Yangilash",
+    "delete": "O'chirish",
+    "clear": "Tozalash",
+    "unknown": "Noma'lum",
+    "noData": "Ma'lumot yo'q",
+    "noNote": "Izohsiz",
+    "error": "Xatolik yuz berdi",
+    "today": "Bugun",
+    "currency": "so'm"
+  },
+  "language": {
+    "title": "Tilni tanlang",
+    "subtitle": "Ilovadagi barcha ko'rsatmalar va kontentni tushunish uchun tilni tanlang.",
+    "search": "Tillarni qidirish...",
+    "continue": "Davom etish"
+  },
+  "nav": {
+    "home": "Asosiy",
+    "stats": "Hisobot",
+    "history": "Tarix",
+    "members": "Jamoa"
+  },
+  "onboarding": {
+    "subtitle": "Oilaviy byudjetni birgalikda boshqaring. Barcha a'zolar bir xil ma'lumotlarni ko'radi.",
+    "createFamily": "Oila yaratish",
+    "join": "Qo'shilish",
+    "familyName": "Oila nomi",
+    "familyPin": "Oila PIN kodi",
+    "inviteCode": "Taklif kodi",
+    "familyNameAndPin": "Oila nomi + PIN",
+    "familyNamePlaceholder": "Masalan: Karimovlar",
+    "familyNameJoinPlaceholder": "Masalan: Uchqunovichlar",
+    "pinPlaceholder": "4–8 raqam",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Bu nom bo'sh — foydalanishingiz mumkin",
+    "nameTaken": "Bu nom band. Boshqa nom tanlang yoki \"Qo'shilish\"dan kiring",
+    "pinHint": "Oiladagi hammaga ayting — taklif kodini unutganda qayta kirish uchun kerak",
+    "pinJoinHint": "Taklif kodini unutgan bo'lsangiz, oila nomi va PIN bilan qayta qo'shilishingiz mumkin",
+    "syncHint": "Sinxronizatsiya hozircha o'chiq. Yangi oila qurilmada saqlanadi. Boshqa qurilmadan qo'shilish uchun Supabase sozlang.",
+    "errors": {
+      "familyNameRequired": "Oila nomini kiriting",
+      "nameTaken": "Bu oila nomi band. Boshqa nom tanlang yoki \"Qo'shilish\" bo'limidan kiring.",
+      "pinRequired": "Oila PIN kodini kiriting",
+      "inviteCodeRequired": "Taklif kodini kiriting",
+      "syncNotConfigured": "Bulut sinxronizatsiyasi sozlanmagan. .env faylini to'ldiring.",
+      "syncRequired": "Bulut sinxronizatsiyasi sozlanmagan. Qo'shilish uchun internet kerak.",
+      "familyExists": "Bu nomdagi oila allaqachon mavjud. \"Qo'shilish\" bo'limidan kiring.",
+      "inviteNotFound": "Taklif kodi topilmadi",
+      "familyNotFound": "Oila topilmadi yoki PIN noto'g'ri",
+      "authFailed": "Kirish amalga oshmadi. Ilovani qayta oching.",
+      "createFailed": "Oilani yaratib bo'lmadi",
+      "syncNotConfiguredShort": "Bulut sinxronizatsiyasi sozlanmagan"
+    }
+  },
+  "family": {
+    "inviteCode": "Taklif kodi: {{code}}",
+    "offlineMode": "Offline rejim",
+    "copied": "Nusxa olindi",
+    "copiedMessage": "{{code}} taklif kodi nusxalandi",
+    "leaveTitle": "Oiladan chiqish",
+    "leaveMessage": "Chiqsangiz, bu telefondagi oila ma'lumotlari ko'rinmaydi. Davom etasizmi?",
+    "leave": "Chiqish"
+  },
+  "dashboard": {
+    "monthExpenses": "Shu oygi xarajatlar",
+    "thisWeek": "Shu hafta",
+    "today": "Bugun",
+    "recentExpenses": "Oxirgi xarajatlar",
+    "noExpenses": "Hali xarajatlar yo'q."
+  },
+  "expense": {
+    "add": "Xarajat qo'shish",
+    "edit": "Xarajatni tahrirlash",
+    "amount": "Summa (so'm)",
+    "whoSpent": "Kim sarfladi?",
+    "whoFor": "Kim uchun?",
+    "family": "Oilaviy",
+    "personal": "Shaxsiy",
+    "categories": "Kategoriyalar",
+    "date": "Sana",
+    "noteOptional": "Izoh (ixtiyoriy)",
+    "namePlaceholder": "Ismingiz...",
+    "notePlaceholder": "Xarajat haqida...",
+    "errors": {
+      "amountRequired": "Summani kiriting!",
+      "categoryRequired": "Kategoriyani tanlang!",
+      "nameRequired": "Ismni kiriting!"
+    }
+  },
+  "history": {
+    "title": "Xarajatlar tarixi",
+    "selected": "{{count}} ta tanlandi",
+    "deleteConfirm": "{{count}} ta xarajatni o'chirmoqchimisiz?",
+    "longPressHint": "O'chirish uchun uzoq bosing va tanlang",
+    "from": "Dan...",
+    "to": "Gacha...",
+    "noExpensesInRange": "Tanlangan oraliqda xarajatlar topilmadi",
+    "noExpensesYet": "Hozircha xarajatlar yo'q"
+  },
+  "stats": {
+    "title": "Hisobot",
+    "subtitle": "Xarajatlar taqsimoti",
+    "weekly": "Haftalik",
+    "monthly": "Oylik",
+    "weekTotal": "Shu hafta jami",
+    "monthTotal": "{{month}} jami"
+  },
+  "members": {
+    "title": "Jamoa",
+    "subtitle": "Kim qancha sarfladi",
+    "expenseCount": "{{count}} ta xarajat",
+    "privacyPolicy": "Maxfiylik siyosati",
+    "termsOfService": "Foydalanish shartlari"
+  },
+  "categories": {
+    "food": "Oziq-ovqat",
+    "eatout": "Ko'chada ovqat",
+    "internet": "Internet va Aloqa",
+    "electricity": "Elektr toki",
+    "gas": "Gaz",
+    "gatherings": "Choyxona / Tadbir",
+    "transport": "Transport / Yo'l",
+    "clothing": "Kiyim-kechak",
+    "hygiene": "Gigiyena / Tozalik",
+    "health": "Dori-darmon",
+    "sheep_food": "Chorva (Qo'y) yemi",
+    "sheep_meds": "Chorva dorisi",
+    "house": "Uy ta'miri",
+    "birthdays": "Tug'ilgan kun / Sovg'a",
+    "unplanned": "Kutilmagan"
+  },
+  "errors": {
+    "pinLength": "PIN 4–8 raqamdan iborat bo'lishi kerak",
+    "pinDigits": "PIN faqat raqamlardan iborat bo'lishi kerak",
+    "saveFailed": "Xarajatni saqlab bo'lmadi",
+    "updateFailed": "Xarajatni yangilab bo'lmadi"
+  },
+  "legal": {
+    "privacyTitle": "Maxfiylik siyosati",
+    "termsTitle": "Foydalanish shartlari",
+    "lastUpdated": "Oxirgi yangilanish: 2026-yil avgust",
+    "privacy": {
+      "s1title": "1. Kirish",
+      "s1content": "Xarajatga (\"biz\", \"bizning\") xush kelibsiz. Biz sizning maxfiyligingizni himoya qilishga intilamiz. Ushbu Maxfiylik siyosati mobil ilovamizdan (\"Ilova\") foydalanganda ma'lumotlaringizni qanday to'plash, ishlatish, ochish va himoya qilishimizni tushuntiradi.",
+      "s2title": "2. To'plangan ma'lumotlar",
+      "s2content": "Ilovada ro'yxatdan o'tganingizda ixtiyoriy ravishda taqdim etgan ma'lumotlaringiz:\n\n• Shaxsiy ma'lumotlar: Ism, elektron pochta va autentifikatsiya ma'lumotlari.\n• Moliyaviy ma'lumotlar: Oilaviy xarajatlarni kuzatish uchun qo'lda kiritgan summa, kategoriya, sana va tavsiflar.\n\nBiz bank hisoblaringizga to'g'ridan-to'g'ri ulanmaymiz va kredit karta ma'lumotlarini to'plamaymiz.",
+      "s3title": "3. Ma'lumotlardan foydalanish",
+      "s3content": "To'plangan ma'lumotlardan asosan Ilovani ta'minlash, saqlash va yaxshilash uchun foydalanamiz:\n\n• Hisobingizni yaratish va boshqarish.\n• Xarajat ma'lumotlarini qurilmalar va oila a'zolari o'rtasida sinxronlash.\n• Mijozlarga yordam ko'rsatish.\n• Ilova funksionalligi va foydalanuvchi tajribasini yaxshilash.",
+      "s4title": "4. Ma'lumotlarni ulashish",
+      "s4content": "Ma'lumotlaringiz quyidagi holatlarda ulashilishi mumkin:\n\n• Oila a'zolari bilan: Kiritgan ma'lumotlaringiz (xarajatlar, izohlar) Ilovadagi \"Oila\" guruhingizga qo'shilgan boshqa foydalanuvchilar bilan ulashiladi.\n• Xizmat ko'rsatuvchilar: Ilovani ta'minlash uchun uchinchi tomon xizmatlaridan (masalan, Supabase) foydalanamiz.\n• Qonuniy talablar: Qonun talab qilganda ma'lumotlaringizni ochishimiz mumkin.",
+      "s5title": "5. Ma'lumotlar xavfsizligi",
+      "s5content": "Shaxsiy ma'lumotlaringizni himoya qilish uchun ma'muriy, texnik va jismoniy xavfsizlik choralarini qo'llaymiz. Biroq, hech qanday xavfsizlik chorasi mukammal emasligini unutmang."
+    },
+    "terms": {
+      "s1title": "1. Shartlarni qabul qilish",
+      "s1content": "Xarajat ilovasini yuklab olish, ochish yoki foydalanish orqali siz ushbu Foydalanish shartlariga rozilik bildirasiz. Agar rozi bo'lmasangiz, Ilovadan foydalanmang.",
+      "s2title": "2. Xizmat tavsifi",
+      "s2content": "Xarajat — oilaviy xarajatlarni qayd etish, tasniflash va kuzatish imkonini beruvchi ilova. Ilova faqat axborot va shaxsiy tashkilot maqsadida taqdim etiladi va professional moliyaviy maslahat hisoblanmaydi.",
+      "s3title": "3. Foydalanuvchi hisoblari",
+      "s3content": "Ba'zi funksiyalardan foydalanish uchun hisob yaratishingiz kerak. Siz quyidagilarga rozilik bildirasiz:\n\n• Ro'yxatdan o'tishda aniq va to'liq ma'lumot taqdim etish.\n• Parol va hisob ma'lumotlarining xavfsizligini ta'minlash.\n• Hisobingizdan foydalanish uchun to'liq javobgar bo'lish.",
+      "s4title": "4. Foydalanuvchi kontenti",
+      "s4content": "Ilovaga yuklagan barcha ma'lumotlar (\"Kontent\") uchun to'liq javobgarsiz. Kontent yuborish orqali bizga Ilova xizmatlarini taqdim etish maqsadida Kontentingizdan foydalanish uchun litsenziya berasiz.",
+      "s5title": "5. Taqiqlangan harakatlar",
+      "s5content": "Siz quyidagilarni qilmaslikka rozilik bildirasiz:\n\n• Ilovadan noqonuniy yoki ruxsatsiz maqsadlarda foydalanish.\n• Ilova tizimining xavfsizligi yoki yaxlitligiga xalaqit berish.\n• Virus yoki zararli dasturlarni yuklash.\n• Boshqa shaxslarni bezovta qilish yoki zarar yetkazish."
+    }
+  }
+}

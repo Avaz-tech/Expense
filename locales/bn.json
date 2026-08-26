@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "সম্পন্ন",
+    "cancel": "বাতিল",
+    "save": "সংরক্ষণ",
+    "update": "আপডেট",
+    "delete": "মুছুন",
+    "clear": "পরিষ্কার করুন",
+    "unknown": "অজানা",
+    "noData": "কোনো ডেটা নেই",
+    "noNote": "কোনো নোট নেই",
+    "error": "একটি ত্রুটি ঘটেছে",
+    "today": "আজ",
+    "currency": "som"
+  },
+  "language": {
+    "title": "ভাষা নির্বাচন করুন",
+    "subtitle": "অ্যাপের সমস্ত নির্দেশনা বুঝতে ভাষা নির্বাচন করুন।",
+    "search": "ভাষা খুঁজুন...",
+    "continue": "চালিয়ে যান"
+  },
+  "nav": {
+    "home": "হোম",
+    "stats": "রিপোর্ট",
+    "history": "ইতিহাস",
+    "members": "দল"
+  },
+  "onboarding": {
+    "subtitle": "একসাথে পরিবারের বাজেট পরিচালনা করুন।",
+    "createFamily": "পরিবার তৈরি করুন",
+    "join": "যোগ দিন",
+    "familyName": "পরিবারের নাম",
+    "familyPin": "পরিবারের পিন",
+    "inviteCode": "আমন্ত্রণ কোড",
+    "familyNameAndPin": "নাম + পিন",
+    "familyNamePlaceholder": "উদাঃ রহমান পরিবার",
+    "familyNameJoinPlaceholder": "উদাঃ আহমেদ পরিবার",
+    "pinPlaceholder": "৪-৮ সংখ্যা",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "এই নাম উপলব্ধ",
+    "nameTaken": "এই নাম নেওয়া হয়েছে",
+    "pinHint": "পরিবারের সাথে ভাগ করুন",
+    "pinJoinHint": "নাম এবং পিন দিয়ে যোগ দিতে পারেন",
+    "syncHint": "সিঙ্ক বন্ধ আছে।",
+    "errors": {
+      "familyNameRequired": "নাম লিখুন",
+      "nameTaken": "নেওয়া হয়েছে।",
+      "pinRequired": "পিন লিখুন",
+      "inviteCodeRequired": "কোড লিখুন",
+      "syncNotConfigured": "ক্লাউড সিঙ্ক কনফিগার করা নেই।",
+      "syncRequired": "ইন্টারনেট প্রয়োজন।",
+      "familyExists": "পরিবার ইতিমধ্যে বিদ্যমান।",
+      "inviteNotFound": "কোড পাওয়া যায়নি",
+      "familyNotFound": "পরিবার পাওয়া যায়নি",
+      "authFailed": "লগইন ব্যর্থ।",
+      "createFailed": "তৈরি করা যায়নি",
+      "syncNotConfiguredShort": "কোনো সিঙ্ক নেই"
+    }
+  },
+  "family": {
+    "inviteCode": "কোড: {{code}}",
+    "offlineMode": "অফলাইন মোড",
+    "copied": "কপি করা হয়েছে",
+    "copiedMessage": "কোড {{code}} কপি করা হয়েছে",
+    "leaveTitle": "পরিবার ছাড়ুন",
+    "leaveMessage": "আপনি কি চালিয়ে যেতে চান?",
+    "leave": "ছাড়ুন"
+  },
+  "dashboard": {
+    "monthExpenses": "এই মাসের খরচ",
+    "thisWeek": "এই সপ্তাহ",
+    "today": "আজ",
+    "recentExpenses": "সাম্প্রতিক খরচ",
+    "noExpenses": "এখনও কোনো খরচ নেই।"
+  },
+  "expense": {
+    "add": "খরচ যোগ করুন",
+    "edit": "খরচ সম্পাদনা করুন",
+    "amount": "পরিমাণ (som)",
+    "whoSpent": "কে খরচ করেছে?",
+    "whoFor": "কার জন্য?",
+    "family": "পরিবার",
+    "personal": "ব্যক্তিগত",
+    "categories": "বিভাগ",
+    "date": "তারিখ",
+    "noteOptional": "নোট (ঐচ্ছিক)",
+    "namePlaceholder": "আপনার নাম...",
+    "notePlaceholder": "এই খরচ সম্পর্কে...",
+    "errors": {
+      "amountRequired": "পরিমাণ লিখুন!",
+      "categoryRequired": "বিভাগ নির্বাচন করুন!",
+      "nameRequired": "নাম লিখুন!"
+    }
+  },
+  "history": {
+    "title": "ইতিহাস",
+    "selected": "{{count}} নির্বাচিত",
+    "deleteConfirm": "{{count}} টি খরচ মুছবেন?",
+    "longPressHint": "নির্বাচন করতে দীর্ঘক্ষণ টিপুন",
+    "from": "থেকে...",
+    "to": "পর্যন্ত...",
+    "noExpensesInRange": "কোনো খরচ পাওয়া যায়নি",
+    "noExpensesYet": "এখনও কোনো খরচ নেই"
+  },
+  "stats": {
+    "title": "রিপোর্ট",
+    "subtitle": "খরচ বন্টন",
+    "weekly": "সাপ্তাহিক",
+    "monthly": "মাসিক",
+    "weekTotal": "এই সপ্তাহের মোট",
+    "monthTotal": "{{month}} এর মোট"
+  },
+  "members": {
+    "title": "দল",
+    "subtitle": "কে কত খরচ করেছে",
+    "expenseCount": "{{count}} টি খরচ",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "termsOfService": "পরিষেবার শর্তাবলী"
+  },
+  "categories": {
+    "food": "খাবার",
+    "eatout": "বাইরে খাওয়া",
+    "internet": "ইন্টারনেট ও ফোন",
+    "electricity": "বিদ্যুৎ",
+    "gas": "গ্যাস",
+    "gatherings": "ক্যাফে / ইভেন্ট",
+    "transport": "পরিবহন",
+    "clothing": "পোশাক",
+    "hygiene": "পরিচ্ছন্নতা",
+    "health": "স্বাস্থ্য",
+    "sheep_food": "পশুর খাবার",
+    "sheep_meds": "পশুর ওষুধ",
+    "house": "বাড়ি মেরামত",
+    "birthdays": "জন্মদিন",
+    "unplanned": "অপরিকল্পিত"
+  },
+  "errors": {
+    "pinLength": "পিন ৪-৮ সংখ্যার হতে হবে",
+    "pinDigits": "শুধু সংখ্যা",
+    "saveFailed": "সংরক্ষণ ব্যর্থ",
+    "updateFailed": "আপডেট ব্যর্থ"
+  },
+  "legal": {
+    "privacyTitle": "গোপনীয়তা নীতি",
+    "termsTitle": "পরিষেবার শর্তাবলী",
+    "lastUpdated": "আপডেট: আগস্ট ২০২৬",
+    "privacy": {
+      "s1title": "1. ভূমিকা",
+      "s1content": "স্বাগতম...",
+      "s2title": "2. তথ্য",
+      "s2content": "আমরা সংগ্রহ করি...",
+      "s3title": "3. ব্যবহার",
+      "s3content": "আমরা ব্যবহার করি...",
+      "s4title": "4. ভাগ করা",
+      "s4content": "আমরা ভাগ করি...",
+      "s5title": "5. নিরাপত্তা",
+      "s5content": "আমরা রক্ষা করি..."
+    },
+    "terms": {
+      "s1title": "1. স্বীকৃতি",
+      "s1content": "আপনি সম্মত...",
+      "s2title": "2. পরিষেবা",
+      "s2content": "অ্যাপ...",
+      "s3title": "3. অ্যাকাউন্ট",
+      "s3content": "সঠিক ডেটা...",
+      "s4title": "4. বিষয়বস্তু",
+      "s4content": "আপনি দায়ী...",
+      "s5title": "5. নিষেধাজ্ঞা",
+      "s5content": "কোনো অপব্যবহার নয়..."
+    }
+  }
+}

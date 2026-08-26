@@ -1,11 +1,13 @@
 import { ChevronLeft, ChevronRight, UsersRound } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
 import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
 import { formatMoney } from '../utils/formatMoney';
 import { buildMemberTotals } from '../utils/stats';
+import { LanguagePicker } from './LanguagePicker';
 
 type MembersViewProps = {
   stats: Stats;
@@ -15,6 +17,7 @@ type MembersViewProps = {
 
 export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
 
@@ -33,8 +36,8 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: theme.text_primary }]}>Jamoa</Text>
-      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>Kim qancha sarfladi</Text>
+      <Text style={[styles.title, { color: theme.text_primary }]}>{t('members.title')}</Text>
+      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>{t('members.subtitle')}</Text>
 
       <View style={[styles.periodToggle, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
@@ -42,7 +45,7 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
           onPress={() => setPeriod('week')}
         >
           <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'week' && { color: theme.brand_primary }]}>
-            Haftalik
+            {t('stats.weekly')}
           </Text>
         </Pressable>
         <Pressable
@@ -50,7 +53,7 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
           onPress={() => setPeriod('month')}
         >
           <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'month' && { color: theme.brand_primary }]}>
-            Oylik
+            {t('stats.monthly')}
           </Text>
         </Pressable>
       </View>
@@ -70,7 +73,7 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
       {members.length === 0 ? (
         <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
           <UsersRound size={40} color={theme.text_secondary} opacity={0.5} />
-          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Ma'lumot yo'q</Text>
+          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>{t('common.noData')}</Text>
         </View>
       ) : (
         <View style={styles.list}>
@@ -87,7 +90,7 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
                     </View>
                     <View>
                       <Text style={[styles.memberName, { color: theme.text_primary }]}>{member.name}</Text>
-                      <Text style={[styles.memberCount, { color: theme.text_secondary }]}>{member.count} ta xarajat</Text>
+                      <Text style={[styles.memberCount, { color: theme.text_secondary }]}>{t('members.expenseCount', { count: member.count })}</Text>
                     </View>
                   </View>
                   <Text style={[styles.memberTotal, { color: theme.text_primary }]}>{formatMoney(member.total)}</Text>
@@ -104,12 +107,16 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
 
       <View style={styles.legalSection}>
         <Pressable onPress={() => onNavigate('privacy')} style={styles.legalButton}>
-          <Text style={[styles.legalText, { color: theme.brand_primary }]}>Maxfiylik siyosati</Text>
+          <Text style={[styles.legalText, { color: theme.brand_primary }]}>{t('members.privacyPolicy')}</Text>
         </Pressable>
         <Text style={[styles.legalDivider, { color: theme.text_secondary }]}>•</Text>
         <Pressable onPress={() => onNavigate('terms')} style={styles.legalButton}>
-          <Text style={[styles.legalText, { color: theme.brand_primary }]}>Foydalanish shartlari</Text>
+          <Text style={[styles.legalText, { color: theme.brand_primary }]}>{t('members.termsOfService')}</Text>
         </Pressable>
+      </View>
+
+      <View style={styles.languageSection}>
+        <LanguagePicker />
       </View>
     </View>
   );
@@ -253,5 +260,9 @@ const styles = StyleSheet.create({
   },
   legalDivider: {
     fontSize: 14,
+  },
+  languageSection: {
+    marginTop: 24,
+    alignItems: 'center',
   }
 });

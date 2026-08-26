@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "انجام شد",
+    "cancel": "لغو",
+    "save": "ذخیره",
+    "update": "به‌روزرسانی",
+    "delete": "حذف",
+    "clear": "پاک کردن",
+    "unknown": "نامعلوم",
+    "noData": "داده‌ای وجود ندارد",
+    "noNote": "بدون یادداشت",
+    "error": "خطایی رخ داد",
+    "today": "امروز",
+    "currency": "سوم"
+  },
+  "language": {
+    "title": "زبان خود را انتخاب کنید",
+    "subtitle": "زبانی را انتخاب کنید تا تمام دستورالعمل‌ها را بفهمید.",
+    "search": "جستجوی زبان‌ها...",
+    "continue": "ادامه"
+  },
+  "nav": {
+    "home": "خانه",
+    "stats": "گزارش‌ها",
+    "history": "تاریخچه",
+    "members": "تیم"
+  },
+  "onboarding": {
+    "subtitle": "بودجه خانواده را با هم مدیریت کنید.",
+    "createFamily": "ایجاد خانواده",
+    "join": "پیوستن",
+    "familyName": "نام خانواده",
+    "familyPin": "پین خانواده",
+    "inviteCode": "کد دعوت",
+    "familyNameAndPin": "نام + پین",
+    "familyNamePlaceholder": "مثال: احمدی",
+    "familyNameJoinPlaceholder": "مثال: محمدی",
+    "pinPlaceholder": "۴-۸ رقم",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "این نام موجود است",
+    "nameTaken": "این نام استفاده شده است",
+    "pinHint": "با خانواده به اشتراک بگذارید",
+    "pinJoinHint": "می‌توانید با نام و پین بپیوندید",
+    "syncHint": "همگام‌سازی خاموش است.",
+    "errors": {
+      "familyNameRequired": "نام را وارد کنید",
+      "nameTaken": "استفاده شده است.",
+      "pinRequired": "پین را وارد کنید",
+      "inviteCodeRequired": "کد را وارد کنید",
+      "syncNotConfigured": "ابری پیکربندی نشده است.",
+      "syncRequired": "اینترنت لازم است.",
+      "familyExists": "خانواده از قبل وجود دارد.",
+      "inviteNotFound": "کد پیدا نشد",
+      "familyNotFound": "خانواده پیدا نشد",
+      "authFailed": "ورود ناموفق بود.",
+      "createFailed": "ایجاد ناموفق بود",
+      "syncNotConfiguredShort": "بدون همگام‌سازی ابری"
+    }
+  },
+  "family": {
+    "inviteCode": "کد: {{code}}",
+    "offlineMode": "حالت آفلاین",
+    "copied": "کپی شد",
+    "copiedMessage": "کد {{code}} کپی شد",
+    "leaveTitle": "ترک خانواده",
+    "leaveMessage": "آیا می‌خواهید ادامه دهید؟",
+    "leave": "ترک"
+  },
+  "dashboard": {
+    "monthExpenses": "هزینه‌های این ماه",
+    "thisWeek": "این هفته",
+    "today": "امروز",
+    "recentExpenses": "هزینه‌های اخیر",
+    "noExpenses": "هنوز هزینه‌ای ثبت نشده."
+  },
+  "expense": {
+    "add": "افزودن هزینه",
+    "edit": "ویرایش هزینه",
+    "amount": "مبلغ (سوم)",
+    "whoSpent": "چه کسی خرج کرد؟",
+    "whoFor": "برای چه کسی؟",
+    "family": "خانواده",
+    "personal": "شخصی",
+    "categories": "دسته‌ها",
+    "date": "تاریخ",
+    "noteOptional": "یادداشت (اختیاری)",
+    "namePlaceholder": "نام شما...",
+    "notePlaceholder": "درباره این هزینه...",
+    "errors": {
+      "amountRequired": "مبلغ را وارد کنید!",
+      "categoryRequired": "دسته را انتخاب کنید!",
+      "nameRequired": "نام را وارد کنید!"
+    }
+  },
+  "history": {
+    "title": "تاریخچه",
+    "selected": "{{count}} انتخاب شد",
+    "deleteConfirm": "{{count}} هزینه حذف شود؟",
+    "longPressHint": "برای انتخاب طولانی فشار دهید",
+    "from": "از...",
+    "to": "تا...",
+    "noExpensesInRange": "هزینه‌ای یافت نشد",
+    "noExpensesYet": "بدون هزینه"
+  },
+  "stats": {
+    "title": "گزارش‌ها",
+    "subtitle": "توزیع هزینه‌ها",
+    "weekly": "هفتگی",
+    "monthly": "ماهانه",
+    "weekTotal": "مجموع این هفته",
+    "monthTotal": "مجموع {{month}}"
+  },
+  "members": {
+    "title": "تیم",
+    "subtitle": "چه کسی چقدر خرج کرده",
+    "expenseCount": "{{count}} هزینه",
+    "privacyPolicy": "سیاست حفظ حریم خصوصی",
+    "termsOfService": "شرایط خدمات"
+  },
+  "categories": {
+    "food": "غذا",
+    "eatout": "غذا خوردن در بیرون",
+    "internet": "اینترنت و تلفن",
+    "electricity": "برق",
+    "gas": "گاز",
+    "gatherings": "کافه / رویدادها",
+    "transport": "حمل و نقل",
+    "clothing": "لباس",
+    "hygiene": "بهداشت",
+    "health": "سلامتی",
+    "sheep_food": "خوراک دام",
+    "sheep_meds": "داروی حیوانات",
+    "house": "تعمیرات خانه",
+    "birthdays": "تولد / هدایا",
+    "unplanned": "برنامه‌ریزی نشده"
+  },
+  "errors": {
+    "pinLength": "پین باید ۴-۸ رقم باشد",
+    "pinDigits": "فقط اعداد",
+    "saveFailed": "ذخیره نشد",
+    "updateFailed": "به‌روزرسانی نشد"
+  },
+  "legal": {
+    "privacyTitle": "سیاست حفظ حریم خصوصی",
+    "termsTitle": "شرایط خدمات",
+    "lastUpdated": "به‌روزرسانی: آگوست ۲۰۲۶",
+    "privacy": {
+      "s1title": "1. مقدمه",
+      "s1content": "خوش آمدید...",
+      "s2title": "2. اطلاعات",
+      "s2content": "ما جمع‌آوری می‌کنیم...",
+      "s3title": "3. استفاده",
+      "s3content": "ما استفاده می‌کنیم...",
+      "s4title": "4. اشتراک‌گذاری",
+      "s4content": "ما به اشتراک می‌گذاریم...",
+      "s5title": "5. امنیت",
+      "s5content": "ما محافظت می‌کنیم..."
+    },
+    "terms": {
+      "s1title": "1. پذیرش",
+      "s1content": "شما موافقت می‌کنید...",
+      "s2title": "2. خدمات",
+      "s2content": "برنامه خانواده...",
+      "s3title": "3. حساب‌ها",
+      "s3content": "داده‌های دقیق...",
+      "s4title": "4. محتوا",
+      "s4content": "مسئولیت شما...",
+      "s5title": "5. ممنوعیت‌ها",
+      "s5content": "بدون سوءاستفاده..."
+    }
+  }
+}

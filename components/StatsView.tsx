@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
@@ -15,6 +16,7 @@ type StatsViewProps = {
 
 export function StatsView({ stats, expenses }: StatsViewProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
 
@@ -23,7 +25,7 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
       return {
         categories: stats.weekSortedCategories,
         total: stats.weekTotal,
-        label: 'Shu hafta jami',
+        label: t('stats.weekTotal'),
       };
     }
 
@@ -44,9 +46,9 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
     return {
       categories: sortCategories(monthCategoryTotals),
       total: monthTotal,
-      label: `${getMonthName(currentMonth)} jami`,
+      label: t('stats.monthTotal', { month: getMonthName(currentMonth) }),
     };
-  }, [period, currentMonth, stats, expenses]);
+  }, [period, currentMonth, stats, expenses, t]);
 
   const { categories, total, label } = filteredData;
   const maxTotal = categories.length > 0 ? categories[0].total : 0;
@@ -56,8 +58,8 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: theme.text_primary }]}>Hisobot</Text>
-      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>Xarajatlar taqsimoti</Text>
+      <Text style={[styles.title, { color: theme.text_primary }]}>{t('stats.title')}</Text>
+      <Text style={[styles.subtitle, { color: theme.text_secondary }]}>{t('stats.subtitle')}</Text>
 
       <View style={[styles.periodToggle, { backgroundColor: theme.surface_secondary }]}>
         <Pressable
@@ -65,7 +67,7 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
           onPress={() => setPeriod('week')}
         >
           <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'week' && { color: theme.brand_primary }]}>
-            Haftalik
+            {t('stats.weekly')}
           </Text>
         </Pressable>
         <Pressable
@@ -73,7 +75,7 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
           onPress={() => setPeriod('month')}
         >
           <Text style={[styles.periodText, { color: theme.text_secondary }, period === 'month' && { color: theme.brand_primary }]}>
-            Oylik
+            {t('stats.monthly')}
           </Text>
         </Pressable>
       </View>
@@ -97,7 +99,7 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
 
       {categories.length === 0 ? (
         <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>Ma'lumot yo'q</Text>
+          <Text style={[styles.emptyText, { color: theme.text_secondary }]}>{t('common.noData')}</Text>
         </View>
       ) : (
         <View style={styles.list}>
@@ -111,7 +113,7 @@ export function StatsView({ stats, expenses }: StatsViewProps) {
                     <View style={[styles.iconWrap, { backgroundColor: theme.surface_secondary }]}>
                       <CategoryIcon name={category.icon} size={18} color={theme.text_primary} />
                     </View>
-                    <Text style={[styles.categoryName, { color: theme.text_primary }]}>{category.name}</Text>
+                    <Text style={[styles.categoryName, { color: theme.text_primary }]}>{t(`categories.${category.id}`)}</Text>
                   </View>
                   <Text style={[styles.categoryTotal, { color: theme.text_primary }]}>{formatMoney(category.total)}</Text>
                 </View>

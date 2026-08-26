@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "Klaar",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "update": "Bijwerken",
+    "delete": "Verwijderen",
+    "clear": "Wissen",
+    "unknown": "Onbekend",
+    "noData": "Geen gegevens",
+    "noNote": "Geen notitie",
+    "error": "Er is een fout opgetreden",
+    "today": "Vandaag",
+    "currency": "som"
+  },
+  "language": {
+    "title": "Kies je taal",
+    "subtitle": "Selecteer een taal om de app te begrijpen.",
+    "search": "Talen zoeken...",
+    "continue": "Doorgaan"
+  },
+  "nav": {
+    "home": "Home",
+    "stats": "Rapporten",
+    "history": "Geschiedenis",
+    "members": "Team"
+  },
+  "onboarding": {
+    "subtitle": "Beheer het gezinsbudget samen.",
+    "createFamily": "Gezin Maken",
+    "join": "Meedoen",
+    "familyName": "Gezinsnaam",
+    "familyPin": "Gezins-PIN",
+    "inviteCode": "Uitnodigingscode",
+    "familyNameAndPin": "Naam + PIN",
+    "familyNamePlaceholder": "Bijv. Jansen",
+    "familyNameJoinPlaceholder": "Bijv. de Vries",
+    "pinPlaceholder": "4–8 cijfers",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "Naam beschikbaar",
+    "nameTaken": "Naam is bezet",
+    "pinHint": "Deel met familie",
+    "pinJoinHint": "Je kunt meedoen met naam en PIN",
+    "syncHint": "Synchronisatie is uit. Lokaal opgeslagen.",
+    "errors": {
+      "familyNameRequired": "Voer een naam in",
+      "nameTaken": "Naam is bezet.",
+      "pinRequired": "Voer PIN in",
+      "inviteCodeRequired": "Voer code in",
+      "syncNotConfigured": "Cloud sync niet ingesteld.",
+      "syncRequired": "Internet vereist.",
+      "familyExists": "Gezin bestaat al.",
+      "inviteNotFound": "Code niet gevonden",
+      "familyNotFound": "Gezin niet gevonden",
+      "authFailed": "Inloggen mislukt.",
+      "createFailed": "Aanmaken mislukt",
+      "syncNotConfiguredShort": "Geen cloud sync"
+    }
+  },
+  "family": {
+    "inviteCode": "Code: {{code}}",
+    "offlineMode": "Offline Modus",
+    "copied": "Gekopieerd",
+    "copiedMessage": "Code {{code}} gekopieerd",
+    "leaveTitle": "Gezin Verlaten",
+    "leaveMessage": "Gegevens verdwijnen. Doorgaan?",
+    "leave": "Verlaten"
+  },
+  "dashboard": {
+    "monthExpenses": "Uitgaven deze maand",
+    "thisWeek": "Deze week",
+    "today": "Vandaag",
+    "recentExpenses": "Recente Uitgaven",
+    "noExpenses": "Nog geen uitgaven."
+  },
+  "expense": {
+    "add": "Uitgave Toevoegen",
+    "edit": "Uitgave Bewerken",
+    "amount": "Bedrag (som)",
+    "whoSpent": "Wie heeft uitgegeven?",
+    "whoFor": "Voor wie?",
+    "family": "Gezin",
+    "personal": "Persoonlijk",
+    "categories": "Categorieën",
+    "date": "Datum",
+    "noteOptional": "Notitie (optioneel)",
+    "namePlaceholder": "Jouw naam...",
+    "notePlaceholder": "Over deze uitgave...",
+    "errors": {
+      "amountRequired": "Voer bedrag in!",
+      "categoryRequired": "Kies een categorie!",
+      "nameRequired": "Voer naam in!"
+    }
+  },
+  "history": {
+    "title": "Geschiedenis",
+    "selected": "{{count}} geselecteerd",
+    "deleteConfirm": "{{count}} uitgaven verwijderen?",
+    "longPressHint": "Houd ingedrukt om te selecteren",
+    "from": "Van...",
+    "to": "Tot...",
+    "noExpensesInRange": "Geen uitgaven gevonden",
+    "noExpensesYet": "Nog geen uitgaven"
+  },
+  "stats": {
+    "title": "Rapporten",
+    "subtitle": "Uitgavenverdeling",
+    "weekly": "Wekelijks",
+    "monthly": "Maandelijks",
+    "weekTotal": "Totaal deze week",
+    "monthTotal": "Totaal {{month}}"
+  },
+  "members": {
+    "title": "Team",
+    "subtitle": "Wie heeft hoeveel uitgegeven",
+    "expenseCount": "{{count}} uitgaven",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Servicevoorwaarden"
+  },
+  "categories": {
+    "food": "Boodschappen",
+    "eatout": "Uit eten",
+    "internet": "Internet & Telefoon",
+    "electricity": "Elektriciteit",
+    "gas": "Gas",
+    "gatherings": "Café / Evenementen",
+    "transport": "Vervoer",
+    "clothing": "Kleding",
+    "hygiene": "Hygiëne",
+    "health": "Medicijnen",
+    "sheep_food": "Veevoer",
+    "sheep_meds": "Dierenarts",
+    "house": "Huisreparatie",
+    "birthdays": "Verjaardag",
+    "unplanned": "Ongepland"
+  },
+  "errors": {
+    "pinLength": "PIN moet 4–8 cijfers zijn",
+    "pinDigits": "PIN alleen cijfers",
+    "saveFailed": "Opslaan mislukt",
+    "updateFailed": "Bijwerken mislukt"
+  },
+  "legal": {
+    "privacyTitle": "Privacybeleid",
+    "termsTitle": "Servicevoorwaarden",
+    "lastUpdated": "Bijgewerkt: Augustus 2026",
+    "privacy": {
+      "s1title": "1. Introductie",
+      "s1content": "Welkom...",
+      "s2title": "2. Informatie",
+      "s2content": "Wij verzamelen...",
+      "s3title": "3. Gebruik",
+      "s3content": "Wij gebruiken...",
+      "s4title": "4. Delen",
+      "s4content": "Wij delen...",
+      "s5title": "5. Beveiliging",
+      "s5content": "Wij beschermen..."
+    },
+    "terms": {
+      "s1title": "1. Acceptatie",
+      "s1content": "U accepteert...",
+      "s2title": "2. Service",
+      "s2content": "App...",
+      "s3title": "3. Accounts",
+      "s3content": "Accurate gegevens...",
+      "s4title": "4. Inhoud",
+      "s4content": "Uw verantwoordelijkheid...",
+      "s5title": "5. Verboden",
+      "s5content": "Geen misbruik..."
+    }
+  }
+}

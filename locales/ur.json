@@ -1,0 +1,173 @@
+{
+  "common": {
+    "appName": "Xarajat",
+    "done": "مکمل",
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں",
+    "update": "اپ ڈیٹ",
+    "delete": "حذف کریں",
+    "clear": "صاف کریں",
+    "unknown": "نامعلوم",
+    "noData": "کوئی ڈیٹا نہیں",
+    "noNote": "کوئی نوٹ نہیں",
+    "error": "ایک خرابی پیش آگئی",
+    "today": "آج",
+    "currency": "سوم"
+  },
+  "language": {
+    "title": "اپنی زبان منتخب کریں",
+    "subtitle": "ایپ کی تمام ہدایات سمجھنے کے لیے زبان منتخب کریں۔",
+    "search": "زبانیں تلاش کریں...",
+    "continue": "جاری رکھیں"
+  },
+  "nav": {
+    "home": "ہوم",
+    "stats": "رپورٹس",
+    "history": "تاریخ",
+    "members": "ٹیم"
+  },
+  "onboarding": {
+    "subtitle": "خاندانی بجٹ مل کر منظم کریں۔",
+    "createFamily": "خاندان بنائیں",
+    "join": "شامل ہوں",
+    "familyName": "خاندان کا نام",
+    "familyPin": "خاندان کا پن",
+    "inviteCode": "دعوتی کوڈ",
+    "familyNameAndPin": "نام + پن",
+    "familyNamePlaceholder": "مثال: احمد خاندان",
+    "familyNameJoinPlaceholder": "مثال: علی خاندان",
+    "pinPlaceholder": "4–8 ہندسے",
+    "inviteCodePlaceholder": "FAM-7X2K",
+    "nameAvailable": "یہ نام دستیاب ہے",
+    "nameTaken": "یہ نام استعمال میں ہے",
+    "pinHint": "خاندان کے ساتھ شیئر کریں",
+    "pinJoinHint": "نام اور پن سے شامل ہو سکتے ہیں",
+    "syncHint": "سنک بند ہے۔",
+    "errors": {
+      "familyNameRequired": "نام درج کریں",
+      "nameTaken": "یہ نام استعمال میں ہے۔",
+      "pinRequired": "پن درج کریں",
+      "inviteCodeRequired": "کوڈ درج کریں",
+      "syncNotConfigured": "کلاؤڈ سنک کنفیگر نہیں ہے۔",
+      "syncRequired": "انٹرنیٹ درکار ہے۔",
+      "familyExists": "خاندان پہلے سے موجود ہے۔",
+      "inviteNotFound": "کوڈ نہیں ملا",
+      "familyNotFound": "خاندان نہیں ملا",
+      "authFailed": "لاگ ان ناکام۔",
+      "createFailed": "بنانے میں ناکام",
+      "syncNotConfiguredShort": "کوئی کلاؤڈ سنک نہیں"
+    }
+  },
+  "family": {
+    "inviteCode": "کوڈ: {{code}}",
+    "offlineMode": "آف لائن موڈ",
+    "copied": "کاپی ہو گیا",
+    "copiedMessage": "کوڈ {{code}} کاپی ہو گیا",
+    "leaveTitle": "خاندان چھوڑیں",
+    "leaveMessage": "کیا آپ جاری رکھنا چاہتے ہیں؟",
+    "leave": "چھوڑیں"
+  },
+  "dashboard": {
+    "monthExpenses": "اس مہینے کے اخراجات",
+    "thisWeek": "اس ہفتے",
+    "today": "آج",
+    "recentExpenses": "حالیہ اخراجات",
+    "noExpenses": "ابھی تک کوئی اخراجات نہیں۔"
+  },
+  "expense": {
+    "add": "اخراجات شامل کریں",
+    "edit": "اخراجات میں ترمیم کریں",
+    "amount": "رقم (سوم)",
+    "whoSpent": "کس نے خرچ کیا؟",
+    "whoFor": "کس کے لیے؟",
+    "family": "خاندان",
+    "personal": "ذاتی",
+    "categories": "زمرے",
+    "date": "تاریخ",
+    "noteOptional": "نوٹ (اختیاری)",
+    "namePlaceholder": "آپ کا نام...",
+    "notePlaceholder": "اس خرچ کے بارے میں...",
+    "errors": {
+      "amountRequired": "رقم درج کریں!",
+      "categoryRequired": "زمرہ منتخب کریں!",
+      "nameRequired": "نام درج کریں!"
+    }
+  },
+  "history": {
+    "title": "تاریخ",
+    "selected": "{{count}} منتخب",
+    "deleteConfirm": "{{count}} اخراجات حذف کریں؟",
+    "longPressHint": "منتخب کرنے کے لیے دیر تک دبائیں",
+    "from": "سے...",
+    "to": "تک...",
+    "noExpensesInRange": "کوئی اخراجات نہیں ملے",
+    "noExpensesYet": "ابھی تک کوئی اخراجات نہیں"
+  },
+  "stats": {
+    "title": "رپورٹس",
+    "subtitle": "اخراجات کی تقسیم",
+    "weekly": "ہفتہ وار",
+    "monthly": "ماہانہ",
+    "weekTotal": "اس ہفتے کا کل",
+    "monthTotal": "{{month}} کا کل"
+  },
+  "members": {
+    "title": "ٹیم",
+    "subtitle": "کس نے کتنا خرچ کیا",
+    "expenseCount": "{{count}} اخراجات",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "termsOfService": "سروس کی شرائط"
+  },
+  "categories": {
+    "food": "کھانا",
+    "eatout": "باہر کھانا",
+    "internet": "انٹرنیٹ اور فون",
+    "electricity": "بجلی",
+    "gas": "گیس",
+    "gatherings": "کیفے / تقریبات",
+    "transport": "ٹرانسپورٹ",
+    "clothing": "کپڑے",
+    "hygiene": "صفائی",
+    "health": "صحت",
+    "sheep_food": "جانوروں کی خوراک",
+    "sheep_meds": "جانوروں کی دوائیں",
+    "house": "گھر کی مرمت",
+    "birthdays": "سالگرہ / تحائف",
+    "unplanned": "غیر منصوبہ بند"
+  },
+  "errors": {
+    "pinLength": "پن 4–8 ہندسوں کا ہونا چاہیے",
+    "pinDigits": "صرف ہندسے",
+    "saveFailed": "محفوظ کرنے میں ناکام",
+    "updateFailed": "اپ ڈیٹ کرنے میں ناکام"
+  },
+  "legal": {
+    "privacyTitle": "رازداری کی پالیسی",
+    "termsTitle": "سروس کی شرائط",
+    "lastUpdated": "اپ ڈیٹ: اگست 2026",
+    "privacy": {
+      "s1title": "1. تعارف",
+      "s1content": "خوش آمدید...",
+      "s2title": "2. معلومات",
+      "s2content": "ہم جمع کرتے ہیں...",
+      "s3title": "3. استعمال",
+      "s3content": "ہم استعمال کرتے ہیں...",
+      "s4title": "4. اشتراک",
+      "s4content": "ہم اشتراک کرتے ہیں...",
+      "s5title": "5. سیکیورٹی",
+      "s5content": "ہم حفاظت کرتے ہیں..."
+    },
+    "terms": {
+      "s1title": "1. قبولیت",
+      "s1content": "آپ متفق ہیں...",
+      "s2title": "2. سروس",
+      "s2content": "فیملی ایپ...",
+      "s3title": "3. اکاؤنٹس",
+      "s3content": "درست ڈیٹا...",
+      "s4title": "4. مواد",
+      "s4content": "آپ کی ذمہ داری...",
+      "s5title": "5. ممانعتیں",
+      "s5content": "کوئی غلط استعمال نہیں..."
+    }
+  }
+}

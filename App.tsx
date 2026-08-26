@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AddExpense } from './components/AddExpense';
@@ -18,6 +18,8 @@ import { useExpenses } from './hooks/useExpenses';
 import { useFamily } from './hooks/useFamily';
 import { Expense } from './types';
 import { calculateStats } from './utils/stats';
+import { initI18n, getDeviceLanguage, LOCALE_CHOSEN_KEY } from './i18n';
+import { LanguageCode } from './i18n/languages';
 
 type Tab = 'home' | 'stats' | 'add' | 'history' | 'members' | 'privacy' | 'terms';
 
@@ -39,12 +41,29 @@ function AppContent() {
   const { theme, isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
+  const [i18nLoaded, setI18nLoaded] = useState(false);
+  
   const { family, isLoaded: familyLoaded, isSyncEnabled, createFamily, joinFamilyByCode, joinFamilyByNameAndPin, checkFamilyNameAvailable, leaveFamily } =
     useFamily();
   const { expenses, isLoaded: expensesLoaded, isSyncing, addExpense, updateExpense, deleteExpenses } =
     useExpenses(family?.id ?? null);
 
   const stats = useMemo(() => calculateStats(expenses), [expenses]);
+
+  useEffect(() => {
+    async function setupI18n() {
+      try {
+        const saved = await AsyncStorage.getItem(LOCALE_CHOSEN_KEY);
+        const code = (saved as LanguageCode) || getDeviceLanguage();
+        initI18n(code);
+      } catch (e) {
+        initI18n(getDeviceLanguage());
+      } finally {
+        setI18nLoaded(true);
+      }
+    }
+    setupI18n();
+  }, []);
 
   const handleAddExpense = async (expenseData: Parameters<typeof addExpense>[0]) => {
     await addExpense(expenseData);
@@ -77,7 +96,7 @@ function AppContent() {
     setActiveTab('home');
   };
 
-  if (!familyLoaded || !expensesLoaded) {
+  if (!i18nLoaded || !familyLoaded || !expensesLoaded) {
     return (
       <View style={[styles.loading, { backgroundColor: theme.surface }]}>
         <ActivityIndicator size="large" color={theme.brand_primary} />
