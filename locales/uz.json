@@ -12,7 +12,8 @@
     "noNote": "Izohsiz",
     "error": "Xatolik yuz berdi",
     "today": "Bugun",
-    "currency": "so'm"
+    "languageSelect": "Til",
+    "currencySelect": "Valyuta"
   },
   "language": {
     "title": "Tilni tanlang",

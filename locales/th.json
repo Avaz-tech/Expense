@@ -12,7 +12,8 @@
     "noNote": "ไม่มีหมายเหตุ",
     "error": "เกิดข้อผิดพลาด",
     "today": "วันนี้",
-    "currency": "ซอม"
+    "languageSelect": "ภาษา",
+    "currencySelect": "สกุลเงิน"
   },
   "language": {
     "title": "เลือกภาษา",

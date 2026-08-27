@@ -12,7 +12,8 @@
     "noNote": "Sin nota",
     "error": "Ocurrió un error",
     "today": "Hoy",
-    "currency": "som"
+    "languageSelect": "Idioma",
+    "currencySelect": "Divisa"
   },
   "language": {
     "title": "Elige tu idioma",

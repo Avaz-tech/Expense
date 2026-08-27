@@ -12,7 +12,8 @@
     "noNote": "Không ghi chú",
     "error": "Đã xảy ra lỗi",
     "today": "Hôm nay",
-    "currency": "som"
+    "languageSelect": "Ngôn ngữ",
+    "currencySelect": "Tiền tệ"
   },
   "language": {
     "title": "Chọn ngôn ngữ",

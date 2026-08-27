@@ -1,3 +1,6 @@
+import i18n, { getLocaleTag } from '../i18n';
+import { LanguageCode } from '../i18n/languages';
+
 export const getTodayDateString = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -20,17 +23,18 @@ export const getStartOfWeek = () => {
   return `${year}-${month}-${dayStr}`;
 };
 
-export const formatDisplayDate = (date: string) => {
+export const formatDisplayDate = (date: string, todayText?: string) => {
   if (date === getTodayDateString()) {
-    return 'Bugun';
+    return todayText || i18n.t('common.today') || 'Today';
   }
   return date.split('-').reverse().join('.');
 };
 
-export const getMonthName = (monthStr: string) => {
+export const getMonthName = (monthStr: string, locale?: string) => {
   const [year, month] = monthStr.split('-');
   const date = new Date(parseInt(year), parseInt(month) - 1, 1);
-  return date.toLocaleString('uz-UZ', { month: 'long', year: 'numeric' });
+  const currentLocale = locale || (i18n.language ? getLocaleTag(i18n.language as LanguageCode) : 'en-US');
+  return date.toLocaleString(currentLocale, { month: 'long', year: 'numeric' });
 };
 
 export const getMonthOffset = (monthStr: string, offset: number) => {

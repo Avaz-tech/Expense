@@ -12,7 +12,8 @@
     "noNote": "메모 없음",
     "error": "오류가 발생했습니다",
     "today": "오늘",
-    "currency": "숨"
+    "languageSelect": "언어",
+    "currencySelect": "통화"
   },
   "language": {
     "title": "언어 선택",

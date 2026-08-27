@@ -12,7 +12,8 @@
     "noNote": "メモなし",
     "error": "エラーが発生しました",
     "today": "今日",
-    "currency": "スム"
+    "languageSelect": "言語",
+    "currencySelect": "通貨"
   },
   "language": {
     "title": "言語を選択",

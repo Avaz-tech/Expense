@@ -12,7 +12,8 @@
     "noNote": "No note",
     "error": "An error occurred",
     "today": "Today",
-    "currency": "UZS"
+    "languageSelect": "Language",
+    "currencySelect": "Currency"
   },
   "language": {
     "title": "Choose your language",

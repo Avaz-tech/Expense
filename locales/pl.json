@@ -12,7 +12,8 @@
     "noNote": "Brak notatki",
     "error": "Wystąpił błąd",
     "today": "Dzisiaj",
-    "currency": "som"
+    "languageSelect": "Język",
+    "currencySelect": "Waluta"
   },
   "language": {
     "title": "Wybierz język",

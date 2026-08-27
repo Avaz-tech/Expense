@@ -12,7 +12,8 @@
     "noNote": "بدون یادداشت",
     "error": "خطایی رخ داد",
     "today": "امروز",
-    "currency": "سوم"
+    "languageSelect": "زبان",
+    "currencySelect": "ارز"
   },
   "language": {
     "title": "زبان خود را انتخاب کنید",

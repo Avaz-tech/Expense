@@ -12,7 +12,8 @@
     "noNote": "Walang tala",
     "error": "May naganap na error",
     "today": "Ngayon",
-    "currency": "som"
+    "languageSelect": "Wika",
+    "currencySelect": "Pera"
   },
   "language": {
     "title": "Piliin ang wika",

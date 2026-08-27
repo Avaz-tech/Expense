@@ -12,7 +12,8 @@
     "noNote": "Not yok",
     "error": "Bir hata oluştu",
     "today": "Bugün",
-    "currency": "som"
+    "languageSelect": "Dil",
+    "currencySelect": "Para birimi"
   },
   "language": {
     "title": "Dilinizi seçin",

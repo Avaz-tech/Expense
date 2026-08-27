@@ -12,7 +12,8 @@
     "noNote": "无备注",
     "error": "发生错误",
     "today": "今天",
-    "currency": "苏姆"
+    "languageSelect": "语言",
+    "currencySelect": "货币"
   },
   "language": {
     "title": "选择语言",

@@ -12,7 +12,8 @@
     "noNote": "Geen notitie",
     "error": "Er is een fout opgetreden",
     "today": "Vandaag",
-    "currency": "som"
+    "languageSelect": "Taal",
+    "currencySelect": "Munteenheid"
   },
   "language": {
     "title": "Kies je taal",

@@ -12,7 +12,8 @@
     "noNote": "بدون ملاحظة",
     "error": "حدث خطأ",
     "today": "اليوم",
-    "currency": "سوم"
+    "languageSelect": "لغة",
+    "currencySelect": "عملة"
   },
   "language": {
     "title": "اختر لغتك",

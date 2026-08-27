@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { CATEGORIES } from '../constants/categories';
 import { useTheme } from '../context/ThemeContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { Expense, Stats } from '../types';
 import { formatDisplayDate } from '../utils/dates';
-import { formatMoney } from '../utils/formatMoney';
 import { CategoryIcon } from './CategoryIcon';
 
 type DashboardProps = {
@@ -15,6 +15,7 @@ type DashboardProps = {
 
 export function Dashboard({ stats, expenses }: DashboardProps) {
   const { theme } = useTheme();
+  const { formatMoney } = useCurrency();
   const { t } = useTranslation();
   const recentExpenses = expenses.slice(0, 5);
 

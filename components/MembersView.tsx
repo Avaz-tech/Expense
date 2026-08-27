@@ -2,11 +2,12 @@ import { ChevronLeft, ChevronRight, UsersRound } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCurrency } from '../context/CurrencyContext';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
 import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
-import { formatMoney } from '../utils/formatMoney';
 import { buildMemberTotals } from '../utils/stats';
+import { CurrencyPicker } from './CurrencyPicker';
 import { LanguagePicker } from './LanguagePicker';
 
 type MembersViewProps = {
@@ -17,6 +18,7 @@ type MembersViewProps = {
 
 export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
   const { theme } = useTheme();
+  const { formatMoney } = useCurrency();
   const { t } = useTranslation();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));
@@ -105,6 +107,17 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
         </View>
       )}
 
+      <View style={[styles.preferencesCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View style={[styles.preferenceRow, { borderBottomColor: theme.border }]}>
+          <Text style={[styles.preferenceLabel, { color: theme.text_primary }]}>{t('common.languageSelect', 'Language')}</Text>
+          <LanguagePicker />
+        </View>
+        <View style={styles.preferenceRow}>
+          <Text style={[styles.preferenceLabel, { color: theme.text_primary }]}>{t('common.currencySelect', 'Currency')}</Text>
+          <CurrencyPicker />
+        </View>
+      </View>
+
       <View style={styles.legalSection}>
         <Pressable onPress={() => onNavigate('privacy')} style={styles.legalButton}>
           <Text style={[styles.legalText, { color: theme.brand_primary }]}>{t('members.privacyPolicy')}</Text>
@@ -113,10 +126,6 @@ export function MembersView({ stats, expenses, onNavigate }: MembersViewProps) {
         <Pressable onPress={() => onNavigate('terms')} style={styles.legalButton}>
           <Text style={[styles.legalText, { color: theme.brand_primary }]}>{t('members.termsOfService')}</Text>
         </Pressable>
-      </View>
-
-      <View style={styles.languageSection}>
-        <LanguagePicker />
       </View>
     </View>
   );
@@ -261,8 +270,22 @@ const styles = StyleSheet.create({
   legalDivider: {
     fontSize: 14,
   },
-  languageSection: {
-    marginTop: 24,
+  preferencesCard: {
+    marginTop: 32,
+    borderWidth: 1,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  preferenceRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  preferenceLabel: {
+    fontSize: 15,
+    fontWeight: '600',
   }
 });

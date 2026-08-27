@@ -13,6 +13,7 @@ import { LegalView } from './components/LegalView';
 import { MembersView } from './components/MembersView';
 import { StatsView } from './components/StatsView';
 import { LEGACY_EXPENSES_KEY } from './constants/storage';
+import { CurrencyProvider } from './context/CurrencyContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { useExpenses } from './hooks/useExpenses';
 import { useFamily } from './hooks/useFamily';
@@ -191,7 +192,9 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <CurrencyProvider>
+        <AppContent />
+      </CurrencyProvider>
     </ThemeProvider>
   );
 }

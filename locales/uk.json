@@ -12,7 +12,8 @@
     "noNote": "Без нотатки",
     "error": "Сталася помилка",
     "today": "Сьогодні",
-    "currency": "сум"
+    "languageSelect": "Мова",
+    "currencySelect": "Валюта"
   },
   "language": {
     "title": "Оберіть мову",

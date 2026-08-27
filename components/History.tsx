@@ -4,10 +4,10 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { CATEGORIES } from '../constants/categories';
+import { useCurrency } from '../context/CurrencyContext';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats } from '../types';
 import { formatDisplayDate } from '../utils/dates';
-import { formatMoney } from '../utils/formatMoney';
 import { CategoryIcon } from './CategoryIcon';
 
 type HistoryProps = {
@@ -18,6 +18,7 @@ type HistoryProps = {
 
 export function History({ stats, onDeleteMany, onEdit }: HistoryProps) {
   const { theme } = useTheme();
+  const { formatMoney } = useCurrency();
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);

@@ -12,7 +12,8 @@
     "noNote": "কোনো নোট নেই",
     "error": "একটি ত্রুটি ঘটেছে",
     "today": "আজ",
-    "currency": "som"
+    "languageSelect": "ভাষা",
+    "currencySelect": "মুদ্রা"
   },
   "language": {
     "title": "ভাষা নির্বাচন করুন",

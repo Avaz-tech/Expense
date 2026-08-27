@@ -12,7 +12,8 @@
     "noNote": "Без комментария",
     "error": "Произошла ошибка",
     "today": "Сегодня",
-    "currency": "сум"
+    "languageSelect": "Язык",
+    "currencySelect": "Валюта"
   },
   "language": {
     "title": "Выберите язык",

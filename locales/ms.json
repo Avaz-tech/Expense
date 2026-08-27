@@ -12,7 +12,8 @@
     "noNote": "Tiada nota",
     "error": "Ralat berlaku",
     "today": "Hari ini",
-    "currency": "som"
+    "languageSelect": "Bahasa",
+    "currencySelect": "mata wang"
   },
   "language": {
     "title": "Pilih bahasa anda",

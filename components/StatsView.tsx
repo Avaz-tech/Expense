@@ -2,10 +2,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCurrency } from '../context/CurrencyContext';
 import { useTheme } from '../context/ThemeContext';
 import { Expense, Stats, StatsPeriod } from '../types';
 import { getMonthName, getMonthOffset, getTodayDateString } from '../utils/dates';
-import { formatMoney } from '../utils/formatMoney';
 import { buildCategoryTotals, sortCategories } from '../utils/stats';
 import { CategoryIcon } from './CategoryIcon';
 
@@ -16,6 +16,7 @@ type StatsViewProps = {
 
 export function StatsView({ stats, expenses }: StatsViewProps) {
   const { theme } = useTheme();
+  const { formatMoney } = useCurrency();
   const { t } = useTranslation();
   const [period, setPeriod] = useState<StatsPeriod>('month');
   const [currentMonth, setCurrentMonth] = useState(getTodayDateString().substring(0, 7));

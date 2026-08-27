@@ -12,7 +12,8 @@
     "noNote": "कोई नोट नहीं",
     "error": "एक त्रुटि हुई",
     "today": "आज",
-    "currency": "सोम"
+    "languageSelect": "भाषा",
+    "currencySelect": "मुद्रा"
   },
   "language": {
     "title": "अपनी भाषा चुनें",

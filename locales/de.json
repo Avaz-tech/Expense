@@ -12,7 +12,8 @@
     "noNote": "Keine Notiz",
     "error": "Ein Fehler ist aufgetreten",
     "today": "Heute",
-    "currency": "Som"
+    "languageSelect": "Sprache",
+    "currencySelect": "Währung"
   },
   "language": {
     "title": "Sprache wählen",
